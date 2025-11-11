@@ -20,7 +20,7 @@ const actionLinks = [
 const socialIcons = ["facebook", "x", "instagram", "tiktok"] as const;
 
 export function Header() {
-  const container = "mx-auto w-full max-w-7xl px-6";
+  const container = "w-full px-[50px]";
 
   return (
     <header className="bg-white">
@@ -43,16 +43,16 @@ export function Header() {
             ✌️ Free Express Shipping on orders $500!
           </p>
           <div className="hidden flex-wrap items-center justify-center gap-4 text-white lg:flex">
-            <div className="flex items-center gap-2 rounded-full border border-white/30 px-3 py-1">
+            <div className="flex items-center gap-2 rounded-full px-3 py-1">
               <span className="text-lg leading-none">🇺🇸</span>
               <span className="font-medium">United States (USD $)</span>
               <span className="pt-0.5">{icons.chevronLight}</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center text-white">
               {socialIcons.map((social) => (
                 <a
                   key={social}
-                  className="flex size-8 items-center justify-center rounded-full border border-white/30 transition hover:border-white/60"
+                  className="inline-flex h-8 w-8 items-center justify-center text-white transition hover:text-white/80"
                   aria-label={social}
                   href="#"
                 >
