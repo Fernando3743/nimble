@@ -144,6 +144,7 @@ export function Header() {
           <div className="order-2 flex flex-1 items-center justify-end gap-6 text-[15px] text-dark-gray sm:order-3 lg:ml-4">
             {actionLinks.map((action) => {
               const isBag = action.icon === "bag";
+              const isLocationOrUser = action.icon === "location" || action.icon === "user";
               return (
                 <button
                   key={action.label}
@@ -156,7 +157,11 @@ export function Header() {
                   aria-label={isBag ? action.label : undefined}
                 >
                   {icons[action.icon]({
-                    className: isBag ? "text-black" : "text-dark-gray",
+                    className: isBag
+                      ? "text-black"
+                      : isLocationOrUser
+                      ? "size-6 text-dark-gray"
+                      : "text-dark-gray",
                   })}
                   {!isBag && <span>{action.label}</span>}
                 </button>
