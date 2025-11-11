@@ -35,6 +35,7 @@ const underlineAnimation =
 
 export function Header() {
   const [isSticky, setIsSticky] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +46,10 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <>
@@ -112,10 +117,13 @@ export function Header() {
               isSticky ? "mr-4 h-10 w-10 opacity-100" : "mr-0 h-0 w-0 opacity-0"
             }`}
             type="button"
-            aria-label="Open menu"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             tabIndex={isSticky ? 0 : -1}
+            onClick={toggleMobileMenu}
           >
-            {icons.hamburger({ className: "text-dark" })}
+            {isMobileMenuOpen
+              ? icons.close({ className: "text-dark" })
+              : icons.hamburger({ className: "text-dark" })}
           </button>
 
           {/* Logo */}
@@ -170,10 +178,12 @@ export function Header() {
           </div>
         </div>
 
-        {/* Navigation (hidden when sticky) */}
+        {/* Navigation (hidden when sticky, unless mobile menu is open) */}
         <div
           className={`border-b border-zinc-200 transition-all duration-300 ease-in-out ${
-            isSticky ? "max-h-0 overflow-hidden opacity-0" : "max-h-20 opacity-100"
+            isSticky && !isMobileMenuOpen
+              ? "max-h-0 overflow-hidden opacity-0"
+              : "max-h-20 opacity-100"
           }`}
         >
           <nav className={`${CONTAINER} flex flex-wrap items-center gap-6 pb-4 text-[15px] font-bold text-dark-gray`}>
