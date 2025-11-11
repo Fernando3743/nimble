@@ -117,16 +117,26 @@ export function Header() {
           {navLinks.map((link) => (
             <a
               key={link.label}
-              className={`flex items-center gap-1 transition hover:underline ${
+              className={`group relative inline-flex items-center gap-1 pb-2 transition ${
                 link.label === activeNav ? "text-black" : "hover:text-black"
               }`}
               href="#"
             >
-              {link.label}
-              {link.dropdown && <span>{icons.chevron()}</span>}
+              <span
+                aria-hidden
+                className="absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100"
+              />
+              <span className="flex items-center gap-1">
+                {link.label}
+                {link.dropdown && <span>{icons.chevron()}</span>}
+              </span>
             </a>
           ))}
-          <span className="flex items-center gap-1 text-[#d93a2b] hover:underline">
+          <span className="group relative inline-flex items-center gap-1 pb-2 text-[#d93a2b]">
+            <span
+              aria-hidden
+              className="absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100"
+            />
             On Sale
             <span className="text-[#d93a2b]">{icons.sparkle()}</span>
           </span>
