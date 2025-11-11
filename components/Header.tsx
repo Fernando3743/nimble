@@ -3,13 +3,14 @@ import { icons } from "@/components/icons";
 const utilityLinks = ["Help Center", "Find a Store", "Contact"];
 
 const navLinks = [
-  "Shop by Categories",
-  "Shop by Room",
-  "Tables & Desks",
-  "Chairs & Stools",
-  "Pages",
-  "Theme Features",
-];
+  { label: "Shop By Categories", dropdown: true },
+  { label: "Shop By Room", dropdown: true },
+  { label: "Tables & Desks", dropdown: true },
+  { label: "Chairs & Stools", dropdown: true },
+  { label: "Pages", dropdown: true },
+  { label: "Theme Features", dropdown: true },
+] as const;
+const activeNav = "Tables & Desks";
 
 const actionLinks = [
   { label: "Find a store", icon: "location" },
@@ -46,7 +47,7 @@ export function Header() {
             <div className="flex items-center gap-2 rounded-full px-3 py-1">
               <span className="text-lg leading-none">🇺🇸</span>
               <span className="font-medium">United States (USD $)</span>
-              <span className="pt-0.5">{icons.chevronLight}</span>
+              <span className="pt-0.5">{icons.chevronLight()}</span>
             </div>
             <div className="flex items-center text-white">
               {socialIcons.map((social) => (
@@ -56,7 +57,7 @@ export function Header() {
                   aria-label={social}
                   href="#"
                 >
-                  {icons[social]}
+                  {icons[social]()}
                 </a>
               ))}
             </div>
@@ -66,63 +67,69 @@ export function Header() {
 
       <div className="border-b border-zinc-200">
         <div
-          className={`${container} flex flex-wrap items-center gap-4 py-5 lg:flex-nowrap`}
+          className={`${container} flex flex-wrap items-center gap-y-4 gap-x-4 py-5 lg:flex-nowrap lg:gap-x-0`}
         >
-          <div className="text-[32px] font-black tracking-wide text-zinc-900">
+          <div className="text-[32px] font-black uppercase tracking-tight text-[#101010] lg:mr-[54px]">
             Nimble
           </div>
 
-          <div className="order-3 flex w-full items-center gap-3 rounded-full border border-zinc-200 px-6 py-3 text-sm shadow-sm sm:order-2 sm:w-auto lg:flex-1 lg:text-base">
+          <div className="order-3 flex w-full items-center gap-4 rounded-full bg-[#ededed] px-6 py-3 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:order-2 sm:w-auto lg:flex-1">
             <button
-              className="flex items-center gap-1 font-medium text-zinc-700"
+              className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
               type="button"
             >
               All Categories
-              {icons.chevron}
+              {icons.chevron()}
             </button>
-            <span className="h-6 w-px bg-zinc-200" />
+            <span className="h-6 w-px bg-zinc-300" />
             <input
-              className="w-full flex-1 border-0 bg-transparent text-sm outline-none placeholder:text-zinc-400"
+              className="w-full flex-1 border-0 bg-transparent text-[15px] text-black outline-none placeholder:text-black"
               placeholder="What are you looking for?"
             />
-            <button
-              className="flex size-8 items-center justify-center rounded-full bg-zinc-900 text-white"
-              type="button"
-            >
-              {icons.search}
-            </button>
+            <span>{icons.search()}</span>
           </div>
 
-          <div className="order-2 flex flex-1 items-center justify-end gap-6 text-sm text-zinc-700 sm:order-3">
-            {actionLinks.map((action) => (
-              <button
-                key={action.label}
-                className="flex items-center gap-2 rounded-full px-3 py-2 transition hover:bg-zinc-100"
-                type="button"
-              >
-                <span className="flex size-9 items-center justify-center rounded-full bg-zinc-100 text-zinc-600">
-                  {icons[action.icon]}
-                </span>
-                <span className="font-medium">{action.label}</span>
-              </button>
-            ))}
+          <div className="order-2 flex flex-1 items-center justify-end gap-6 text-[15px] text-[#1a1a1a] sm:order-3 lg:ml-4">
+            {actionLinks.map((action) => {
+              const isBag = action.icon === "bag";
+              return (
+                <button
+                  key={action.label}
+                  className={`flex items-center font-semibold transition hover:text-black ${
+                    isBag ? "h-12 w-12 justify-center rounded-full bg-[#ededed] text-black" : "gap-2"
+                  }`}
+                  type="button"
+                  aria-label={isBag ? action.label : undefined}
+                >
+                  {icons[action.icon]({
+                    className: isBag ? "text-black" : "text-[#1a1a1a]",
+                  })}
+                  {!isBag && <span>{action.label}</span>}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         <nav
-          className={`${container} flex flex-wrap items-center gap-3 pb-4 text-sm text-zinc-700`}
+          className={`${container} flex flex-wrap items-center gap-6 pb-4 text-[15px] font-bold text-[#1d1d1d]`}
         >
           {navLinks.map((link) => (
             <a
-              key={link}
-              className="flex items-center gap-1 rounded-full px-4 py-2 font-medium hover:bg-zinc-100"
+              key={link.label}
+              className={`flex items-center gap-1 transition hover:underline ${
+                link.label === activeNav ? "text-black" : "hover:text-black"
+              }`}
               href="#"
             >
-              {link}
-              {link !== "Theme Features" && <span>{icons.chevron}</span>}
+              {link.label}
+              {link.dropdown && <span>{icons.chevron()}</span>}
             </a>
           ))}
-          <span className="text-red-500">On Sale</span>
+          <span className="flex items-center gap-1 text-[#d93a2b] hover:underline">
+            On Sale
+            <span className="text-[#d93a2b]">{icons.sparkle()}</span>
+          </span>
         </nav>
       </div>
     </header>
