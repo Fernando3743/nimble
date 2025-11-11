@@ -1,5 +1,13 @@
-import { icons } from "@/components/icons";
+"use client";
 
+import { icons } from "@/components/icons";
+import { useEffect, useState } from "react";
+
+// Constants
+const CONTAINER = "w-full px-[50px]";
+const SCROLL_THRESHOLD = 10;
+
+// Navigation data
 const utilityLinks = ["Help Center", "Find a Store", "Contact"];
 
 const navLinks = [
@@ -10,6 +18,7 @@ const navLinks = [
   { label: "Pages", dropdown: true },
   { label: "Theme Features", dropdown: true },
 ] as const;
+
 const activeNav = "Tables & Desks";
 
 const actionLinks = [
@@ -20,15 +29,31 @@ const actionLinks = [
 
 const socialIcons = ["facebook", "x", "instagram", "tiktok"] as const;
 
+// Reusable class patterns
+const underlineAnimation =
+  "absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100";
+
 export function Header() {
-  const container = "w-full px-[50px]";
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > SCROLL_THRESHOLD);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="bg-white">
-      <div className="bg-[#1D3A9A] text-[15px] text-white">
+    <>
+      {/* Top promotional banner */}
+      <div className="bg-primary text-[15px] text-white">
         <div
-          className={`${container} flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between`}
+          className={`${CONTAINER} flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between`}
         >
+          {/* Utility links */}
           <div className="hidden flex-wrap items-center gap-6 text-white lg:flex">
             {utilityLinks.map((link) => (
               <a
@@ -40,9 +65,13 @@ export function Header() {
               </a>
             ))}
           </div>
+
+          {/* Promotional message */}
           <p className="text-center font-medium text-white">
             ✌️ Free Express Shipping on orders $500!
           </p>
+
+          {/* Country selector and social icons */}
           <div className="hidden flex-wrap items-center justify-center gap-4 text-white lg:flex">
             <div className="flex items-center gap-2 rounded-full px-3 py-1">
               <span className="text-lg leading-none">🇺🇸</span>
@@ -65,15 +94,37 @@ export function Header() {
         </div>
       </div>
 
-      <div className="border-b border-zinc-200">
+      {/* Sticky header */}
+      <header
+        className={`sticky top-0 z-50 bg-white transition-shadow duration-200 ${
+          isSticky ? "border-b border-zinc-200 shadow-sm" : ""
+        }`}
+      >
+        {/* Main header bar */}
         <div
-          className={`${container} flex flex-wrap items-center gap-y-4 gap-x-4 py-5 lg:flex-nowrap lg:gap-x-0`}
+          className={`${CONTAINER} flex flex-wrap items-center gap-x-4 gap-y-4 transition-all lg:flex-nowrap lg:gap-x-0 ${
+            isSticky ? "py-4" : "py-5"
+          }`}
         >
-          <div className="text-[32px] font-black uppercase tracking-tight text-[#101010] lg:mr-[54px]">
+          {/* Menu button (visible when sticky) */}
+          <button
+            className={`flex items-center justify-center overflow-hidden rounded-full border border-transparent text-dark transition-all duration-200 ${
+              isSticky ? "mr-4 h-10 w-10 opacity-100" : "mr-0 h-0 w-0 opacity-0"
+            }`}
+            type="button"
+            aria-label="Open menu"
+            tabIndex={isSticky ? 0 : -1}
+          >
+            {icons.hamburger({ className: "text-dark" })}
+          </button>
+
+          {/* Logo */}
+          <div className="text-[32px] font-black uppercase tracking-tight text-dark lg:mr-[54px]">
             Nimble
           </div>
 
-          <div className="order-3 flex w-full items-center gap-4 rounded-full bg-[#ededed] px-6 py-3 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:order-2 sm:w-auto lg:flex-1">
+          {/* Search bar */}
+          <div className="order-3 flex w-full items-center gap-4 rounded-full bg-light-gray px-6 py-3 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:order-2 sm:w-auto lg:flex-1">
             <button
               className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
               type="button"
@@ -89,20 +140,23 @@ export function Header() {
             <span>{icons.search()}</span>
           </div>
 
-          <div className="order-2 flex flex-1 items-center justify-end gap-6 text-[15px] text-[#1a1a1a] sm:order-3 lg:ml-4">
+          {/* Action links */}
+          <div className="order-2 flex flex-1 items-center justify-end gap-6 text-[15px] text-dark-gray sm:order-3 lg:ml-4">
             {actionLinks.map((action) => {
               const isBag = action.icon === "bag";
               return (
                 <button
                   key={action.label}
                   className={`flex items-center font-semibold transition hover:text-black ${
-                    isBag ? "h-12 w-12 justify-center rounded-full bg-[#ededed] text-black" : "gap-2"
+                    isBag
+                      ? "h-12 w-12 justify-center rounded-full bg-light-gray text-black"
+                      : "gap-2"
                   }`}
                   type="button"
                   aria-label={isBag ? action.label : undefined}
                 >
                   {icons[action.icon]({
-                    className: isBag ? "text-black" : "text-[#1a1a1a]",
+                    className: isBag ? "text-black" : "text-dark-gray",
                   })}
                   {!isBag && <span>{action.label}</span>}
                 </button>
@@ -111,37 +165,36 @@ export function Header() {
           </div>
         </div>
 
-        <nav
-          className={`${container} flex flex-wrap items-center gap-6 pb-4 text-[15px] font-bold text-[#1d1d1d]`}
+        {/* Navigation (hidden when sticky) */}
+        <div
+          className={`border-b border-zinc-200 transition-all duration-300 ease-in-out ${
+            isSticky ? "max-h-0 overflow-hidden opacity-0" : "max-h-20 opacity-100"
+          }`}
         >
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              className={`group relative inline-flex items-center gap-1 pb-2 transition ${
-                link.label === activeNav ? "text-black" : "hover:text-black"
-              }`}
-              href="#"
-            >
-              <span
-                aria-hidden
-                className="absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100"
-              />
-              <span className="flex items-center gap-1">
-                {link.label}
-                {link.dropdown && <span>{icons.chevron()}</span>}
-              </span>
-            </a>
-          ))}
-          <span className="group relative inline-flex items-center gap-1 pb-2 text-[#d93a2b]">
-            <span
-              aria-hidden
-              className="absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100"
-            />
-            On Sale
-            <span className="text-[#d93a2b]">{icons.sparkle()}</span>
-          </span>
-        </nav>
-      </div>
-    </header>
+          <nav className={`${CONTAINER} flex flex-wrap items-center gap-6 pb-4 text-[15px] font-bold text-dark-gray`}>
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                className={`group relative inline-flex items-center gap-1 pb-2 transition ${
+                  link.label === activeNav ? "text-black" : "hover:text-black"
+                }`}
+                href="#"
+              >
+                <span aria-hidden className={underlineAnimation} />
+                <span className="flex items-center gap-1">
+                  {link.label}
+                  {link.dropdown && <span>{icons.chevron()}</span>}
+                </span>
+              </a>
+            ))}
+            <span className="group relative inline-flex items-center gap-1 pb-2 text-sale">
+              <span aria-hidden className={underlineAnimation} />
+              On Sale
+              <span className="text-sale">{icons.sparkle()}</span>
+            </span>
+          </nav>
+        </div>
+      </header>
+    </>
   );
 }

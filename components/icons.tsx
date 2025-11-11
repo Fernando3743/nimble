@@ -182,6 +182,21 @@ export const icons = {
       />
     </svg>
   ),
+  hamburger: ({ className }: IconProps = {}) => (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden
+      className={mergeClasses("size-6 text-current", className)}
+      fill="none"
+    >
+      <path
+        d="M4 7h16M4 12h16M4 17h16"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
   sparkle: ({ className }: IconProps = {}) => (
     <svg
       viewBox="0 0 16 16"

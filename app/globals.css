@@ -8,6 +8,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: #1d3a9a;
+  --color-dark: #101010;
+  --color-dark-gray: #1a1a1a;
+  --color-light-gray: #ededed;
+  --color-sale: #d93a2b;
   --font-sans: var(--font-instrument-sans);
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
