@@ -101,7 +101,7 @@ export function InspiredSpaces() {
   }, []);
 
   return (
-    <section className={`${COLORS.bgWhite} px-4 py-20`}>
+    <section className={`${COLORS.bgWhite} px-4 pt-15`}>
       {/* Heading */}
       <h2 className={`${TYPOGRAPHY.heading} ${COLORS.textBlack} mb-8`}>
         Get Inspired by Spaces

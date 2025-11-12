@@ -7,6 +7,8 @@ import { FeaturedProducts } from "@/components/dashboard/FeaturedProducts";
 import { FeaturedCollections } from "@/components/dashboard/FeaturedCollections";
 import { Testimonials } from "@/components/dashboard/Testimonials";
 import { InspiredSpaces } from "@/components/dashboard/InspiredSpaces";
+import { PromoBanners } from "@/components/dashboard/PromoBanners";
+import { CategoryChips } from "@/components/dashboard/CategoryChips";
 
 export default function Home() {
   return (
@@ -24,6 +26,8 @@ export default function Home() {
         <Testimonials />
         <div className="mx-auto max-w-[1330px]">
           <InspiredSpaces />
+          <PromoBanners />
+          <CategoryChips />
         </div>
       </main>
     </div>
