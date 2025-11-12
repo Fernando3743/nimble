@@ -6,20 +6,26 @@ import { FlashSale } from "@/components/dashboard/FlashSale";
 import { FeaturedProducts } from "@/components/dashboard/FeaturedProducts";
 import { FeaturedCollections } from "@/components/dashboard/FeaturedCollections";
 import { Testimonials } from "@/components/dashboard/Testimonials";
+import { InspiredSpaces } from "@/components/dashboard/InspiredSpaces";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900">
       <Header />
-      <main className="mx-auto max-w-[1330px]">
-        <Hero />
-        <NewArrivals />
-        <FlashSale />
-        <FeaturedProducts />
-        <ShopByCategory />
-        <FeaturedCollections />
+      <main>
+        <div className="mx-auto max-w-[1330px]">
+          <Hero />
+          <NewArrivals />
+          <FlashSale />
+          <FeaturedProducts />
+          <ShopByCategory />
+          <FeaturedCollections />
+        </div>
+        <Testimonials />
+        <div className="mx-auto max-w-[1330px]">
+          <InspiredSpaces />
+        </div>
       </main>
-      <Testimonials />
     </div>
   );
 }
