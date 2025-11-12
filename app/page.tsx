@@ -13,6 +13,7 @@ import { ShopOurOffers } from "@/components/dashboard/ShopOurOffers";
 import { MeetOurTeam } from "@/components/dashboard/MeetOurTeam";
 import { ClientTestimonials } from "@/components/dashboard/ClientTestimonials";
 import { ApproachFeatures } from "@/components/dashboard/ApproachFeatures";
+import { InstagramFeed } from "@/components/dashboard/InstagramFeed";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
         <MeetOurTeam />
         <ClientTestimonials />
         <ApproachFeatures />
+        <InstagramFeed />
       </main>
     </div>
   );
