@@ -266,6 +266,74 @@ export const icons = {
       />
     </svg>
   ),
+  smiley: ({ className }: IconProps = {}) => (
+    <svg
+      viewBox="0 0 20 20"
+      aria-hidden
+      className={mergeClasses("size-5 text-current", className)}
+      fill="none"
+    >
+      <path
+        d="M10.5859 17.7998C14.7281 17.7998 18.0859 14.4419 18.0859 10.2998C18.0859 6.15767 14.7281 2.7998 10.5859 2.7998C6.4438 2.7998 3.08594 6.15767 3.08594 10.2998C3.08594 14.4419 6.4438 17.7998 10.5859 17.7998Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7.77344 9.6748C8.2912 9.6748 8.71094 9.25507 8.71094 8.7373C8.71094 8.21954 8.2912 7.7998 7.77344 7.7998C7.25567 7.7998 6.83594 8.21954 6.83594 8.7373C6.83594 9.25507 7.25567 9.6748 7.77344 9.6748Z"
+        fill="currentColor"
+      />
+      <path
+        d="M13.3984 9.6748C13.9162 9.6748 14.3359 9.25507 14.3359 8.7373C14.3359 8.21954 13.9162 7.7998 13.3984 7.7998C12.8807 7.7998 12.4609 8.21954 12.4609 8.7373C12.4609 9.25507 12.8807 9.6748 13.3984 9.6748Z"
+        fill="currentColor"
+      />
+      <path
+        d="M13.7109 12.1748C13.0625 13.2959 11.9742 14.0498 10.5859 14.0498C9.19766 14.0498 8.10938 13.2959 7.46094 12.1748"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  stool: ({ className }: IconProps = {}) => (
+    <svg
+      viewBox="0 0 20 20"
+      aria-hidden
+      className={mergeClasses("size-5 text-current", className)}
+      fill="none"
+    >
+      <path
+        d="M14.9609 2.7998H6.21094C5.86576 2.7998 5.58594 3.07963 5.58594 3.4248V5.2998C5.58594 5.64498 5.86576 5.9248 6.21094 5.9248H14.9609C15.3061 5.9248 15.5859 5.64498 15.5859 5.2998V3.4248C15.5859 3.07963 15.3061 2.7998 14.9609 2.7998Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M13.7109 5.9248L15.5859 17.7998"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5.58594 17.7998L7.46094 5.9248"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.27734 13.4248H14.8961"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
 } as const satisfies Record<string, IconRenderer>;
 
 export type IconName = keyof typeof icons;

@@ -10,6 +10,7 @@ import { InspiredSpaces } from "@/components/dashboard/InspiredSpaces";
 import { PromoBanners } from "@/components/dashboard/PromoBanners";
 import { CategoryChips } from "@/components/dashboard/CategoryChips";
 import { ShopOurOffers } from "@/components/dashboard/ShopOurOffers";
+import { MeetOurTeam } from "@/components/dashboard/MeetOurTeam";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
           <CategoryChips />
           <ShopOurOffers />
         </div>
+        <MeetOurTeam />
       </main>
     </div>
   );

@@ -156,7 +156,7 @@ export function ShopOurOffers() {
   }, []);
 
   return (
-    <section className="px-4 py-16">
+    <section className="px-4 pt-16">
       {/* Header */}
       <div className="mb-8">
         <h2 className={`${TYPOGRAPHY.heading} ${COLORS.textBlack} mb-2`}>
