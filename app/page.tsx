@@ -12,6 +12,7 @@ import { CategoryChips } from "@/components/dashboard/CategoryChips";
 import { ShopOurOffers } from "@/components/dashboard/ShopOurOffers";
 import { MeetOurTeam } from "@/components/dashboard/MeetOurTeam";
 import { ClientTestimonials } from "@/components/dashboard/ClientTestimonials";
+import { ApproachFeatures } from "@/components/dashboard/ApproachFeatures";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
         </div>
         <MeetOurTeam />
         <ClientTestimonials />
+        <ApproachFeatures />
       </main>
     </div>
   );
