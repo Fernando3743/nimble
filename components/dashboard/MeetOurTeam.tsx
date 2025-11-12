@@ -47,7 +47,7 @@ const features: Feature[] = [
 
 export function MeetOurTeam() {
   return (
-    <section className="px-4 pt-16">
+    <section className="px-4 py-16">
       <div className="mx-auto grid max-w-[1330px] grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-[100px]">
         {/* Left Column - Image */}
         <div className="relative">
