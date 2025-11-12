@@ -1,10 +1,30 @@
-import Image from "next/image";
 import Link from "next/link";
+import { slugify } from "@/lib/utils";
+
+// Design tokens
+const SPACING = {
+  sectionY: "pt-16",
+  headerBottom: "mb-8",
+} as const;
+
+const TYPOGRAPHY = {
+  heading: "text-[32px] font-bold",
+  link: "text-[15px] font-medium",
+  categoryName: "text-[15px] font-medium",
+} as const;
+
+const SIZES = {
+  categoryCircle: { width: 110, height: 110 },
+  categoryCard: { height: 201 },
+  emoji: "text-5xl",
+  saleText: "text-3xl",
+} as const;
 
 type Category = {
   id: number;
   name: string;
-  image: string;
+  emoji: string;
+  emojiLabel: string;
   isSpecial?: boolean;
 };
 
@@ -12,74 +32,86 @@ const categories: Category[] = [
   {
     id: 1,
     name: "Sale Items",
-    image: "/images/categories/sale.jpg",
-    isSpecial: true, // For the red background
+    emoji: "💰",
+    emojiLabel: "Money bag",
+    isSpecial: true,
   },
   {
     id: 2,
     name: "Press Tables",
-    image: "/images/categories/press-tables.jpg",
+    emoji: "🪑",
+    emojiLabel: "Chair",
   },
   {
     id: 3,
     name: "Lighting",
-    image: "/images/categories/lighting.jpg",
+    emoji: "💡",
+    emojiLabel: "Light bulb",
   },
   {
     id: 4,
     name: "Spoke Sofa",
-    image: "/images/categories/spoke-sofa.jpg",
+    emoji: "🛋️",
+    emojiLabel: "Couch and lamp",
   },
   {
     id: 5,
     name: "Storage",
-    image: "/images/categories/storage.jpg",
+    emoji: "📦",
+    emojiLabel: "Package",
   },
   {
     id: 6,
     name: "Turn Chairs",
-    image: "/images/categories/turn-chairs.jpg",
+    emoji: "🪑",
+    emojiLabel: "Chair",
   },
   {
     id: 7,
     name: "Longe Chairs",
-    image: "/images/categories/longe-chairs.jpg",
+    emoji: "💺",
+    emojiLabel: "Seat",
   },
   {
     id: 8,
     name: "Curve Coat",
-    image: "/images/categories/curve-coat.jpg",
+    emoji: "🧥",
+    emojiLabel: "Coat",
   },
   {
     id: 9,
     name: "Cross Tables",
-    image: "/images/categories/cross-tables.jpg",
+    emoji: "⭕",
+    emojiLabel: "Circle",
   },
   {
     id: 10,
     name: "Bend Chairs",
-    image: "/images/categories/bend-chairs.jpg",
+    emoji: "🪑",
+    emojiLabel: "Chair",
   },
   {
     id: 11,
     name: "Bar Chairs",
-    image: "/images/categories/bar-chairs.jpg",
+    emoji: "🍺",
+    emojiLabel: "Beer mug",
   },
   {
     id: 12,
     name: "Accessories",
-    image: "/images/categories/accessories.jpg",
+    emoji: "🎨",
+    emojiLabel: "Artist palette",
   },
 ];
 
 export function ShopByCategory() {
   return (
-    <section className="px-4 py-16">
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-[32px] font-bold">Shop By Categories</h2>
+    <section className={`px-4 ${SPACING.sectionY}`}>
+      <div className={`${SPACING.headerBottom} flex items-center justify-between`}>
+        <h2 className={TYPOGRAPHY.heading}>Shop By Categories</h2>
         <Link
           href="/categories"
-          className="group flex items-center gap-2 text-[15px] font-medium"
+          className={`group flex items-center gap-2 ${TYPOGRAPHY.link}`}
           aria-label="View all product categories"
         >
           <span className="relative">
@@ -105,28 +137,36 @@ export function ShopByCategory() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 gap-0 overflow-hidden rounded-xl sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-0 overflow-hidden rounded-xl border border-zinc-200 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {categories.map((category) => (
           <Link
             key={category.id}
-            href={`/category/${category.name.toLowerCase().replace(/\s+/g, "-")}`}
-            className="group flex h-[201px] flex-col items-center justify-center gap-4 border border-zinc-200 transition-colors hover:bg-zinc-50"
+            href={`/category/${slugify(category.name)}`}
+            className={`group flex h-[${SIZES.categoryCard.height}px] flex-col items-center justify-center gap-4 border border-zinc-200 transition-colors hover:bg-zinc-50`}
+            aria-label={`Browse ${category.name}`}
           >
-            <div className="relative h-[110px] w-[110px] overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105">
+            <div
+              className={`flex h-[${SIZES.categoryCircle.height}px] w-[${SIZES.categoryCircle.width}px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105`}
+            >
               {category.isSpecial ? (
                 <div className="flex h-full w-full items-center justify-center bg-red-600">
-                  <span className="text-3xl font-bold text-white">Sale</span>
+                  <span className={`${SIZES.saleText} font-bold text-white`}>
+                    Sale
+                  </span>
                 </div>
               ) : (
-                <Image
-                  src={category.image}
-                  alt={category.name}
-                  fill
-                  className="object-cover"
-                />
+                <span
+                  role="img"
+                  aria-label={category.emojiLabel}
+                  className={SIZES.emoji}
+                >
+                  {category.emoji}
+                </span>
               )}
             </div>
-            <h3 className="text-center text-[15px] font-medium text-black transition-colors group-hover:text-zinc-600">
+            <h3
+              className={`text-center ${TYPOGRAPHY.categoryName} text-black transition-colors group-hover:text-zinc-600`}
+            >
               {category.name}
             </h3>
           </Link>

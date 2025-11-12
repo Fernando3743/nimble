@@ -4,6 +4,7 @@ import { ShopByCategory } from "@/components/dashboard/ShopByCategory";
 import { NewArrivals } from "@/components/dashboard/NewArrivals";
 import { FlashSale } from "@/components/dashboard/FlashSale";
 import { FeaturedProducts } from "@/components/dashboard/FeaturedProducts";
+import { FeaturedCollections } from "@/components/dashboard/FeaturedCollections";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <FlashSale />
         <FeaturedProducts />
         <ShopByCategory />
+        <FeaturedCollections />
       </main>
     </div>
   );
