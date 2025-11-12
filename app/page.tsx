@@ -9,6 +9,7 @@ import { Testimonials } from "@/components/dashboard/Testimonials";
 import { InspiredSpaces } from "@/components/dashboard/InspiredSpaces";
 import { PromoBanners } from "@/components/dashboard/PromoBanners";
 import { CategoryChips } from "@/components/dashboard/CategoryChips";
+import { ShopOurOffers } from "@/components/dashboard/ShopOurOffers";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
           <InspiredSpaces />
           <PromoBanners />
           <CategoryChips />
+          <ShopOurOffers />
         </div>
       </main>
     </div>
