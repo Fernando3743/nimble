@@ -186,7 +186,7 @@ export function Header() {
               : "max-h-20 opacity-100"
           }`}
         >
-          <nav className={`${CONTAINER} flex flex-wrap items-center gap-6 pb-4 text-[15px] font-bold text-dark-gray`}>
+          <nav className={`${CONTAINER} flex flex-wrap items-center gap-6 pb-3 text-[15px] font-bold text-dark-gray`}>
             {navLinks.map((link) => (
               <a
                 key={link.label}

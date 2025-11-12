@@ -69,7 +69,7 @@ export function Hero() {
 
   return (
     <section className="bg-white">
-      <div className="px-[50px] pb-16 pt-[20px]">
+      <div className="px-[50px] pt-[20px]">
         <div className="group relative flex items-center pb-6">
           <button
             onClick={() => scroll("left")}
