@@ -5,6 +5,7 @@ import { NewArrivals } from "@/components/dashboard/NewArrivals";
 import { FlashSale } from "@/components/dashboard/FlashSale";
 import { FeaturedProducts } from "@/components/dashboard/FeaturedProducts";
 import { FeaturedCollections } from "@/components/dashboard/FeaturedCollections";
+import { Testimonials } from "@/components/dashboard/Testimonials";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <ShopByCategory />
         <FeaturedCollections />
       </main>
+      <Testimonials />
     </div>
   );
 }
