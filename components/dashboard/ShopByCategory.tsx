@@ -1,25 +1,6 @@
 import Link from "next/link";
 import { slugify } from "@/lib/utils";
 
-// Design tokens
-const SPACING = {
-  sectionY: "pt-16",
-  headerBottom: "mb-8",
-} as const;
-
-const TYPOGRAPHY = {
-  heading: "text-[32px] font-bold",
-  link: "text-[15px] font-medium",
-  categoryName: "text-[15px] font-medium",
-} as const;
-
-const SIZES = {
-  categoryCircle: { width: 110, height: 110 },
-  categoryCard: { height: 201 },
-  emoji: "text-5xl",
-  saleText: "text-3xl",
-} as const;
-
 type Category = {
   id: number;
   name: string;
@@ -106,12 +87,12 @@ const categories: Category[] = [
 
 export function ShopByCategory() {
   return (
-    <section className={`px-4 ${SPACING.sectionY}`}>
-      <div className={`${SPACING.headerBottom} flex items-center justify-between`}>
-        <h2 className={TYPOGRAPHY.heading}>Shop By Categories</h2>
+    <section className="px-4 pt-8 lg:pt-16">
+      <div className="mb-6 lg:mb-8 flex items-center justify-between">
+        <h2 className="text-2xl font-bold lg:text-[32px]">Shop By Categories</h2>
         <Link
           href="/categories"
-          className={`group flex items-center gap-2 ${TYPOGRAPHY.link}`}
+          className="group flex items-center gap-2 text-[15px] font-medium"
           aria-label="View all product categories"
         >
           <span className="relative">
@@ -137,20 +118,20 @@ export function ShopByCategory() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 gap-0 overflow-hidden rounded-xl border border-zinc-200 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="flex gap-0 overflow-x-auto scrollbar-hide sm:grid sm:grid-cols-3 sm:overflow-hidden md:grid-cols-4 lg:grid-cols-6 rounded-xl border border-zinc-200">
         {categories.map((category) => (
           <Link
             key={category.id}
             href={`/category/${slugify(category.name)}`}
-            className={`group flex h-[${SIZES.categoryCard.height}px] flex-col items-center justify-center gap-4 border border-zinc-200 transition-colors hover:bg-zinc-50`}
+            className="group flex h-[201px] w-[160px] flex-shrink-0 flex-col items-center justify-center gap-4 border border-zinc-200 transition-colors hover:bg-zinc-50 sm:w-auto"
             aria-label={`Browse ${category.name}`}
           >
             <div
-              className={`flex h-[${SIZES.categoryCircle.height}px] w-[${SIZES.categoryCircle.width}px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105`}
+              className="flex h-[110px] w-[110px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105"
             >
               {category.isSpecial ? (
                 <div className="flex h-full w-full items-center justify-center bg-red-600">
-                  <span className={`${SIZES.saleText} font-bold text-white`}>
+                  <span className="text-3xl font-bold text-white">
                     Sale
                   </span>
                 </div>
@@ -158,14 +139,14 @@ export function ShopByCategory() {
                 <span
                   role="img"
                   aria-label={category.emojiLabel}
-                  className={SIZES.emoji}
+                  className="text-5xl"
                 >
                   {category.emoji}
                 </span>
               )}
             </div>
             <h3
-              className={`text-center ${TYPOGRAPHY.categoryName} text-black transition-colors group-hover:text-zinc-600`}
+              className="text-center text-[15px] font-medium text-black transition-colors group-hover:text-zinc-600"
             >
               {category.name}
             </h3>
