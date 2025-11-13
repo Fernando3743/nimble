@@ -46,12 +46,12 @@ const products = [
 export function FeaturedProducts() {
   return (
     <section className="px-4 pt-[40px]">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="flex gap-6 overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4">
         {products.map((product) => (
           <Link
             key={product.id}
             href={`/product/${product.id}`}
-            className="group relative overflow-hidden rounded-xl"
+            className="group relative flex-shrink-0 overflow-hidden rounded-xl w-[280px] md:w-auto"
           >
             {/* Background with Gradient Placeholder */}
             <div className={`relative h-[437px] bg-gradient-to-br ${product.bgColor}`}>
