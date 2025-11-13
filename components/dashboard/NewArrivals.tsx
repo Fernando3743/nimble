@@ -156,11 +156,11 @@ export function NewArrivals() {
     <section className="bg-white pt-[40px]">
       {/* Header Section */}
       <div className={`mb-8 ${CONTAINER_PADDING}`}>
-        <div className="flex items-end justify-between">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           {/* Title & Description */}
           <div>
-            <h2 className="mb-2 text-[32px] font-bold text-black">New Arrivals</h2>
-            <p className={`text-[15px] text-[${GRAY_COLOR}]`}>
+            <h2 className="mb-2 text-2xl font-bold text-black lg:text-[32px]">New Arrivals</h2>
+            <p className={`text-sm text-[${GRAY_COLOR}] lg:text-[15px]`}>
               Traditional divides between personal and professional space.
             </p>
           </div>
@@ -191,7 +191,7 @@ export function NewArrivals() {
       </div>
 
       {/* Progress Bar & Navigation */}
-      <div className={`mt-20 flex items-center justify-between gap-6 ${CONTAINER_PADDING}`}>
+      <div className={`mt-12 lg:mt-20 hidden lg:flex items-center justify-between gap-6 ${CONTAINER_PADDING}`}>
         {/* Progress Bar */}
         <div className="relative h-0.5 flex-1 bg-zinc-200">
           <div
