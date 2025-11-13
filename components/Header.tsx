@@ -47,6 +47,18 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -101,8 +113,10 @@ export function Header() {
 
       {/* Sticky header */}
       <header
-        className={`sticky top-0 z-50 bg-white transition-shadow duration-200 border-b border-zinc-200 ${
-          isSticky ? "shadow-sm" : ""
+        className={`sticky top-0 z-[60] bg-white transition-shadow duration-200 ${
+          isMobileMenuOpen ? "" : "border-b border-zinc-200"
+        } ${
+          isSticky && !isMobileMenuOpen ? "shadow-sm" : ""
         }`}
       >
         {/* Main header bar */}
@@ -134,13 +148,13 @@ export function Header() {
           {/* Search bar */}
           <div className="order-3 flex w-full items-center gap-2 rounded-full bg-light-gray px-4 py-2.5 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:order-2 lg:gap-4 lg:px-6 lg:py-3 lg:flex-1">
             <button
-              className="hidden items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none] lg:flex"
+              className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
               type="button"
             >
               All
               {icons.chevron()}
             </button>
-            <span className="hidden h-6 w-px bg-zinc-300 lg:block" />
+            <span className="hidden h-6 w-px bg-zinc-300 sm:block" />
             <input
               className="w-full flex-1 border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60 lg:text-[15px] lg:placeholder:text-black"
               placeholder="What are you looking for?"
@@ -213,69 +227,9 @@ export function Header() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto">
-          {/* Mobile Menu Header */}
-          <div className="sticky top-0 bg-white border-b border-zinc-200 px-4 py-3">
-            <div className="flex items-center justify-between mb-3">
-              {/* Close button and Logo */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={toggleMobileMenu}
-                  className="flex h-10 w-10 items-center justify-center text-dark"
-                  aria-label="Close menu"
-                >
-                  {icons.close({ className: "text-dark" })}
-                </button>
-                <div className="text-2xl font-black uppercase tracking-tight text-dark">
-                  Nimble
-                </div>
-              </div>
-
-              {/* Action Icons */}
-              <div className="flex items-center gap-2">
-                <button
-                  className="flex h-10 w-10 items-center justify-center text-dark-gray"
-                  type="button"
-                  aria-label="Find a store"
-                >
-                  {icons.location({ className: "size-6 text-dark-gray" })}
-                </button>
-                <button
-                  className="flex h-10 w-10 items-center justify-center text-dark-gray"
-                  type="button"
-                  aria-label="User account"
-                >
-                  {icons.user({ className: "size-6 text-dark-gray" })}
-                </button>
-                <button
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-light-gray text-black"
-                  type="button"
-                  aria-label="Shopping bag"
-                >
-                  {icons.bag({ className: "text-black" })}
-                </button>
-              </div>
-            </div>
-
-            {/* Search Bar */}
-            <div className="flex items-center gap-2 rounded-full bg-light-gray px-4 py-2.5 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
-              <button
-                className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none"
-                type="button"
-              >
-                All
-                {icons.chevron()}
-              </button>
-              <input
-                className="w-full flex-1 border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60"
-                placeholder="What are you looking for?"
-              />
-              <span>{icons.search()}</span>
-            </div>
-          </div>
-
+        <>
           {/* Mobile Navigation Links */}
-          <nav className="flex flex-col">
+          <nav className="fixed left-0 right-0 top-[126px] bottom-0 z-40 flex flex-col bg-white lg:hidden overflow-y-auto">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -319,7 +273,7 @@ export function Header() {
               <span>{icons.chevron()}</span>
             </button>
           </nav>
-        </div>
+        </>
       )}
     </>
   );
