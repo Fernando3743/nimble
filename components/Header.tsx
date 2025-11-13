@@ -56,7 +56,7 @@ export function Header() {
       {/* Top promotional banner */}
       <div className="bg-primary text-[15px] text-white">
         <div
-          className={`${CONTAINER} flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between`}
+          className={`${CONTAINER} flex flex-col gap-3 py-2 lg:flex-row lg:items-center lg:justify-between lg:py-3`}
         >
           {/* Utility links */}
           <div className="hidden flex-wrap items-center gap-6 text-white lg:flex">
@@ -72,7 +72,7 @@ export function Header() {
           </div>
 
           {/* Promotional message */}
-          <p className="text-center font-medium text-white">
+          <p className="text-center text-sm font-medium text-white lg:text-[15px]">
             ✌️ Free Express Shipping on orders $500!
           </p>
 
@@ -107,14 +107,14 @@ export function Header() {
       >
         {/* Main header bar */}
         <div
-          className={`${CONTAINER} flex flex-wrap items-center gap-x-4 gap-y-4 transition-all lg:flex-nowrap lg:gap-x-0 ${
-            isSticky ? "py-4" : "py-5"
+          className={`${CONTAINER} flex flex-wrap items-center gap-x-2 gap-y-3 transition-all lg:flex-nowrap lg:gap-x-0 lg:gap-y-4 ${
+            isSticky ? "py-3 lg:py-4" : "py-3 lg:py-5"
           }`}
         >
-          {/* Menu button (visible when sticky) */}
+          {/* Menu button (always visible on mobile, visible when sticky on desktop) */}
           <button
-            className={`flex items-center justify-center overflow-hidden rounded-full border border-transparent text-dark transition-all duration-200 ${
-              isSticky ? "mr-4 h-10 w-10 opacity-100" : "mr-0 h-0 w-0 opacity-0"
+            className={`flex items-center justify-center overflow-hidden rounded-full border border-transparent text-dark transition-all duration-200 h-10 w-10 opacity-100 ${
+              isSticky ? "lg:mr-4" : "lg:mr-0 lg:h-0 lg:w-0 lg:opacity-0"
             }`}
             type="button"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
@@ -127,29 +127,29 @@ export function Header() {
           </button>
 
           {/* Logo */}
-          <div className="text-[32px] font-black uppercase tracking-tight text-dark lg:mr-[54px]">
+          <div className="text-2xl font-black uppercase tracking-tight text-dark lg:mr-[54px] lg:text-[32px]">
             Nimble
           </div>
 
           {/* Search bar */}
-          <div className="order-3 flex w-full items-center gap-4 rounded-full bg-light-gray px-6 py-3 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:order-2 sm:w-auto lg:flex-1">
+          <div className="order-3 flex w-full items-center gap-2 rounded-full bg-light-gray px-4 py-2.5 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:order-2 lg:gap-4 lg:px-6 lg:py-3 lg:flex-1">
             <button
-              className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
+              className="hidden items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none] lg:flex"
               type="button"
             >
-              All Categories
+              All
               {icons.chevron()}
             </button>
-            <span className="h-6 w-px bg-zinc-300" />
+            <span className="hidden h-6 w-px bg-zinc-300 lg:block" />
             <input
-              className="w-full flex-1 border-0 bg-transparent text-[15px] text-black outline-none placeholder:text-black"
+              className="w-full flex-1 border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60 lg:text-[15px] lg:placeholder:text-black"
               placeholder="What are you looking for?"
             />
             <span>{icons.search()}</span>
           </div>
 
           {/* Action links */}
-          <div className="order-2 flex flex-1 items-center justify-end gap-6 text-[15px] text-dark-gray sm:order-3 lg:ml-4">
+          <div className="order-2 flex flex-1 items-center justify-end gap-3 text-[15px] text-dark-gray sm:order-3 lg:ml-4 lg:gap-6">
             {actionLinks.map((action) => {
               const isBag = action.icon === "bag";
               const isLocationOrUser = action.icon === "location" || action.icon === "user";
@@ -162,7 +162,7 @@ export function Header() {
                       : "gap-2"
                   }`}
                   type="button"
-                  aria-label={isBag ? action.label : undefined}
+                  aria-label={action.label}
                 >
                   {icons[action.icon]({
                     className: isBag
@@ -171,17 +171,17 @@ export function Header() {
                       ? "size-6 text-dark-gray"
                       : "text-dark-gray",
                   })}
-                  {!isBag && <span>{action.label}</span>}
+                  {!isBag && <span className="hidden lg:inline">{action.label}</span>}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Navigation (hidden when sticky, unless mobile menu is open) */}
+        {/* Desktop Navigation (hidden when sticky) */}
         <div
-          className={`border-b border-zinc-200 transition-all duration-300 ease-in-out ${
-            isSticky && !isMobileMenuOpen
+          className={`hidden border-b border-zinc-200 transition-all duration-300 ease-in-out lg:block ${
+            isSticky
               ? "max-h-0 overflow-hidden opacity-0"
               : "max-h-20 opacity-100"
           }`}
@@ -210,6 +210,97 @@ export function Header() {
           </nav>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            onClick={toggleMobileMenu}
+          />
+
+          {/* Mobile Menu Drawer */}
+          <div className="fixed left-0 top-0 z-50 h-screen w-[280px] overflow-y-auto bg-white shadow-xl lg:hidden">
+            <div className="flex flex-col">
+              {/* Mobile Menu Header */}
+              <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-4">
+                <div className="text-2xl font-black uppercase tracking-tight text-dark">
+                  Menu
+                </div>
+                <button
+                  onClick={toggleMobileMenu}
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-dark transition hover:bg-light-gray"
+                  aria-label="Close menu"
+                >
+                  {icons.close({ className: "text-dark" })}
+                </button>
+              </div>
+
+              {/* Mobile Navigation Links */}
+              <nav className="flex flex-col px-4 py-4">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    className={`flex items-center justify-between border-b border-zinc-100 py-4 text-[15px] font-bold transition ${
+                      link.label === activeNav ? "text-black" : "text-dark-gray hover:text-black"
+                    }`}
+                    href="#"
+                  >
+                    <span>{link.label}</span>
+                    {link.dropdown && <span>{icons.chevron()}</span>}
+                  </a>
+                ))}
+                <a
+                  className="flex items-center justify-between border-b border-zinc-100 py-4 text-[15px] font-bold text-sale"
+                  href="#"
+                >
+                  <span className="flex items-center gap-2">
+                    On Sale
+                    <span className="text-sale">{icons.sparkle()}</span>
+                  </span>
+                </a>
+              </nav>
+
+              {/* Mobile Utility Links */}
+              <div className="border-t border-zinc-200 px-4 py-4">
+                <div className="mb-3 text-xs font-semibold uppercase text-dark-gray">
+                  Quick Links
+                </div>
+                {utilityLinks.map((link) => (
+                  <a
+                    key={link}
+                    className="block py-2 text-sm font-medium text-dark-gray transition hover:text-black"
+                    href="#"
+                  >
+                    {link}
+                  </a>
+                ))}
+              </div>
+
+              {/* Mobile Country & Social */}
+              <div className="border-t border-zinc-200 px-4 py-4">
+                <div className="mb-3 flex items-center gap-2 text-sm">
+                  <span className="text-base leading-none">🇺🇸</span>
+                  <span className="font-medium text-dark-gray">United States (USD $)</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {socialIcons.map((social) => (
+                    <a
+                      key={social}
+                      className="inline-flex h-9 w-9 items-center justify-center text-dark-gray transition hover:text-black"
+                      aria-label={social}
+                      href="#"
+                    >
+                      {icons[social]()}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
