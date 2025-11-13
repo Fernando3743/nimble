@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-x-hidden" >
-      <body className={`${instrumentSans.variable} antialiased overflow-x-hidden`}>
+    <html lang="en" >
+      <body className={`${instrumentSans.variable} antialiased`}>
         {children}
       </body>
     </html>

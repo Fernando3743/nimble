@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900">
       <Header />
-      <main>
+      <main className="overflow-x-hidden">
         <div className="mx-auto max-w-[1330px]">
           <Hero />
           <NewArrivals />
