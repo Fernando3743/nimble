@@ -156,14 +156,14 @@ export function ShopOurOffers() {
   }, []);
 
   return (
-    <section className="px-4 pt-16">
+    <section className="px-4 pt-8 lg:pt-14">
       {/* Header */}
-      <div className="mb-8">
-        <h2 className={`${TYPOGRAPHY.heading} ${COLORS.textBlack} mb-2`}>
+      <div className="mb-6 lg:mb-8">
+        <h2 className="mb-2 text-[22px] font-bold leading-tight text-black lg:text-[32px]">
           Shop Our Offers
         </h2>
-        <div className="flex items-center justify-between">
-          <p className={`${TYPOGRAPHY.subheading} ${COLORS.textGray}`}>
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <p className="text-[15px] font-normal leading-relaxed text-zinc-600">
             Traditional divides between personal and professional space.
           </p>
           <Link
@@ -293,12 +293,12 @@ export function ShopOurOffers() {
           ></div>
         </div>
 
-        {/* Arrow Buttons */}
-        <div className="ml-4 flex gap-3">
+        {/* Arrow Buttons - Desktop Only */}
+        <div className="ml-4 hidden gap-3 lg:flex">
           <button
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
-            className={`flex h-12 w-12 items-center justify-center rounded-full border border-zinc-300 ${COLORS.bgWhite} transition-colors hover:bg-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed`}
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-300 bg-white transition-colors hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50"
             aria-label="Scroll left"
           >
             <svg
@@ -318,7 +318,7 @@ export function ShopOurOffers() {
           <button
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
-            className={`flex h-12 w-12 items-center justify-center rounded-full border border-zinc-300 ${COLORS.bgWhite} transition-colors hover:bg-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed`}
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-300 bg-white transition-colors hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50"
             aria-label="Scroll right"
           >
             <svg

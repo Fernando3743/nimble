@@ -65,7 +65,7 @@ const categories: Category[] = [
 
 export function CategoryChips() {
   return (
-    <section className="px-4 py-8">
+    <section className="px-4 pt-8">
       <div
         className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}

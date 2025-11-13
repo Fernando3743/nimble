@@ -63,31 +63,31 @@ export function MeetOurTeam() {
         </div>
 
         {/* Right Column - Content */}
-        <div className="flex flex-col justify-center space-y-6">
+        <div className="flex flex-col justify-center space-y-4 lg:space-y-6">
           {/* Eyebrow */}
-          <p className={`${TYPOGRAPHY.eyebrow} ${COLORS.textBlack}`}>
+          <p className="text-sm font-bold lg:text-[16px] text-black">
             Meet Our Team
           </p>
 
           {/* Heading */}
-          <h2 className={`${TYPOGRAPHY.heading} ${COLORS.textBlack}`}>
+          <h2 className="text-[28px] font-bold leading-tight text-black lg:text-[40px] lg:leading-[1.1]">
             The creative minds behind our studio
           </h2>
 
           {/* Description */}
-          <p className={`${TYPOGRAPHY.body} ${COLORS.textGray}`}>
+          <p className="text-[15px] leading-relaxed text-[#666666]">
             As designers we are constantly thinking about how people live and
             what problems we could solve for them.
           </p>
 
           {/* Features List */}
-          <div className="space-y-4 pt-4">
+          <div className="space-y-3 pt-3 lg:space-y-4 lg:pt-4">
             {features.map((feature) => {
               const Icon = icons[feature.icon];
               return (
                 <div key={feature.id} className="flex items-center gap-3">
                   <Icon className="size-6 shrink-0 text-black" />
-                  <span className={`${TYPOGRAPHY.feature} ${COLORS.textBlack}`}>
+                  <span className="text-[16px] font-bold text-black lg:text-[18px]">
                     {feature.text}
                   </span>
                 </div>

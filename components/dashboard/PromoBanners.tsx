@@ -63,22 +63,20 @@ const banners: PromoBanner[] = [
 
 export function PromoBanners() {
   return (
-    <section className="px-4 pt-10">
+    <section className="px-4 pt-8 lg:pt-10">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {banners.map((banner) => (
           <div
             key={banner.id}
-            className={`relative overflow-hidden rounded-3xl ${banner.backgroundColor} p-8 lg:p-10`}
+            className={`relative overflow-hidden rounded-3xl ${banner.backgroundColor} p-6 lg:p-10`}
           >
             <div className="relative z-10 flex flex-col justify-between gap-6">
               {/* Content */}
-              <div className="space-y-4">
-                <h2 className={`${TYPOGRAPHY.heading} ${COLORS.blackText}`}>
+              <div className="space-y-3 lg:space-y-4">
+                <h2 className="text-[22px] font-bold leading-tight text-black lg:text-[32px]">
                   {banner.title}
                 </h2>
-                <p
-                  className={`${TYPOGRAPHY.description} ${COLORS.grayText} max-w-xs`}
-                >
+                <p className="max-w-xs text-sm leading-relaxed text-zinc-600 lg:text-[16px]">
                   {banner.description}
                 </p>
               </div>

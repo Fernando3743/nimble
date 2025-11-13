@@ -3,23 +3,6 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
-// Design tokens
-const TYPOGRAPHY = {
-  heading: "text-[32px] font-bold leading-tight",
-  badgeNumber: "text-[15px] font-semibold",
-} as const;
-
-const COLORS = {
-  bgWhite: "bg-white",
-  textBlack: "text-black",
-} as const;
-
-const SIZES = {
-  badgeHeight: "h-12",
-  badgeWidth: "w-16",
-  navButtonSize: "h-12 w-12",
-} as const;
-
 type SpaceImage = {
   id: number;
   image: string;
@@ -101,9 +84,9 @@ export function InspiredSpaces() {
   }, []);
 
   return (
-    <section className={`${COLORS.bgWhite} px-4 pt-15`}>
+    <section className="bg-white px-4 pt-8 lg:pt-15">
       {/* Heading */}
-      <h2 className={`${TYPOGRAPHY.heading} ${COLORS.textBlack} mb-8`}>
+      <h2 className="mb-6 text-2xl font-bold leading-tight text-black lg:mb-8 lg:text-[32px]">
         Get Inspired by Spaces
       </h2>
 
@@ -116,7 +99,7 @@ export function InspiredSpaces() {
         {spaces.map((space) => (
           <div
             key={space.id}
-            className="group relative flex-shrink-0 overflow-hidden rounded-2xl w-[280px] sm:w-[320px] md:w-[360px] lg:w-[380px] h-[400px] sm:h-[450px] md:h-[500px]"
+            className="group relative h-[320px] w-[280px] flex-shrink-0 overflow-hidden rounded-2xl sm:w-[320px] md:h-[450px] md:w-[360px] lg:h-[500px] lg:w-[380px]"
           >
             <Image
               src={space.image}
@@ -126,9 +109,7 @@ export function InspiredSpaces() {
             />
 
             {/* Like Badge */}
-            <div
-              className={`absolute bottom-6 left-6 flex ${SIZES.badgeHeight} ${SIZES.badgeWidth} items-center justify-center gap-2 rounded-full ${COLORS.bgWhite} shadow-lg`}
-            >
+            <div className="absolute bottom-6 left-6 flex h-12 w-16 items-center justify-center gap-2 rounded-full bg-white shadow-lg">
               <svg
                 width="20"
                 height="20"
@@ -142,7 +123,7 @@ export function InspiredSpaces() {
               >
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
-              <span className={`${TYPOGRAPHY.badgeNumber} ${COLORS.textBlack}`}>
+              <span className="text-[15px] font-semibold text-black">
                 {space.likes}
               </span>
             </div>
@@ -160,11 +141,11 @@ export function InspiredSpaces() {
           ></div>
         </div>
 
-        {/* Arrow Buttons */}
-        <div className="ml-4 flex gap-3">
+        {/* Arrow Buttons - Desktop Only */}
+        <div className="ml-4 hidden gap-3 lg:flex">
           <button
             onClick={() => scroll("left")}
-            className={`flex ${SIZES.navButtonSize} items-center justify-center rounded-full border border-zinc-300 ${COLORS.bgWhite} transition-colors hover:bg-zinc-100`}
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-300 bg-white transition-colors hover:bg-zinc-100"
             aria-label="Scroll left"
           >
             <svg
@@ -183,7 +164,7 @@ export function InspiredSpaces() {
 
           <button
             onClick={() => scroll("right")}
-            className={`flex ${SIZES.navButtonSize} items-center justify-center rounded-full border border-zinc-300 ${COLORS.bgWhite} transition-colors hover:bg-zinc-100`}
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-300 bg-white transition-colors hover:bg-zinc-100"
             aria-label="Scroll right"
           >
             <svg
