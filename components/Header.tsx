@@ -101,8 +101,8 @@ export function Header() {
 
       {/* Sticky header */}
       <header
-        className={`sticky top-0 z-50 bg-white transition-shadow duration-200 ${
-          isSticky ? "border-b border-zinc-200 shadow-sm" : ""
+        className={`sticky top-0 z-50 bg-white transition-shadow duration-200 border-b border-zinc-200 ${
+          isSticky ? "shadow-sm" : ""
         }`}
       >
         {/* Main header bar */}

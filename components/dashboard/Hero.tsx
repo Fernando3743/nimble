@@ -73,7 +73,7 @@ export function Hero() {
         <div className="group relative flex items-center pb-6">
           <button
             onClick={() => scroll("left")}
-            className="group/btn relative z-10 flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="group/btn relative z-10 hidden lg:flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             type="button"
             aria-label="Previous"
           >
@@ -127,7 +127,7 @@ export function Hero() {
 
           <button
             onClick={() => scroll("right")}
-            className="group/btn relative z-10 flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="group/btn relative z-10 hidden lg:flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             type="button"
             aria-label="Next"
           >
