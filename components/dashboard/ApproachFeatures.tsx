@@ -1,20 +1,5 @@
 import Image from "next/image";
 
-// Design tokens
-const TYPOGRAPHY = {
-  heading: "text-[32px] font-bold leading-[1.2] text-center",
-  badge: "text-[15px] font-bold",
-  cardTitle: "text-[22px] font-bold",
-  cardDescription: "text-[15px] font-medium leading-relaxed",
-} as const;
-
-const COLORS = {
-  bgWhite: "bg-white",
-  bgYellow: "bg-[#E8ED6B]",
-  textBlack: "text-black",
-  textGray: "text-[#666666]",
-} as const;
-
 type Badge = {
   id: number;
   text: string;
@@ -71,21 +56,21 @@ const features: Feature[] = [
 
 export function ApproachFeatures() {
   return (
-    <section className={`${COLORS.bgWhite} px-4 py-16`}>
+    <section className="bg-white px-4 py-12 lg:py-16">
       <div className="mx-auto max-w-[1330px]">
         {/* Heading */}
-        <h2 className={`${TYPOGRAPHY.heading} ${COLORS.textBlack} mb-8`}>
+        <h2 className="mb-6 text-center text-[24px] font-bold leading-[1.2] text-black lg:mb-8 lg:text-[32px]">
           This approach resulted in the
           <br />
           beautiful structure
         </h2>
 
         {/* Badges */}
-        <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
+        <div className="mb-8 flex gap-3 overflow-x-auto scrollbar-hide lg:mb-12 lg:flex-wrap lg:justify-center">
           {badges.map((badge) => (
             <div
               key={badge.id}
-              className={`flex items-center gap-2 rounded-full ${COLORS.bgYellow} px-6 py-3`}
+              className="flex flex-shrink-0 items-center gap-2 rounded-full bg-[#E8ED6B] px-6 py-3"
             >
               <svg
                 width="16"
@@ -99,7 +84,7 @@ export function ApproachFeatures() {
               >
                 <path d="M20 6L9 17l-5-5" />
               </svg>
-              <span className={`${TYPOGRAPHY.badge} ${COLORS.textBlack}`}>
+              <span className="text-[15px] font-bold text-black">
                 {badge.text}
               </span>
             </div>
@@ -107,11 +92,11 @@ export function ApproachFeatures() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex gap-6 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-4 lg:gap-8">
           {features.map((feature) => (
-            <div key={feature.id} className="flex flex-col">
+            <div key={feature.id} className="w-[164px] flex-shrink-0 lg:w-auto">
               {/* Image */}
-              <div className="relative mb-6 h-[400px] overflow-hidden rounded-2xl">
+              <div className="relative mb-4 h-[164px] overflow-hidden rounded-2xl lg:mb-6 lg:h-[400px]">
                 <Image
                   src={feature.image}
                   alt={feature.title}
@@ -121,13 +106,11 @@ export function ApproachFeatures() {
               </div>
 
               {/* Content */}
-              <div className="space-y-3">
-                <h3 className={`${TYPOGRAPHY.cardTitle} ${COLORS.textBlack}`}>
+              <div className="space-y-2 lg:space-y-3">
+                <h3 className="text-[16px] font-bold text-black lg:text-[22px]">
                   {feature.title}
                 </h3>
-                <p
-                  className={`${TYPOGRAPHY.cardDescription} ${COLORS.textGray}`}
-                >
+                <p className="text-[15px] font-medium leading-relaxed text-[#666666]">
                   {feature.description}
                 </p>
               </div>
