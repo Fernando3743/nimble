@@ -88,7 +88,7 @@ const categories: Category[] = [
 export function ShopByCategory() {
   return (
     <section className="px-4 pt-8 lg:pt-16">
-      <div className="mb-6 lg:mb-8 flex items-center justify-between">
+      <div className="mb-6 lg:mb-8 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <h2 className="text-2xl font-bold lg:text-[32px]">Shop By Categories</h2>
         <Link
           href="/categories"
@@ -118,20 +118,20 @@ export function ShopByCategory() {
         </Link>
       </div>
 
-      <div className="flex gap-0 overflow-x-auto scrollbar-hide sm:grid sm:grid-cols-3 sm:overflow-hidden md:grid-cols-4 lg:grid-cols-6 rounded-xl border border-zinc-200">
+      <div className="grid grid-cols-3 gap-0 overflow-hidden rounded-xl border border-zinc-200 md:grid-cols-4 lg:grid-cols-6">
         {categories.map((category) => (
           <Link
             key={category.id}
             href={`/category/${slugify(category.name)}`}
-            className="group flex h-[201px] w-[160px] flex-shrink-0 flex-col items-center justify-center gap-4 border border-zinc-200 transition-colors hover:bg-zinc-50 sm:w-auto"
+            className="group flex h-[160px] flex-col items-center justify-center gap-3 border border-zinc-200 transition-colors hover:bg-zinc-50 lg:h-[201px] lg:gap-4"
             aria-label={`Browse ${category.name}`}
           >
             <div
-              className="flex h-[110px] w-[110px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105"
+              className="flex h-[80px] w-[80px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105 lg:h-[110px] lg:w-[110px]"
             >
               {category.isSpecial ? (
                 <div className="flex h-full w-full items-center justify-center bg-red-600">
-                  <span className="text-3xl font-bold text-white">
+                  <span className="text-2xl font-bold text-white lg:text-3xl">
                     Sale
                   </span>
                 </div>
@@ -139,7 +139,7 @@ export function ShopByCategory() {
                 <span
                   role="img"
                   aria-label={category.emojiLabel}
-                  className="text-5xl"
+                  className="text-3xl lg:text-5xl"
                 >
                   {category.emoji}
                 </span>

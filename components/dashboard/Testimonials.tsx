@@ -3,35 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 
-// Design tokens matching Shopify theme specs
-const TYPOGRAPHY = {
-  base: "text-[15px] font-medium leading-[24px]", // Base from specs
-  eyebrow: "text-[13px] font-semibold uppercase tracking-wide",
-  heading: "text-[16px] font-bold",
-  quote: "text-[40px] font-bold leading-[1.2]",
-  author: "text-[18px] font-bold",
-  location: "text-[16px]",
-  category: "text-[12px] font-bold uppercase tracking-wider",
-  productName: "text-[15px] font-bold",
-  price: "text-[15px] font-bold",
-  pagination: "text-[16px] font-medium",
-} as const;
-
-const COLORS = {
-  bgWhite: "bg-white",
-  bgPurple: "bg-[#E8E5F5]",
-  textBlack: "text-black",
-  textGray: "text-zinc-600",
-} as const;
-
-const SIZES = {
-  sectionHeight: "h-[556px]",
-  cardWidth: "w-[250px]",
-  cardHeight: "h-[382.5px]",
-  cardPadding: "p-4", // 16px
-  productImageHeight: "h-[240px]",
-} as const;
-
 type Testimonial = {
   id: number;
   quote: string;
@@ -115,12 +86,10 @@ export function Testimonials() {
   };
 
   return (
-    <section
-      className={`${COLORS.bgWhite} ${TYPOGRAPHY.base} ${COLORS.textBlack} box-border`}
-    >
-      <div className={`grid grid-cols-1 ${SIZES.sectionHeight} lg:grid-cols-5`}>
+    <section className="bg-white text-[15px] font-medium leading-[24px] text-black">
+      <div className="grid grid-cols-1 lg:grid-cols-5">
         {/* Left Column - Background Image with Product Card */}
-        <div className="relative lg:col-span-3">
+        <div className="relative h-[500px] lg:col-span-3 lg:h-[556px]">
           <div className="relative h-full">
             <Image
               src={current.backgroundImage}
@@ -129,31 +98,45 @@ export function Testimonials() {
               className="object-cover"
             />
             {/* Floating Product Card Wrapper */}
-            <div
-              className={`absolute left-4 sm:left-8 top-1/2 ${SIZES.cardWidth} -translate-y-1/2 ${COLORS.bgWhite} ${SIZES.cardPadding} box-border overflow-hidden rounded-xl shadow-lg transition-all md:left-16`}
-            >
+            <div className="absolute left-1/2 top-1/2 w-[280px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-white p-4 shadow-lg lg:left-16 lg:w-[250px] lg:translate-x-0">
               {/* Product Card Image Wrapper */}
               <div className="mb-3 overflow-hidden rounded-xl bg-zinc-100">
-                <div className={`relative ${SIZES.productImageHeight}`}>
-                  <span
-                    role="img"
-                    aria-label="Chair"
-                    className="flex h-full items-center justify-center text-8xl"
-                  >
-                    🪑
-                  </span>
+                <div className="relative h-[240px]">
+                  <Image
+                    src={current.product.image}
+                    alt={current.product.name}
+                    fill
+                    className="object-cover"
+                  />
+                  {/* Cart button */}
+                  <button className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-105">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                  </button>
                 </div>
               </div>
 
               {/* Product Card Info */}
               <div className="flex flex-col gap-2">
-                <p className={`${TYPOGRAPHY.category} ${COLORS.textGray}`}>
+                <p className="text-[12px] font-bold uppercase tracking-wider text-zinc-600">
                   {current.product.category}
                 </p>
-                <h3 className={`${TYPOGRAPHY.productName} ${COLORS.textBlack}`}>
+                <h3 className="text-[15px] font-bold text-black">
                   {current.product.name}
                 </h3>
-                <p className={`${TYPOGRAPHY.price} ${COLORS.textBlack}`}>
+                <p className="text-[15px] font-bold text-black">
                   {current.product.price}
                 </p>
 
@@ -174,26 +157,24 @@ export function Testimonials() {
         </div>
 
         {/* Right Column - Testimonial Content */}
-        <div
-          className={`${COLORS.bgPurple} flex flex-col justify-center px-8 py-16 lg:col-span-2 lg:px-12`}
-        >
-          <div className="space-y-8">
+        <div className="flex flex-col justify-center bg-[#E8E5F5] px-6 py-12 lg:col-span-2 lg:px-12 lg:py-16">
+          <div className="space-y-6 lg:space-y-8">
             {/* Heading */}
-            <p className={`${TYPOGRAPHY.heading} ${COLORS.textBlack}`}>
+            <p className="text-sm font-bold lg:text-[16px] text-black">
               Our Favorite Products
             </p>
 
             {/* Quote */}
-            <blockquote className={`${TYPOGRAPHY.quote} ${COLORS.textBlack}`}>
+            <blockquote className="text-2xl font-bold leading-tight text-black lg:text-[40px] lg:leading-[1.2]">
               "{current.quote}"
             </blockquote>
 
             {/* Author Info */}
             <div className="space-y-1">
-              <p className={`${TYPOGRAPHY.author} ${COLORS.textBlack}`}>
+              <p className="text-base font-bold text-black lg:text-[18px]">
                 {current.author}
               </p>
-              <p className={`${TYPOGRAPHY.location} ${COLORS.textGray}`}>
+              <p className="text-sm text-zinc-600 lg:text-[16px]">
                 {current.location}
               </p>
             </div>
@@ -202,7 +183,7 @@ export function Testimonials() {
             <div className="flex items-center gap-6">
               <button
                 onClick={goToPrevious}
-                className={`${COLORS.textBlack} transition-colors hover:text-zinc-600`}
+                className="text-black transition-colors hover:text-zinc-600"
                 aria-label="Previous testimonial"
               >
                 <svg
@@ -219,13 +200,13 @@ export function Testimonials() {
                 </svg>
               </button>
 
-              <span className={`${TYPOGRAPHY.pagination} ${COLORS.textBlack}`}>
+              <span className="text-sm font-medium text-black lg:text-[16px]">
                 {currentIndex + 1}/{testimonials.length}
               </span>
 
               <button
                 onClick={goToNext}
-                className={`${COLORS.textBlack} transition-colors hover:text-zinc-600`}
+                className="text-black transition-colors hover:text-zinc-600"
                 aria-label="Next testimonial"
               >
                 <svg

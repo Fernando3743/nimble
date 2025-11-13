@@ -1,27 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// Design tokens
-const SPACING = {
-  sectionY: "py-16",
-  itemGap: "mt-10",
-  headingGap: "space-y-6",
-  subHeadingGap: "space-y-4",
-} as const;
-
-const TYPOGRAPHY = {
-  eyebrow: "text-[16px] font-bold",
-  heading: "text-[40px] font-bold leading-[1.1]",
-  subheading: "text-[40px] font-bold leading-[1.2]",
-  body: "text-[15px] font-normal leading-relaxed",
-  button: "text-[15px] font-semibold",
-} as const;
-
-const SIZES = {
-  thumbnail: { width: 88, height: 88 },
-  heroImage: { mobile: 500, desktop: 620 },
-} as const;
-
 type Collection = {
   name: string;
   items: string[];
@@ -50,23 +29,23 @@ export function FeaturedCollections() {
   const collection = collections[0];
 
   return (
-    <section className={`px-4 ${SPACING.sectionY}`}>
-      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <section className="px-4 py-8 lg:py-16">
+      <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
         {/* Left Column - Content */}
         <div className="flex flex-col lg:pl-8">
-          <div className={SPACING.headingGap}>
-            <p className={`${TYPOGRAPHY.eyebrow} text-black`}>
+          <div className="space-y-4 lg:space-y-6">
+            <p className="text-sm font-bold lg:text-[16px] text-black">
               Featured Collections
             </p>
-            <div className={SPACING.subHeadingGap}>
-              <h2 className={`${TYPOGRAPHY.heading} text-black underline`}>
+            <div className="space-y-2 lg:space-y-4">
+              <h2 className="text-3xl font-bold leading-tight text-black underline lg:text-[40px] lg:leading-[1.1]">
                 {collection.name}
               </h2>
               <div className="space-y-0">
                 {collection.items.map((item, idx) => (
                   <p
                     key={`${item}-${idx}`}
-                    className={`${TYPOGRAPHY.subheading} text-zinc-400`}
+                    className="text-3xl font-bold leading-tight text-zinc-400 lg:text-[40px] lg:leading-[1.2]"
                   >
                     {item}
                   </p>
@@ -75,12 +54,23 @@ export function FeaturedCollections() {
             </div>
           </div>
 
+          {/* Hero Image - Mobile Only */}
+          <div className="relative mt-6 h-[400px] overflow-hidden rounded-3xl lg:hidden">
+            <Image
+              src={collection.heroImage}
+              alt={collection.name}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+
           {/* Product Thumbnails */}
-          <div className={`${SPACING.itemGap} flex gap-3`}>
+          <div className="mt-6 flex gap-3 lg:mt-10">
             {collection.thumbnails.map((thumbnail, index) => (
               <div
                 key={`${thumbnail}-${index}`}
-                className={`flex h-[${SIZES.thumbnail.height}px] w-[${SIZES.thumbnail.width}px] items-center justify-center rounded-xl bg-zinc-50 text-4xl transition-transform hover:scale-105`}
+                className="flex h-[88px] w-[88px] items-center justify-center rounded-xl bg-zinc-50 text-4xl transition-transform hover:scale-105"
               >
                 <span role="img" aria-label={THUMBNAIL_LABELS[index]}>
                   {thumbnail}
@@ -90,17 +80,15 @@ export function FeaturedCollections() {
           </div>
 
           {/* Description */}
-          <p
-            className={`${SPACING.itemGap} max-w-sm ${TYPOGRAPHY.body} text-zinc-600`}
-          >
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-zinc-600 lg:mt-10 lg:text-[15px]">
             {collection.description}
           </p>
 
           {/* CTA Button */}
-          <div className={SPACING.itemGap}>
+          <div className="mt-6 lg:mt-10">
             <Link
               href={collection.link}
-              className={`inline-flex items-center justify-center rounded-full bg-black px-10 py-3 ${TYPOGRAPHY.button} text-white transition-all hover:bg-zinc-800`}
+              className="inline-flex items-center justify-center rounded-full bg-black px-10 py-3 text-[15px] font-semibold text-white transition-all hover:bg-zinc-800"
               aria-label={`Shop ${collection.name} collection`}
             >
               Shop Collection
@@ -108,10 +96,8 @@ export function FeaturedCollections() {
           </div>
         </div>
 
-        {/* Right Column - Hero Image */}
-        <div
-          className={`relative h-[${SIZES.heroImage.mobile}px] overflow-hidden rounded-3xl lg:h-[${SIZES.heroImage.desktop}px]`}
-        >
+        {/* Right Column - Hero Image (Desktop Only) */}
+        <div className="relative hidden h-[620px] overflow-hidden rounded-3xl lg:block">
           <Image
             src={collection.heroImage}
             alt={collection.name}
