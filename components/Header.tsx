@@ -54,7 +54,7 @@ export function Header() {
   return (
     <>
       {/* Top promotional banner */}
-      <div className="bg-primary text-[15px] text-white">
+      <div className={`bg-primary text-[15px] text-white ${isMobileMenuOpen ? 'hidden lg:block' : ''}`}>
         <div
           className={`${CONTAINER} flex flex-col gap-3 py-2 lg:flex-row lg:items-center lg:justify-between lg:py-3`}
         >
@@ -213,93 +213,113 @@ export function Header() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-            onClick={toggleMobileMenu}
-          />
-
-          {/* Mobile Menu Drawer */}
-          <div className="fixed left-0 top-0 z-50 h-screen w-[280px] overflow-y-auto bg-white shadow-xl lg:hidden">
-            <div className="flex flex-col">
-              {/* Mobile Menu Header */}
-              <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-4">
-                <div className="text-2xl font-black uppercase tracking-tight text-dark">
-                  Menu
-                </div>
+        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto">
+          {/* Mobile Menu Header */}
+          <div className="sticky top-0 bg-white border-b border-zinc-200 px-4 py-3">
+            <div className="flex items-center justify-between mb-3">
+              {/* Close button and Logo */}
+              <div className="flex items-center gap-3">
                 <button
                   onClick={toggleMobileMenu}
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-dark transition hover:bg-light-gray"
+                  className="flex h-10 w-10 items-center justify-center text-dark"
                   aria-label="Close menu"
                 >
                   {icons.close({ className: "text-dark" })}
                 </button>
+                <div className="text-2xl font-black uppercase tracking-tight text-dark">
+                  Nimble
+                </div>
               </div>
 
-              {/* Mobile Navigation Links */}
-              <nav className="flex flex-col px-4 py-4">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    className={`flex items-center justify-between border-b border-zinc-100 py-4 text-[15px] font-bold transition ${
-                      link.label === activeNav ? "text-black" : "text-dark-gray hover:text-black"
-                    }`}
-                    href="#"
-                  >
-                    <span>{link.label}</span>
-                    {link.dropdown && <span>{icons.chevron()}</span>}
-                  </a>
-                ))}
-                <a
-                  className="flex items-center justify-between border-b border-zinc-100 py-4 text-[15px] font-bold text-sale"
-                  href="#"
+              {/* Action Icons */}
+              <div className="flex items-center gap-2">
+                <button
+                  className="flex h-10 w-10 items-center justify-center text-dark-gray"
+                  type="button"
+                  aria-label="Find a store"
                 >
-                  <span className="flex items-center gap-2">
-                    On Sale
-                    <span className="text-sale">{icons.sparkle()}</span>
-                  </span>
-                </a>
-              </nav>
-
-              {/* Mobile Utility Links */}
-              <div className="border-t border-zinc-200 px-4 py-4">
-                <div className="mb-3 text-xs font-semibold uppercase text-dark-gray">
-                  Quick Links
-                </div>
-                {utilityLinks.map((link) => (
-                  <a
-                    key={link}
-                    className="block py-2 text-sm font-medium text-dark-gray transition hover:text-black"
-                    href="#"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-
-              {/* Mobile Country & Social */}
-              <div className="border-t border-zinc-200 px-4 py-4">
-                <div className="mb-3 flex items-center gap-2 text-sm">
-                  <span className="text-base leading-none">🇺🇸</span>
-                  <span className="font-medium text-dark-gray">United States (USD $)</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  {socialIcons.map((social) => (
-                    <a
-                      key={social}
-                      className="inline-flex h-9 w-9 items-center justify-center text-dark-gray transition hover:text-black"
-                      aria-label={social}
-                      href="#"
-                    >
-                      {icons[social]()}
-                    </a>
-                  ))}
-                </div>
+                  {icons.location({ className: "size-6 text-dark-gray" })}
+                </button>
+                <button
+                  className="flex h-10 w-10 items-center justify-center text-dark-gray"
+                  type="button"
+                  aria-label="User account"
+                >
+                  {icons.user({ className: "size-6 text-dark-gray" })}
+                </button>
+                <button
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-light-gray text-black"
+                  type="button"
+                  aria-label="Shopping bag"
+                >
+                  {icons.bag({ className: "text-black" })}
+                </button>
               </div>
             </div>
+
+            {/* Search Bar */}
+            <div className="flex items-center gap-2 rounded-full bg-light-gray px-4 py-2.5 text-[15px] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+              <button
+                className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none"
+                type="button"
+              >
+                All
+                {icons.chevron()}
+              </button>
+              <input
+                className="w-full flex-1 border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60"
+                placeholder="What are you looking for?"
+              />
+              <span>{icons.search()}</span>
+            </div>
           </div>
-        </>
+
+          {/* Mobile Navigation Links */}
+          <nav className="flex flex-col">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30"
+                href="#"
+              >
+                <span>{link.label}</span>
+                {link.dropdown && <span>{icons.chevron()}</span>}
+              </a>
+            ))}
+            <a
+              className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold transition hover:bg-light-gray/30"
+              href="#"
+            >
+              <span className="text-sale">* On Sale *</span>
+            </a>
+
+            {/* Additional Action Items */}
+            <a
+              className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
+              href="#"
+            >
+              {icons.location({ className: "size-6 text-dark-gray" })}
+              <span>Find a store</span>
+            </a>
+            <a
+              className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
+              href="#"
+            >
+              {icons.user({ className: "size-6 text-dark-gray" })}
+              <span>Sign in/ Register</span>
+            </a>
+
+            {/* Country Selector */}
+            <button
+              className="flex items-center gap-2 border-b border-zinc-100 px-4 py-4 text-[15px] font-medium text-black transition hover:bg-light-gray/30"
+              type="button"
+            >
+              <span className="text-lg leading-none">🇺🇸</span>
+              <span className="flex-1 text-left">United States (USD $)</span>
+              <span>{icons.chevron()}</span>
+            </button>
+          </nav>
+        </div>
       )}
     </>
   );
