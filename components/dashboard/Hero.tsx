@@ -43,6 +43,11 @@ const heroSlides = [
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -62,6 +67,29 @@ export function Hero() {
       setCurrentSlide((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1));
     } else {
       setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
+    }
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      scrollHero("right");
+    } else if (isRightSwipe) {
+      scrollHero("left");
     }
   };
 
@@ -149,7 +177,12 @@ export function Hero() {
         </div>
 
         <div className="relative mt-6 overflow-hidden rounded-[32px]">
-          <div className="relative h-[520px] w-full">
+          <div
+            className="relative h-[520px] w-full"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <Image
               src={hero.image}
               fill
@@ -162,7 +195,7 @@ export function Hero() {
             {/* Navigation Buttons */}
             <button
               onClick={() => scrollHero("left")}
-              className="group/btn absolute left-6 top-1/2 z-10 flex size-[38px] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-white shadow-md transition-opacity duration-300"
+              className="group/btn absolute left-6 top-1/2 z-10 hidden lg:flex size-[38px] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-white shadow-md transition-opacity duration-300"
               type="button"
               aria-label="Previous slide"
             >
@@ -184,7 +217,7 @@ export function Hero() {
 
             <button
               onClick={() => scrollHero("right")}
-              className="group/btn absolute right-6 top-1/2 z-10 flex size-[38px] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-white shadow-md transition-opacity duration-300"
+              className="group/btn absolute right-6 top-1/2 z-10 hidden lg:flex size-[38px] -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-white shadow-md transition-opacity duration-300"
               type="button"
               aria-label="Next slide"
             >
