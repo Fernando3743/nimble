@@ -119,9 +119,9 @@ export function InstagramFeed() {
               rel="noopener noreferrer"
               className="group flex-shrink-0"
             >
-              <div className="w-[320px] overflow-hidden rounded-xl bg-white">
+              <div className="w-[280px] sm:w-[300px] md:w-[320px] overflow-hidden rounded-xl bg-white">
                 {/* Image with User Info Overlay */}
-                <div className="relative h-[320px] overflow-hidden">
+                <div className="relative h-[280px] sm:h-[300px] md:h-[320px] overflow-hidden">
                   <Image
                     src={post.image}
                     alt={`Post by ${post.username}`}

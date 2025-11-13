@@ -69,7 +69,7 @@ export function Hero() {
 
   return (
     <section className="bg-white">
-      <div className="px-[50px] pt-[20px]">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px] pt-[20px]">
         <div className="group relative flex items-center pb-6">
           <button
             onClick={() => scroll("left")}
@@ -95,7 +95,7 @@ export function Hero() {
 
           <div
             ref={scrollRef}
-            className="flex flex-1 gap-16 overflow-x-auto scrollbar-hide"
+            className="flex flex-1 gap-6 sm:gap-8 md:gap-12 lg:gap-16 overflow-x-auto scrollbar-hide"
           >
             {categories.map((category) => (
               <button
@@ -104,7 +104,7 @@ export function Hero() {
                 type="button"
               >
                 <div
-                  className={`flex size-20 items-center justify-center rounded-full transition hover:shadow-md ${
+                  className={`flex size-16 sm:size-20 items-center justify-center rounded-full transition hover:shadow-md ${
                     category === "Sale Items"
                       ? "bg-[#C4523C] shadow-sm"
                       : "bg-[#F5F5F5] shadow-sm"

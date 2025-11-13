@@ -116,8 +116,7 @@ export function InspiredSpaces() {
         {spaces.map((space) => (
           <div
             key={space.id}
-            className="group relative flex-shrink-0 overflow-hidden rounded-2xl"
-            style={{ width: "380px", height: "500px" }}
+            className="group relative flex-shrink-0 overflow-hidden rounded-2xl w-[280px] sm:w-[320px] md:w-[360px] lg:w-[380px] h-[400px] sm:h-[450px] md:h-[500px]"
           >
             <Image
               src={space.image}

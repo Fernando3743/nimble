@@ -130,7 +130,7 @@ export function Testimonials() {
             />
             {/* Floating Product Card Wrapper */}
             <div
-              className={`absolute left-8 top-1/2 ${SIZES.cardWidth} -translate-y-1/2 ${COLORS.bgWhite} ${SIZES.cardPadding} box-border overflow-hidden rounded-xl shadow-lg transition-all md:left-16`}
+              className={`absolute left-4 sm:left-8 top-1/2 ${SIZES.cardWidth} -translate-y-1/2 ${COLORS.bgWhite} ${SIZES.cardPadding} box-border overflow-hidden rounded-xl shadow-lg transition-all md:left-16`}
             >
               {/* Product Card Image Wrapper */}
               <div className="mb-3 overflow-hidden rounded-xl bg-zinc-100">

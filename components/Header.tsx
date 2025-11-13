@@ -4,7 +4,7 @@ import { icons } from "@/components/icons";
 import { useEffect, useState } from "react";
 
 // Constants
-const CONTAINER = "w-full px-[50px]";
+const CONTAINER = "w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
 const SCROLL_THRESHOLD = 10;
 
 // Navigation data

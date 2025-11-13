@@ -39,40 +39,40 @@ export function FlashSale() {
   }, []);
 
   return (
-    <section className="px-4 pt-[40px]">
-      <div className="flex items-center justify-between rounded-3xl bg-[#E8F36C] px-12 py-10">
+    <section className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px] pt-[40px]">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6 rounded-3xl bg-[#E8F36C] px-6 sm:px-8 md:px-12 py-6 md:py-10">
         {/* Left - Flash Sale Text */}
         <div className="flex-shrink-0">
           <h2 className="text-lg font-bold text-black">Flash Sale now on!</h2>
         </div>
 
         {/* Center - Countdown Timer */}
-        <div className="flex items-center gap-3">
-          <span className="text-6xl font-bold text-black">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">
             {String(timeLeft.days).padStart(2, "0")}
           </span>
-          <span className="text-6xl font-bold text-black">:</span>
-          <span className="text-6xl font-bold text-black">
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">:</span>
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">
             {String(timeLeft.hours).padStart(2, "0")}
           </span>
-          <span className="text-6xl font-bold text-black">:</span>
-          <span className="text-6xl font-bold text-black">
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">:</span>
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">
             {String(timeLeft.minutes).padStart(2, "0")}
           </span>
-          <span className="text-6xl font-bold text-black">:</span>
-          <span className="text-6xl font-bold text-black">
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">:</span>
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">
             {String(timeLeft.seconds).padStart(2, "0")}
           </span>
         </div>
 
         {/* Right - Description and Button */}
-        <div className="flex items-center gap-8">
-          <p className="text-base text-black">
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 text-center sm:text-left">
+          <p className="text-sm sm:text-base text-black">
             Save on modern table office,
-            <br />
+            <br className="hidden sm:block" />
             best sellers + more
           </p>
-          <button className="flex-shrink-0 rounded-full bg-black px-8 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+          <button className="flex-shrink-0 rounded-full bg-black px-6 sm:px-8 py-3 sm:py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90">
             Use Code: FLASH30
           </button>
         </div>

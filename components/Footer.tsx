@@ -310,7 +310,7 @@ export function Footer() {
               </button>
 
               {/* Payment Methods */}
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <div className="flex h-8 w-12 items-center justify-center rounded border border-zinc-200 bg-white text-[10px] font-bold text-blue-600">
                   VISA
                 </div>

@@ -5,7 +5,7 @@ import { icons } from "../icons";
 import { ProductCard, type Product } from "./ProductCard";
 
 // ===== CONSTANTS =====
-const CONTAINER_PADDING = "px-[50px]";
+const CONTAINER_PADDING = "px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
 const GRAY_COLOR = "#666666";
 const SCROLL_AMOUNT = 400;
 
