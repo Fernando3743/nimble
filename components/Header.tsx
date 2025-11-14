@@ -95,7 +95,7 @@ export function Header() {
               <span className="font-medium">United States (USD $)</span>
               <span className="pt-0.5">{icons.chevronLight()}</span>
             </div>
-            <div className="flex items-center text-white">
+            <div className="flex items-center">
               {socialIcons.map((social) => (
                 <a
                   key={social}
@@ -103,7 +103,7 @@ export function Header() {
                   aria-label={social}
                   href="#"
                 >
-                  {icons[social]()}
+                  {icons[social]({ className: "text-white" })}
                 </a>
               ))}
             </div>
@@ -113,9 +113,7 @@ export function Header() {
 
       {/* Sticky header */}
       <header
-        className={`sticky top-0 z-[60] bg-white transition-shadow duration-200 ${
-          isMobileMenuOpen ? "" : "border-b border-zinc-200"
-        } ${
+        className={`sticky top-0 z-[60] bg-white transition-shadow duration-200 border-b border-zinc-200 ${
           isSticky && !isMobileMenuOpen ? "shadow-sm" : ""
         }`}
       >
@@ -151,7 +149,8 @@ export function Header() {
               className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
               type="button"
             >
-              All
+              <span className="hidden lg:inline">All Categories</span>
+              <span className="lg:hidden">All</span>
               {icons.chevron()}
             </button>
             <span className="hidden h-6 w-px bg-zinc-300 sm:block" />
@@ -249,7 +248,7 @@ export function Header() {
 
             {/* Additional Action Items */}
             <a
-              className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
+              className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30 mt-8"
               href="#"
             >
               {icons.location({ className: "size-6 text-dark-gray" })}
@@ -265,13 +264,27 @@ export function Header() {
 
             {/* Country Selector */}
             <button
-              className="flex items-center gap-2 border-b border-zinc-100 px-4 py-4 text-[15px] font-medium text-black transition hover:bg-light-gray/30"
+              className="flex items-center gap-2 px-4 py-4 text-[15px] font-medium text-black transition hover:bg-light-gray/30"
               type="button"
             >
               <span className="text-lg leading-none">🇺🇸</span>
               <span className="flex-1 text-left">United States (USD $)</span>
               <span>{icons.chevron()}</span>
             </button>
+
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-3 px-4 py-4">
+              {socialIcons.map((social) => (
+                <a
+                  key={social}
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-zinc-300 text-black transition hover:border-black hover:text-black"
+                  aria-label={social}
+                  href="#"
+                >
+                  {icons[social]({ className: "h-6 w-6" })}
+                </a>
+              ))}
+            </div>
           </nav>
         </>
       )}
