@@ -66,7 +66,7 @@ export function Header() {
   return (
     <>
       {/* Top promotional banner */}
-      <div className={`bg-primary text-[15px] text-white ${isMobileMenuOpen ? 'hidden lg:block' : ''}`}>
+      <div className={"bg-primary text-[15px] text-white" }>
         <div
           className={`${CONTAINER} flex flex-col gap-3 py-2 lg:flex-row lg:items-center lg:justify-between lg:py-3`}
         >
