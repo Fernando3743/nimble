@@ -1,6 +1,7 @@
 "use client";
 
 import { icons } from "@/components/icons";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // Constants
@@ -47,9 +48,10 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when mobile menu is open (only on mobile)
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    if (isMobileMenuOpen && isMobile) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -165,7 +167,24 @@ export function Header() {
           <div className="order-2 flex flex-1 items-center justify-end gap-3 text-[15px] text-dark-gray sm:order-3 lg:ml-4 lg:gap-6">
             {actionLinks.map((action) => {
               const isBag = action.icon === "bag";
+              const isUser = action.icon === "user";
               const isLocationOrUser = action.icon === "location" || action.icon === "user";
+
+              if (isUser) {
+                return (
+                  <Link
+                    key={action.label}
+                    href="/auth/signin"
+                    className="flex items-center gap-2 font-semibold transition hover:text-black"
+                  >
+                    {icons[action.icon]({
+                      className: "size-6 text-dark-gray",
+                    })}
+                    <span className="hidden lg:inline">{action.label}</span>
+                  </Link>
+                );
+              }
+
               return (
                 <button
                   key={action.label}
@@ -191,10 +210,10 @@ export function Header() {
           </div>
         </div>
 
-        {/* Desktop Navigation (hidden when sticky) */}
+        {/* Desktop Navigation (hidden when sticky unless menu is open) */}
         <div
           className={`hidden border-b border-zinc-200 transition-all duration-300 ease-in-out lg:block ${
-            isSticky
+            isSticky && !isMobileMenuOpen
               ? "max-h-0 overflow-hidden opacity-0"
               : "max-h-20 opacity-100"
           }`}
@@ -254,13 +273,13 @@ export function Header() {
               {icons.location({ className: "size-6 text-dark-gray" })}
               <span>Find a store</span>
             </a>
-            <a
+            <Link
               className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
-              href="#"
+              href="/auth/signin"
             >
               {icons.user({ className: "size-6 text-dark-gray" })}
               <span>Sign in/ Register</span>
-            </a>
+            </Link>
 
             {/* Country Selector */}
             <button
