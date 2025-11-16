@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -36,32 +39,35 @@ type PromoBanner = {
   emoji: string;
 };
 
-const banners: PromoBanner[] = [
-  {
-    id: 1,
-    title: "Turn Chairs",
-    description: "Elevate your space with 40% off our timeless designs!",
-    discount: "40%",
-    badgeColor: COLORS.yellowBadge,
-    backgroundColor: COLORS.pinkBg,
-    badgeTextColor: COLORS.blackText,
-    buttonLink: "/products/turn-chairs",
-    emoji: "🪑",
-  },
-  {
-    id: 2,
-    title: "Cross Chairs",
-    description: "Get 30% off elegant, timeless seating—don't miss out!",
-    discount: "30%",
-    badgeColor: COLORS.redBadge,
-    backgroundColor: COLORS.mintBg,
-    badgeTextColor: COLORS.whiteText,
-    buttonLink: "/products/cross-chairs",
-    emoji: "🪑",
-  },
-];
 
 export function PromoBanners() {
+  const t = useTranslation();
+
+  const banners: PromoBanner[] = [
+    {
+      id: 1,
+      title: t.promoBanners.banners[0].title,
+      description: t.promoBanners.banners[0].description,
+      discount: t.promoBanners.banners[0].discount,
+      badgeColor: COLORS.yellowBadge,
+      backgroundColor: COLORS.pinkBg,
+      badgeTextColor: COLORS.blackText,
+      buttonLink: "/products/turn-chairs",
+      emoji: "🪑",
+    },
+    {
+      id: 2,
+      title: t.promoBanners.banners[1].title,
+      description: t.promoBanners.banners[1].description,
+      discount: t.promoBanners.banners[1].discount,
+      badgeColor: COLORS.redBadge,
+      backgroundColor: COLORS.mintBg,
+      badgeTextColor: COLORS.whiteText,
+      buttonLink: "/products/cross-chairs",
+      emoji: "🪑",
+    },
+  ];
+
   return (
     <section className="px-4 pt-8 lg:pt-10">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -87,7 +93,7 @@ export function PromoBanners() {
                   href={banner.buttonLink}
                   className={`inline-flex items-center justify-center rounded-full ${COLORS.blackButton} px-8 py-4 ${TYPOGRAPHY.button} ${COLORS.whiteText} transition-all hover:bg-zinc-800`}
                 >
-                  Shop Now
+                  {t.promoBanners.banners[0].cta}
                 </Link>
               </div>
             </div>
@@ -104,7 +110,7 @@ export function PromoBanners() {
               <span
                 className={`${TYPOGRAPHY.badgeSave} ${banner.badgeTextColor}`}
               >
-                Save
+                {t.promoBanners.banners[0].label}
               </span>
               <span
                 className={`${TYPOGRAPHY.badgeText} ${banner.badgeTextColor} leading-none`}

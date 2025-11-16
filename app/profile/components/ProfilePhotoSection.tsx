@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, useEffect, useCallback } from "react";
 import ImageCropper from "./ImageCropper";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 interface ProfilePhotoSectionProps {
   avatarUrl: string | null;
@@ -20,6 +23,7 @@ export default function ProfilePhotoSection({
   onAvatarUpload,
   onSaveCrop,
 }: ProfilePhotoSectionProps) {
+  const t = useTranslation();
   const [adjustingPhoto, setAdjustingPhoto] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -63,7 +67,7 @@ export default function ProfilePhotoSection({
 
   return (
     <div className="rounded-lg bg-white p-6 shadow-sm">
-      <h2 className="mb-6 text-xl font-black text-dark">Profile Photo</h2>
+      <h2 className="mb-6 text-xl font-black text-dark">{t.profile.photoTitle}</h2>
 
       <div className="flex items-start gap-6">
         {/* Profile Photo or Cropper */}
@@ -111,7 +115,7 @@ export default function ProfilePhotoSection({
                 : 'cursor-pointer hover:bg-light-gray/50'
             }`}
           >
-            {uploading ? "Uploading..." : "Upload New Photo"}
+            {uploading ? t.profile.uploading : t.profile.uploadNewPhoto}
           </label>
           {avatarUrl && (
             <button
@@ -124,18 +128,18 @@ export default function ProfilePhotoSection({
               }`}
               type="button"
             >
-              Adjust Photo
+              {t.profile.adjustPhoto}
             </button>
           )}
           <p className="mt-2 text-xs text-dark-gray">
-            JPG, PNG or GIF. Max size 2MB.
+            {t.profile.photoHint}
           </p>
 
           {/* Adjustment Controls - Show when adjusting */}
           {adjustingPhoto && (
             <div className="mt-4 space-y-3">
               <p className="text-xs text-dark-gray">
-                Drag to reposition • Use +/− keys to zoom
+                {t.profile.cropHint}
               </p>
 
               {/* Action Buttons */}
@@ -146,7 +150,7 @@ export default function ProfilePhotoSection({
                   className="rounded-full bg-primary px-6 py-2 text-sm font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                   type="button"
                 >
-                  {saving ? "Saving..." : "Save Position"}
+                  {saving ? t.profile.saving : t.profile.savePosition}
                 </button>
                 <button
                   onClick={handleCancel}
@@ -154,7 +158,7 @@ export default function ProfilePhotoSection({
                   className="rounded-full border border-zinc-300 bg-white px-6 py-2 text-sm font-bold text-dark transition hover:bg-light-gray/50 disabled:cursor-not-allowed disabled:opacity-50"
                   type="button"
                 >
-                  Cancel
+                  {t.profile.cancel}
                 </button>
               </div>
             </div>

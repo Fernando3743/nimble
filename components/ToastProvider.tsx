@@ -19,6 +19,7 @@ export function ToastProvider() {
       transition={Slide}
       closeButton={true}
       limit={3}
+      style={{ zIndex: 9999 }}
     />
   );
 }

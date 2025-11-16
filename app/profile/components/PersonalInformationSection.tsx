@@ -1,7 +1,10 @@
+"use client";
+
 import type { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/Button";
 import { FormField } from "@/components/ui/FormField";
 import type { ProfileFormData } from "@/types";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 interface PersonalInformationSectionProps {
   formData: ProfileFormData;
@@ -24,24 +27,26 @@ export default function PersonalInformationSection({
   onSave,
   onCancel,
 }: PersonalInformationSectionProps) {
+  const t = useTranslation();
+
   return (
     <div className="rounded-lg bg-white p-6 shadow-sm">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-black text-dark">Personal Information</h2>
+        <h2 className="text-xl font-black text-dark">{t.profile.personalInfoTitle}</h2>
         {!editing && (
           <Button
             onClick={onEdit}
             variant="outline"
             size="sm"
           >
-            Edit
+            {t.profile.edit}
           </Button>
         )}
       </div>
 
       <div className="space-y-4">
         <FormField
-          label="First Name"
+          label={t.profile.firstNameLabel}
           name="firstName"
           value={formData.firstName}
           onChange={onChange}
@@ -49,7 +54,7 @@ export default function PersonalInformationSection({
         />
 
         <FormField
-          label="Last Name"
+          label={t.profile.lastNameLabel}
           name="lastName"
           value={formData.lastName}
           onChange={onChange}
@@ -57,16 +62,16 @@ export default function PersonalInformationSection({
         />
 
         <FormField
-          label="Email Address"
+          label={t.profile.emailLabel}
           type="email"
           name="email"
           value={formData.email}
           disabled
-          helperText="Email cannot be changed"
+          helperText={t.profile.emailHint}
         />
 
         <FormField
-          label="Phone Number"
+          label={t.profile.phoneLabel}
           type="tel"
           name="phone"
           value={formData.phone}
@@ -82,14 +87,14 @@ export default function PersonalInformationSection({
               loading={saving}
               fullWidth
             >
-              Save Changes
+              {t.profile.saveChanges}
             </Button>
             <Button
               onClick={onCancel}
               variant="outline"
               fullWidth
             >
-              Cancel
+              {t.profile.cancel}
             </Button>
           </div>
         )}

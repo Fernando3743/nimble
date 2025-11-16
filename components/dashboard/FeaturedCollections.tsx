@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 type Collection = {
   name: string;
@@ -10,23 +13,20 @@ type Collection = {
   link: string;
 };
 
-const collections: Collection[] = [
-  {
-    name: "Heritage Living",
-    items: ["The Haven Collection", "Solace Series"],
-    description:
-      "With a shape inspired by the bollards used to secure vessels to a jetty",
-    thumbnails: ["🪑", "🛋️", "🪑", "💺"],
-    heroImage:
-      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=80",
-    link: "/collections/heritage-living",
-  },
-];
 
 const THUMBNAIL_LABELS = ["Chair", "Sofa", "Chair", "Seat"] as const;
 
 export function FeaturedCollections() {
-  const collection = collections[0];
+  const t = useTranslation();
+
+  const collection = {
+    name: t.featuredCollections.collections[0].name,
+    items: [t.featuredCollections.collections[1].name, t.featuredCollections.collections[2].name],
+    description: t.featuredCollections.collections[0].description,
+    thumbnails: ["🪑", "🛋️", "🪑", "💺"],
+    heroImage: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=80",
+    link: "/collections/heritage-living",
+  };
 
   return (
     <section className="px-4 py-8 lg:py-16">
@@ -35,7 +35,7 @@ export function FeaturedCollections() {
         <div className="flex flex-col lg:pl-8">
           <div className="space-y-4 lg:space-y-6">
             <p className="text-sm font-bold lg:text-[16px] text-black">
-              Featured Collections
+              {t.featuredCollections.title}
             </p>
             <div className="space-y-2 lg:space-y-4">
               <h2 className="text-3xl font-bold leading-tight text-black underline lg:text-[40px] lg:leading-[1.1]">
@@ -91,7 +91,7 @@ export function FeaturedCollections() {
               className="inline-flex items-center justify-center rounded-full bg-black px-10 py-3 text-[15px] font-semibold text-white transition-all hover:bg-zinc-800"
               aria-label={`Shop ${collection.name} collection`}
             >
-              Shop Collection
+              {t.featuredCollections.collections[0].cta}
             </Link>
           </div>
         </div>

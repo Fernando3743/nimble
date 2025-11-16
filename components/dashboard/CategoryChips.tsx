@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { slugify } from "@/lib/utils";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -20,50 +21,21 @@ type Category = {
   icon: string;
 };
 
-const categories: Category[] = [
-  {
-    id: 1,
-    name: "Living Room",
-    icon: "🪑",
-  },
-  {
-    id: 2,
-    name: "Planters",
-    icon: "🌱",
-  },
-  {
-    id: 3,
-    name: "Gravel Rug",
-    icon: "⚪",
-  },
-  {
-    id: 4,
-    name: "Table Mirror",
-    icon: "🪞",
-  },
-  {
-    id: 5,
-    name: "Table Wears",
-    icon: "🛋️",
-  },
-  {
-    id: 6,
-    name: "Dining Decor",
-    icon: "📦",
-  },
-  {
-    id: 7,
-    name: "Ray Table Lamp",
-    icon: "💡",
-  },
-  {
-    id: 8,
-    name: "Bedroom",
-    icon: "🛏️",
-  },
-];
 
 export function CategoryChips() {
+  const t = useTranslation();
+
+  const categories: Category[] = [
+    { id: 1, name: t.categoryChips.categories[0], icon: "🪑" },
+    { id: 2, name: t.categoryChips.categories[1], icon: "🌱" },
+    { id: 3, name: t.categoryChips.categories[2], icon: "⚪" },
+    { id: 4, name: t.categoryChips.categories[3], icon: "🪞" },
+    { id: 5, name: t.categoryChips.categories[4], icon: "🛋️" },
+    { id: 6, name: t.categoryChips.categories[5], icon: "📦" },
+    { id: 7, name: t.categoryChips.categories[6], icon: "💡" },
+    { id: 8, name: t.categoryChips.categories[7], icon: "🛏️" },
+  ];
+
   return (
     <section className="px-4 pt-8">
       <div

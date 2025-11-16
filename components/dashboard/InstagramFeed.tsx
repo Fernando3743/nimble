@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -73,6 +74,7 @@ const posts: InstagramPost[] = [
 ];
 
 export function InstagramFeed() {
+  const t = useTranslation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -102,7 +104,7 @@ export function InstagramFeed() {
         <h2
           className={`${TYPOGRAPHY.heading} ${COLORS.textWhite} mb-8 text-center`}
         >
-          We're on Gram
+          {t.instagram.title}
         </h2>
 
         {/* Instagram Posts Grid */}
@@ -189,7 +191,7 @@ export function InstagramFeed() {
             rel="noopener noreferrer"
             className={`${TYPOGRAPHY.handle} ${COLORS.textWhite} inline-block border-b-2 border-white pb-1 transition-opacity hover:opacity-80`}
           >
-            @Garage_store
+            {t.instagram.handle}
           </Link>
         </div>
       </div>

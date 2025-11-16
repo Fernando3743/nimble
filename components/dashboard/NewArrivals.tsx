@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { icons } from "../icons";
 import { ProductCard, type Product } from "./ProductCard";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // ===== CONSTANTS =====
 const CONTAINER_PADDING = "px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
@@ -127,6 +128,7 @@ const NavButton = ({
 
 // ===== MAIN COMPONENT =====
 export function NewArrivals() {
+  const t = useTranslation();
   const [activeTab, setActiveTab] = useState<"new" | "hot">("new");
   const [scrollProgress, setScrollProgress] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -159,19 +161,19 @@ export function NewArrivals() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           {/* Title & Description */}
           <div>
-            <h2 className="mb-2 text-2xl font-bold text-black lg:text-[32px]">New Arrivals</h2>
+            <h2 className="mb-2 text-2xl font-bold text-black lg:text-[32px]">{t.newArrivals.title}</h2>
             <p className={`text-sm text-[${GRAY_COLOR}] lg:text-[15px]`}>
-              Traditional divides between personal and professional space.
+              {t.newArrivals.subtitle}
             </p>
           </div>
 
           {/* Tab Navigation */}
           <div className="flex gap-8">
             <TabButton active={activeTab === "new"} onClick={() => setActiveTab("new")}>
-              New Arrivals
+              {t.newArrivals.title}
             </TabButton>
             <TabButton active={activeTab === "hot"} onClick={() => setActiveTab("hot")}>
-              Hot Items
+              {t.newArrivals.hotItems}
             </TabButton>
           </div>
         </div>

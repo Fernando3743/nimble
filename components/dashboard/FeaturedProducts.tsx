@@ -1,49 +1,55 @@
-import Link from "next/link";
+"use client";
 
-const products = [
-  {
-    id: 1,
-    category: "Danish Design",
-    title: "Material Natural",
-    productName: "Grid Chair Frame",
-    price: "$309.00",
-    image: "/images/products/chair.jpg",
-    bgColor: "from-stone-300 to-stone-400",
-    iconBg: "🪑",
-  },
-  {
-    id: 2,
-    category: "Cotton Collection",
-    title: "Authority Design",
-    productName: "Lunara Tea Towel",
-    price: "$27.00",
-    image: "/images/products/candle.jpg",
-    bgColor: "from-amber-900 to-stone-900",
-    iconBg: "🕯️",
-  },
-  {
-    id: 3,
-    category: "Minimalism Style",
-    title: "Steels Lighting",
-    productName: "Sculpt Table Lamp",
-    price: "$415.00",
-    image: "/images/products/lamp.jpg",
-    bgColor: "from-red-700 to-red-900",
-    iconBg: "💡",
-  },
-  {
-    id: 4,
-    category: "Danish Design",
-    title: "Nightstand",
-    productName: "Pixel Shelves",
-    price: "$85.00",
-    image: "/images/products/nightstand.jpg",
-    bgColor: "from-stone-500 to-stone-700",
-    iconBg: "🗄️",
-  },
-];
+import Link from "next/link";
+import { useTranslation } from "@/contexts/LanguageContext";
+
 
 export function FeaturedProducts() {
+  const t = useTranslation();
+
+  const products = [
+    {
+      id: 1,
+      category: t.featuredProducts.categories.danishDesign,
+      title: "Material Natural",
+      productName: t.featuredProducts.products[0].name,
+      price: t.featuredProducts.products[0].price,
+      image: "/images/products/chair.jpg",
+      bgColor: "from-stone-300 to-stone-400",
+      iconBg: "🪑",
+    },
+    {
+      id: 2,
+      category: t.featuredProducts.categories.cottonCollection,
+      title: "Authority Design",
+      productName: t.featuredProducts.products[1].name,
+      price: t.featuredProducts.products[1].price,
+      image: "/images/products/candle.jpg",
+      bgColor: "from-amber-900 to-stone-900",
+      iconBg: "🕯️",
+    },
+    {
+      id: 3,
+      category: t.featuredProducts.categories.minimalismStyle,
+      title: "Steels Lighting",
+      productName: t.featuredProducts.products[2].name,
+      price: t.featuredProducts.products[2].price,
+      image: "/images/products/lamp.jpg",
+      bgColor: "from-red-700 to-red-900",
+      iconBg: "💡",
+    },
+    {
+      id: 4,
+      category: t.featuredProducts.categories.nightstand,
+      title: "Nightstand",
+      productName: t.featuredProducts.products[3].name,
+      price: t.featuredProducts.products[3].price,
+      image: "/images/products/nightstand.jpg",
+      bgColor: "from-stone-500 to-stone-700",
+      iconBg: "🗄️",
+    },
+  ];
+
   return (
     <section className="px-4 pt-[40px]">
       <div className="flex gap-6 overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4">
@@ -88,7 +94,7 @@ export function FeaturedProducts() {
 
                     {/* Shop Button */}
                     <button className="flex-shrink-0 rounded-full bg-white px-6 py-2 text-sm font-semibold text-black transition-all hover:bg-black hover:text-white">
-                      Shop
+                      {t.featuredProducts.shopButton}
                     </button>
                   </div>
                 </div>

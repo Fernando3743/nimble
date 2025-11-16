@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export function FlashSale() {
+  const t = useTranslation();
   const [timeLeft, setTimeLeft] = useState({
     days: 19,
     hours: 5,
@@ -43,7 +45,7 @@ export function FlashSale() {
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 rounded-3xl bg-[#E8F36C] px-6 sm:px-8 md:px-12 py-6 md:py-10">
         {/* Left - Flash Sale Text */}
         <div className="flex-shrink-0">
-          <h2 className="text-lg font-bold text-black">Flash Sale now on!</h2>
+          <h2 className="text-lg font-bold text-black">{t.flashSale.title}</h2>
         </div>
 
         {/* Center - Countdown Timer */}
@@ -68,12 +70,10 @@ export function FlashSale() {
         {/* Right - Description and Button */}
         <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 text-center sm:text-left">
           <p className="text-sm sm:text-base text-black">
-            Save on modern table office,
-            <br className="hidden sm:block" />
-            best sellers + more
+            {t.flashSale.subtitle}
           </p>
           <button className="flex-shrink-0 rounded-full bg-black px-6 sm:px-8 py-3 sm:py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90">
-            Use Code: FLASH30
+            {t.flashSale.code}
           </button>
         </div>
       </div>

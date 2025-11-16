@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { slugify } from "@/lib/utils";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -116,6 +117,7 @@ const products: Product[] = [
 ];
 
 export function ShopOurOffers() {
+  const t = useTranslation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -160,17 +162,17 @@ export function ShopOurOffers() {
       {/* Header */}
       <div className="mb-6 lg:mb-8">
         <h2 className="mb-2 text-[22px] font-bold leading-tight text-black lg:text-[32px]">
-          Shop Our Offers
+          {t.shopOurOffers.title}
         </h2>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-[15px] font-normal leading-relaxed text-zinc-600">
-            Traditional divides between personal and professional space.
+            {t.shopOurOffers.subtitle}
           </p>
           <Link
             href="/products"
             className={`group relative ${TYPOGRAPHY.link} ${COLORS.textBlack} flex items-center gap-2 whitespace-nowrap`}
           >
-            <span>Shop All Products</span>
+            <span>{t.shopOurOffers.shopAllProducts}</span>
             <svg
               width="16"
               height="16"
@@ -215,14 +217,14 @@ export function ShopOurOffers() {
                         : COLORS.greenBadge
                     } ${COLORS.whiteText} shadow-md`}
                   >
-                    {product.badge}
+                    {product.badge === "Sale" ? t.shopOurOffers.badges.sale : t.shopOurOffers.badges.new}
                   </div>
                 )}
 
                 {/* Selling Fast Badge */}
                 {product.sellingFast && (
                   <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 rounded-full bg-white px-3 py-1 shadow-md">
-                    <span className="text-xs font-semibold">Selling Fast</span>
+                    <span className="text-xs font-semibold">{t.shopOurOffers.badges.sellingFast}</span>
                     <span role="img" aria-label="lightning">
                       ⚡
                     </span>

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 type SpaceImage = {
   id: number;
@@ -49,6 +50,7 @@ const spaces: SpaceImage[] = [
 ];
 
 export function InspiredSpaces() {
+  const t = useTranslation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -87,7 +89,7 @@ export function InspiredSpaces() {
     <section className="bg-white px-4 pt-8 lg:pt-15">
       {/* Heading */}
       <h2 className="mb-6 text-2xl font-bold leading-tight text-black lg:mb-8 lg:text-[32px]">
-        Get Inspired by Spaces
+        {t.inspiredSpaces.title}
       </h2>
 
       {/* Scrollable Gallery */}

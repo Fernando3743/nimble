@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { showError, showLoading, updateToast } from "@/utils/toast";
 import { useTranslation } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -89,9 +90,14 @@ export default function SignInPage() {
       {/* Header - Only visible on mobile */}
       <header className="border-b border-zinc-200 bg-white lg:hidden">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
-            Nimble
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
+              Nimble
+            </Link>
+            <div className="bg-primary rounded-lg px-2">
+              <LanguageSwitcher />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -113,6 +119,15 @@ export default function SignInPage() {
         {/* Right Side - Form Section */}
         <div className="full-shadow rounded-2xl bg-white p-8 lg:w-1/2 lg:flex lg:items-center lg:justify-center lg:p-16 lg:shadow-none xl:p-24">
           <div className="w-full lg:max-w-md">
+            {/* Language Switcher for Desktop - Positioned at top right */}
+            <div className="hidden lg:block mb-4">
+              <div className="flex justify-end">
+                <div className="bg-primary rounded-lg px-2">
+                  <LanguageSwitcher />
+                </div>
+              </div>
+            </div>
+
             {/* Header */}
             <div className="mb-8 text-center">
               <h1 className="text-3xl font-black text-dark lg:text-4xl">{t.signIn.title}</h1>

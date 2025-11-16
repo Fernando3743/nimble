@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 type Testimonial = {
   id: number;
@@ -18,59 +19,56 @@ type Testimonial = {
   backgroundImage: string;
 };
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    quote: "All products are authentic and imported from the country of origin.",
-    author: "Jenny Wilson",
-    location: "New Mexico",
-    product: {
-      category: "CHAIRS",
-      name: "Turn Chair Vivid",
-      price: "$309.00",
-      colors: ["#C44E3D", "#F5B546"],
-      image:
-        "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80",
-    },
-    backgroundImage:
-      "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 2,
-    quote: "The quality and craftsmanship exceeded all my expectations.",
-    author: "Robert Fox",
-    location: "California",
-    product: {
-      category: "TABLES",
-      name: "Modern Desk Pro",
-      price: "$459.00",
-      colors: ["#2D3748", "#A0AEC0"],
-      image:
-        "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80",
-    },
-    backgroundImage:
-      "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 3,
-    quote: "Beautiful design that perfectly complements our home decor.",
-    author: "Sarah Chen",
-    location: "New York",
-    product: {
-      category: "LIGHTING",
-      name: "Arc Floor Lamp",
-      price: "$189.00",
-      colors: ["#000000", "#FFD700"],
-      image:
-        "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80",
-    },
-    backgroundImage:
-      "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1200&q=80",
-  },
-];
 
 export function Testimonials() {
+  const t = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const testimonials: Testimonial[] = [
+    {
+      id: 1,
+      quote: t.testimonials.items[0].text,
+      author: t.testimonials.items[0].author,
+      location: t.testimonials.items[0].location,
+      product: {
+        category: "CHAIRS",
+        name: "Turn Chair Vivid",
+        price: "$309.00",
+        colors: ["#C44E3D", "#F5B546"],
+        image: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80",
+      },
+      backgroundImage: "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+      id: 2,
+      quote: t.testimonials.items[1].text,
+      author: t.testimonials.items[1].author,
+      location: t.testimonials.items[1].location,
+      product: {
+        category: "TABLES",
+        name: "Modern Desk Pro",
+        price: "$459.00",
+        colors: ["#2D3748", "#A0AEC0"],
+        image: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80",
+      },
+      backgroundImage: "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+      id: 3,
+      quote: t.testimonials.items[2].text,
+      author: t.testimonials.items[2].author,
+      location: t.testimonials.items[2].location,
+      product: {
+        category: "LIGHTING",
+        name: "Arc Floor Lamp",
+        price: "$189.00",
+        colors: ["#000000", "#FFD700"],
+        image: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80",
+      },
+      backgroundImage: "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1200&q=80",
+    },
+  ];
+
   const current = testimonials[currentIndex];
 
   const goToPrevious = () => {
@@ -161,7 +159,7 @@ export function Testimonials() {
           <div className="space-y-6 lg:space-y-8">
             {/* Heading */}
             <p className="text-sm font-bold lg:text-[16px] text-black">
-              Our Favorite Products
+              {t.testimonials.title}
             </p>
 
             {/* Quote */}

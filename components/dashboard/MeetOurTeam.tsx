@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { icons } from "@/components/icons";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -27,25 +30,28 @@ type Feature = {
   text: string;
 };
 
-const features: Feature[] = [
-  {
-    id: 1,
-    icon: "location",
-    text: "Product locally in New York",
-  },
-  {
-    id: 2,
-    icon: "smiley",
-    text: "4.8 Review Score",
-  },
-  {
-    id: 3,
-    icon: "stool",
-    text: "Over 50 Products",
-  },
-];
 
 export function MeetOurTeam() {
+  const t = useTranslation();
+
+  const features: Feature[] = [
+    {
+      id: 1,
+      icon: "location",
+      text: t.meetOurTeam.features[0],
+    },
+    {
+      id: 2,
+      icon: "smiley",
+      text: t.meetOurTeam.features[1],
+    },
+    {
+      id: 3,
+      icon: "stool",
+      text: t.meetOurTeam.features[2],
+    },
+  ];
+
   return (
     <section className="px-4 py-16">
       <div className="mx-auto grid max-w-[1330px] grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-[100px]">
@@ -66,18 +72,17 @@ export function MeetOurTeam() {
         <div className="flex flex-col justify-center space-y-4 lg:space-y-6">
           {/* Eyebrow */}
           <p className="text-sm font-bold lg:text-[16px] text-black">
-            Meet Our Team
+            {t.meetOurTeam.title}
           </p>
 
           {/* Heading */}
           <h2 className="text-[28px] font-bold leading-tight text-black lg:text-[40px] lg:leading-[1.1]">
-            The creative minds behind our studio
+            {t.meetOurTeam.subtitle}
           </h2>
 
           {/* Description */}
           <p className="text-[15px] leading-relaxed text-[#666666]">
-            As designers we are constantly thinking about how people live and
-            what problems we could solve for them.
+            {t.meetOurTeam.description}
           </p>
 
           {/* Features List */}
@@ -101,7 +106,7 @@ export function MeetOurTeam() {
               href="/contact"
               className={`inline-flex items-center justify-center rounded-full ${COLORS.bgBlack} px-8 py-4 ${TYPOGRAPHY.button} ${COLORS.textWhite} transition-all hover:bg-zinc-800`}
             >
-              Contact Us
+              {t.meetOurTeam.cta}
             </Link>
           </div>
         </div>

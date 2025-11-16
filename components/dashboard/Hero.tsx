@@ -2,49 +2,49 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
-const categories = [
-  "Sale Items",
-  "Press Tables",
-  "Lighting",
-  "Spoke Sofa",
-  "Storage",
-  "Turn Chairs",
-  "Chairs",
-  "Curve Coat",
-  "Bend Chairs",
-  "Accessories",
-];
-
-const heroSlides = [
-  {
-    eyebrow: "Modern Elegance",
-    title: "Spoke Sofa",
-    cta: "Shop Collection",
-    image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    eyebrow: "Contemporary Grace",
-    title: "Dining & Kitchen",
-    cta: "Shop Collection",
-    image:
-      "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    eyebrow: "Timeless Design",
-    title: "Living Room",
-    cta: "Shop Collection",
-    image:
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80",
-  },
-];
 
 export function Hero() {
+  const t = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const categories = [
+    t.hero.categories.saleItems,
+    t.hero.categories.pressTables,
+    t.hero.categories.lighting,
+    t.hero.categories.spokeSofa,
+    t.hero.categories.storage,
+    t.hero.categories.turnChairs,
+    t.hero.categories.chairs,
+    t.hero.categories.curveCoat,
+    t.hero.categories.bendChairs,
+    t.hero.categories.accessories,
+  ];
+
+  const heroSlides = [
+    {
+      eyebrow: t.hero.slides[0].eyebrow,
+      title: t.hero.slides[0].title,
+      cta: t.hero.slides[0].cta,
+      image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80",
+    },
+    {
+      eyebrow: t.hero.slides[1].eyebrow,
+      title: t.hero.slides[1].title,
+      cta: t.hero.slides[1].cta,
+      image: "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1600&q=80",
+    },
+    {
+      eyebrow: t.hero.slides[2].eyebrow,
+      title: t.hero.slides[2].title,
+      cta: t.hero.slides[2].cta,
+      image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80",
+    },
+  ];
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;

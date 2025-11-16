@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -25,32 +26,32 @@ type Testimonial = {
   location: string;
 };
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    quote:
-      "The products are artful, fun, have a story just as unique as the designers who made it.",
-    author: "Jenny Wilson",
-    location: "New Mexico",
-  },
-  {
-    id: 2,
-    quote:
-      "Each piece is like a masterpiece, combining design and authenticity beautifully.",
-    author: "Robert Martinez",
-    location: "Texas",
-  },
-  {
-    id: 3,
-    quote:
-      "The best coat I have ever owned, amazing quality and materials throughout.",
-    author: "Samantha Chen",
-    location: "California",
-  },
-];
 
 export function ClientTestimonials() {
+  const t = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const testimonials: Testimonial[] = [
+    {
+      id: 1,
+      quote: t.clientTestimonials.items[0].text,
+      author: "Jenny Wilson",
+      location: "New Mexico",
+    },
+    {
+      id: 2,
+      quote: t.clientTestimonials.items[1].text,
+      author: "Robert Martinez",
+      location: "Texas",
+    },
+    {
+      id: 3,
+      quote: t.clientTestimonials.items[2].text,
+      author: "Samantha Chen",
+      location: "California",
+    },
+  ];
+
   const current = testimonials[currentIndex];
 
   const goToPrevious = () => {
@@ -73,7 +74,7 @@ export function ClientTestimonials() {
       <div className="mx-auto max-w-[1330px]">
         {/* Eyebrow */}
         <p className="mb-6 text-center text-sm font-bold text-black lg:mb-8 lg:text-[16px]">
-          What Clients Talk About Us
+          {t.clientTestimonials.title}
         </p>
 
         <div className="relative flex items-center justify-center gap-8">

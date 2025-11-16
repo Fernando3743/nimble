@@ -18,7 +18,7 @@ export function LanguageSwitcher() {
   return (
     <div className="relative group">
       <button
-        className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-dark hover:text-dark/70 transition-colors"
+        className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white hover:text-white/80 transition-colors"
         aria-label="Change language"
       >
         <span>{languages[locale].flag}</span>
@@ -39,7 +39,7 @@ export function LanguageSwitcher() {
       </button>
 
       {/* Dropdown */}
-      <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+      <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100]">
         {(Object.keys(languages) as Locale[]).map((lang) => (
           <button
             key={lang}
