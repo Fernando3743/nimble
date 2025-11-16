@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useProfileStore } from "@/stores/useProfileStore";
+import { useUpdateProfile } from "@/lib/react-query/hooks/useProfileMutations";
+import { useSignOut } from "@/lib/react-query/hooks/useAuthQuery";
 
 export function useProfile() {
   const router = useRouter();
-  const { user, loading: authLoading, signOut } = useAuthStore();
+  const { user, loading: authLoading } = useAuthStore();
 
   const {
     formData,
     editing,
-    saving,
     error,
     success,
     setFormData,
@@ -18,9 +19,11 @@ export function useProfile() {
     setError,
     setSuccess,
     loadUserProfile,
-    saveProfile,
     resetForm,
   } = useProfileStore();
+
+  const updateProfileMutation = useUpdateProfile();
+  const signOutMutation = useSignOut();
 
   // Load user profile when user is available
   useEffect(() => {
@@ -41,7 +44,22 @@ export function useProfile() {
 
   const handleSave = async () => {
     if (!user) return;
-    await saveProfile(user);
+
+    setError("");
+    setSuccess("");
+
+    try {
+      await updateProfileMutation.mutateAsync({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        phone: formData.phone,
+      });
+
+      setSuccess("Profile updated successfully!");
+      setEditing(false);
+    } catch (err: any) {
+      setError(err.message || "Failed to update profile. Please try again.");
+    }
   };
 
   const handleCancel = () => {
@@ -50,7 +68,7 @@ export function useProfile() {
   };
 
   const handleSignOut = async () => {
-    await signOut();
+    await signOutMutation.mutateAsync();
     router.push("/");
   };
 
@@ -58,7 +76,7 @@ export function useProfile() {
     user,
     loading: authLoading,
     editing,
-    saving,
+    saving: updateProfileMutation.isPending,
     error,
     success,
     formData,

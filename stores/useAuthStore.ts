@@ -14,7 +14,6 @@ interface AuthStore {
 
   // Async actions
   initAuth: () => Promise<void>;
-  signOut: () => Promise<void>;
   updateAvatar: (avatarPath: string, croppedPath?: string) => void;
 }
 
@@ -76,12 +75,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         set({ avatarUrl: null });
       }
     });
-  },
-
-  signOut: async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    set({ user: null, avatarUrl: null });
   },
 
   updateAvatar: (avatarPath: string, croppedPath?: string) => {
