@@ -61,6 +61,10 @@ export function useAvatarUpload(user: User | null) {
 
     setError("");
 
+    // Optimistically update the avatar URL immediately (both profile and auth store)
+    setAvatarUrl(croppedImageData);
+    updateAvatar(user.user_metadata?.avatar_url || '', '', croppedImageData);
+
     try {
       const result = await saveCroppedAvatarMutation.mutateAsync({
         userId: user.id,
@@ -68,12 +72,21 @@ export function useAvatarUpload(user: User | null) {
         oldCroppedPath: user.user_metadata?.avatar_cropped_url,
       });
 
+      // Update with the actual uploaded URL
       setAvatarUrl(result.url);
       setSuccess("Photo position saved!");
 
-      // Update auth store with cropped avatar
+      // Update auth store with the real cropped avatar URL
       updateAvatar(user.user_metadata?.avatar_url, result.path);
     } catch (err: any) {
+      // Rollback to original on error (both stores)
+      setAvatarUrl(originalAvatarUrl);
+      if (user.user_metadata?.avatar_url) {
+        updateAvatar(
+          user.user_metadata.avatar_url,
+          user.user_metadata?.avatar_cropped_url
+        );
+      }
       setError(err.message || "Failed to save position. Please try again.");
     }
   };

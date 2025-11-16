@@ -154,8 +154,28 @@ export function useSaveCroppedAvatar() {
 
   return useMutation({
     mutationFn: saveCroppedAvatar,
-    onSuccess: (_, variables) => {
-      // Invalidate user and avatar queries
+    // Optimistic update - immediately show the cropped image
+    onMutate: async (variables) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: authKeys.avatar(variables.userId) });
+
+      // Snapshot the previous value
+      const previousAvatar = queryClient.getQueryData(authKeys.avatar(variables.userId));
+
+      // Optimistically update to the new cropped image
+      queryClient.setQueryData(authKeys.avatar(variables.userId), variables.croppedImageData);
+
+      // Return context with the previous value
+      return { previousAvatar };
+    },
+    // On error, roll back to the previous value
+    onError: (_err, variables, context) => {
+      if (context?.previousAvatar) {
+        queryClient.setQueryData(authKeys.avatar(variables.userId), context.previousAvatar);
+      }
+    },
+    // Always refetch after error or success
+    onSettled: (_, __, variables) => {
       queryClient.invalidateQueries({ queryKey: authKeys.user() });
       queryClient.invalidateQueries({ queryKey: authKeys.avatar(variables.userId) });
     },

@@ -14,7 +14,7 @@ interface AuthStore {
 
   // Async actions
   initAuth: () => Promise<void>;
-  updateAvatar: (avatarPath: string, croppedPath?: string) => void;
+  updateAvatar: (avatarPath: string, croppedPath?: string, dataUrl?: string) => void;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -77,13 +77,19 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     });
   },
 
-  updateAvatar: (avatarPath: string, croppedPath?: string) => {
+  updateAvatar: (avatarPath: string, croppedPath?: string, dataUrl?: string) => {
     const supabase = createClient();
     const { user } = get();
 
     if (!user) return;
 
-    // Use cropped path if available, otherwise use original
+    // If we have a data URL (optimistic update), use it immediately
+    if (dataUrl) {
+      set({ avatarUrl: dataUrl });
+      return;
+    }
+
+    // Otherwise use the storage path
     const displayPath = croppedPath || avatarPath;
     const { data } = supabase.storage
       .from("avatars")
