@@ -5,6 +5,7 @@ import { useProfileStore } from "@/stores/useProfileStore";
 import { useUpdateProfile } from "@/lib/react-query/hooks/useProfileMutations";
 import { useSignOut } from "@/lib/react-query/hooks/useAuthQuery";
 import { getErrorMessage } from "@/types";
+import { showSuccess, showError, toastPromise } from "@/utils/toast";
 
 export function useProfile() {
   const router = useRouter();
@@ -46,20 +47,30 @@ export function useProfile() {
   const handleSave = async () => {
     if (!user) return;
 
+    // Clear old messages
     setError("");
     setSuccess("");
 
-    try {
-      await updateProfileMutation.mutateAsync({
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        phone: formData.phone,
-      });
+    const updatePromise = updateProfileMutation.mutateAsync({
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      phone: formData.phone,
+    });
 
-      setSuccess("Profile updated successfully!");
+    toastPromise(
+      updatePromise,
+      {
+        pending: "Saving profile...",
+        success: "Profile updated successfully! 🎉",
+        error: (err) => getErrorMessage(err) || "Failed to update profile. Please try again.",
+      }
+    );
+
+    try {
+      await updatePromise;
       setEditing(false);
     } catch (err) {
-      setError(getErrorMessage(err) || "Failed to update profile. Please try again.");
+      // Error is already shown by toastPromise
     }
   };
 

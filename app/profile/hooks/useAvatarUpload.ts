@@ -5,6 +5,7 @@ import {
   useSaveCroppedAvatar,
 } from "@/lib/react-query/hooks/useProfileMutations";
 import { getErrorMessage } from "@/types";
+import { showSuccess, showError, showLoading, updateToast } from "@/utils/toast";
 
 export function useAvatarUpload(user: User | null) {
   const {
@@ -25,17 +26,17 @@ export function useAvatarUpload(user: User | null) {
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      setError("Please upload an image file");
+      showError("Please upload an image file");
       return;
     }
 
     // Validate file size (2MB)
     if (file.size > 2 * 1024 * 1024) {
-      setError("Image size must be less than 2MB");
+      showError("Image size must be less than 2MB");
       return;
     }
 
-    setError("");
+    const toastId = showLoading("Uploading photo...");
 
     try {
       const result = await uploadAvatarMutation.mutateAsync({
@@ -45,21 +46,21 @@ export function useAvatarUpload(user: User | null) {
 
       setAvatarUrl(result.url);
       setOriginalAvatarUrl(result.url);
-      setSuccess("Profile photo updated successfully! Click 'Adjust Photo' to position it.");
 
+      updateToast(toastId, "success", "Photo uploaded! Click 'Adjust Photo' to position it 📸");
       // Note: Avatar URL will be automatically updated via React Query cache invalidation
     } catch (err) {
-      setError(getErrorMessage(err) || "Failed to upload photo. Please try again.");
+      updateToast(toastId, "error", getErrorMessage(err) || "Failed to upload photo");
     }
   };
 
   const handleSaveCrop = async (croppedImageData: string) => {
     if (!user) return;
 
-    setError("");
-
     // Optimistically update the avatar URL immediately in the profile store
     setAvatarUrl(croppedImageData);
+
+    const toastId = showLoading("Saving your perfect crop...");
 
     try {
       const result = await saveCroppedAvatarMutation.mutateAsync({
@@ -70,13 +71,13 @@ export function useAvatarUpload(user: User | null) {
 
       // Update with the actual uploaded URL
       setAvatarUrl(result.url);
-      setSuccess("Photo position saved!");
+      updateToast(toastId, "success", "Photo position saved perfectly! 🎯");
 
       // Note: Avatar URL will be automatically updated via React Query cache invalidation
     } catch (err) {
       // Rollback to original on error
       setAvatarUrl(originalAvatarUrl);
-      setError(getErrorMessage(err) || "Failed to save position. Please try again.");
+      updateToast(toastId, "error", getErrorMessage(err) || "Failed to save position");
     }
   };
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/lib/react-query/QueryProvider";
+import { ToastProvider } from "@/components/ToastProvider";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${instrumentSans.variable} antialiased`}>
         <QueryProvider>
           {children}
+          <ToastProvider />
         </QueryProvider>
       </body>
     </html>

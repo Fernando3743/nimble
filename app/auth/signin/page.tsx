@@ -2,9 +2,10 @@
 
 import { icons } from "@/components/icons";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { showError, showLoading, updateToast } from "@/utils/toast";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -16,7 +17,6 @@ export default function SignInPage() {
     password: "",
     rememberMe: false,
   });
-  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   // Get redirect URL from search params
@@ -24,8 +24,9 @@ export default function SignInPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
+
+    const toastId = showLoading("Signing you in...");
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -34,23 +35,24 @@ export default function SignInPage() {
       });
 
       if (error) {
-        setError(error.message);
+        updateToast(toastId, "error", error.message);
         setLoading(false);
         return;
       }
 
+      updateToast(toastId, "success", "Welcome back! 🎉");
       // Redirect to intended page on success
       router.push(redirectTo);
       router.refresh();
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", "An unexpected error occurred. Please try again.");
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
-    setError("");
     setLoading(true);
+    const toastId = showLoading("Connecting to Google...");
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -61,11 +63,13 @@ export default function SignInPage() {
       });
 
       if (error) {
-        setError(error.message);
+        updateToast(toastId, "error", error.message);
         setLoading(false);
+      } else {
+        updateToast(toastId, "info", "Redirecting to Google...");
       }
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", "Failed to connect to Google. Please try again.");
       setLoading(false);
     }
   };
@@ -117,12 +121,7 @@ export default function SignInPage() {
               </p>
             </div>
 
-            {/* Error Message */}
-            {error && (
-              <div className="mb-6 rounded-full bg-red-50 px-4 py-3 text-sm text-red-600">
-                {error}
-              </div>
-            )}
+            {/* Error messages now handled by toasts */}
 
             {/* Social Login */}
             <div className="mb-6">

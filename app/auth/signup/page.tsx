@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { showError, showSuccess, showLoading, updateToast } from "@/utils/toast";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -19,28 +20,27 @@ export default function SignUpPage() {
     confirmPassword: "",
     marketingConsent: false,
   });
-  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      showError("Passwords do not match");
       setLoading(false);
       return;
     }
 
     // Validate password length
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+      showError("Password must be at least 6 characters long");
       setLoading(false);
       return;
     }
+
+    const toastId = showLoading("Creating your account...");
 
     try {
       const { error } = await supabase.auth.signUp({
@@ -57,13 +57,13 @@ export default function SignUpPage() {
       });
 
       if (error) {
-        setError(error.message);
+        updateToast(toastId, "error", error.message);
         setLoading(false);
         return;
       }
 
       // Show success message
-      setSuccess(true);
+      updateToast(toastId, "success", "Account created! Check your email to verify. Redirecting...");
       setLoading(false);
 
       // Redirect to sign in page after 2 seconds
@@ -71,14 +71,14 @@ export default function SignUpPage() {
         router.push("/auth/signin");
       }, 2000);
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", "An unexpected error occurred. Please try again.");
       setLoading(false);
     }
   };
 
   const handleGoogleSignUp = async () => {
-    setError("");
     setLoading(true);
+    const toastId = showLoading("Connecting to Google...");
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -89,11 +89,13 @@ export default function SignUpPage() {
       });
 
       if (error) {
-        setError(error.message);
+        updateToast(toastId, "error", error.message);
         setLoading(false);
+      } else {
+        updateToast(toastId, "info", "Redirecting to Google...");
       }
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", "Failed to connect to Google. Please try again.");
       setLoading(false);
     }
   };

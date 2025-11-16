@@ -2,7 +2,6 @@
 
 import ProfileHeader from "./components/ProfileHeader";
 import ProfileSidebar from "./components/ProfileSidebar";
-import AlertMessages from "./components/AlertMessages";
 import ProfilePhotoSection from "./components/ProfilePhotoSection";
 import PersonalInformationSection from "./components/PersonalInformationSection";
 import { ProfileErrorBoundary } from "./components/ProfileErrorBoundary";
@@ -23,12 +22,8 @@ function ProfilePageContent() {
     loading,
     editing,
     saving,
-    error,
-    success,
     formData,
     setEditing,
-    setError,
-    setSuccess,
     handleChange,
     handleSave,
     handleCancel,
@@ -61,8 +56,6 @@ function ProfilePageContent() {
           <ProfileSidebar onSignOut={handleSignOut} />
 
           <div className="space-y-6 lg:col-span-3">
-            <AlertMessages error={error} success={success} />
-
             <ProfilePhotoSection
               avatarUrl={avatarUrl}
               originalAvatarUrl={originalAvatarUrl}
