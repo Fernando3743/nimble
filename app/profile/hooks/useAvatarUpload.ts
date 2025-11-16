@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import type { Area } from "react-easy-crop";
-import { createCroppedImage } from "../utils/imageUtils";
 
 export function useAvatarUpload(user: User | null, setError: (error: string) => void, setSuccess: (success: string) => void) {
   const supabase = createClient();
@@ -100,15 +98,16 @@ export function useAvatarUpload(user: User | null, setError: (error: string) => 
     }
   };
 
-  const handleSaveCrop = async (croppedAreaPixels: Area) => {
-    if (!user || !croppedAreaPixels || !originalAvatarUrl) return;
+  const handleSaveCrop = async (croppedImageData: string) => {
+    if (!user || !croppedImageData) return;
 
     setSaving(true);
     setError("");
 
     try {
-      // Create cropped image from the original
-      const croppedImageBlob = await createCroppedImage(originalAvatarUrl, croppedAreaPixels);
+      // Convert data URL to blob
+      const response = await fetch(croppedImageData);
+      const croppedImageBlob = await response.blob();
 
       // Create file name for cropped version
       const fileName = `${user.id}-cropped-${Date.now()}.jpg`;

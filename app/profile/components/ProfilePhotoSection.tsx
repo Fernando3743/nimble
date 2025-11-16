@@ -1,6 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
-import Cropper from "react-easy-crop";
-import type { Area } from "react-easy-crop";
+import { useState, useEffect, useCallback } from "react";
+import ImageCropper from "./ImageCropper";
 
 interface ProfilePhotoSectionProps {
   avatarUrl: string | null;
@@ -9,7 +8,7 @@ interface ProfilePhotoSectionProps {
   uploading: boolean;
   saving: boolean;
   onAvatarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSaveCrop: (croppedAreaPixels: Area) => void;
+  onSaveCrop: (croppedImageData: string) => void;
 }
 
 export default function ProfilePhotoSection({
@@ -24,7 +23,7 @@ export default function ProfilePhotoSection({
   const [adjustingPhoto, setAdjustingPhoto] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [croppedImageData, setCroppedImageData] = useState<string | null>(null);
 
   // Handle keyboard shortcuts for zoom
   useEffect(() => {
@@ -36,7 +35,7 @@ export default function ProfilePhotoSection({
         setZoom((prev) => Math.min(3, prev + 0.1));
       } else if (e.key === '-' || e.key === '_') {
         e.preventDefault();
-        setZoom((prev) => Math.max(1, prev - 0.1));
+        setZoom((prev) => Math.max(0.1, prev - 0.1));
       }
     };
 
@@ -44,15 +43,22 @@ export default function ProfilePhotoSection({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [adjustingPhoto]);
 
-  const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
-    setCroppedAreaPixels(croppedAreaPixels);
+  const handleCropComplete = useCallback((data: string) => {
+    setCroppedImageData(data);
   }, []);
 
   const handleSaveCrop = () => {
-    if (croppedAreaPixels) {
-      onSaveCrop(croppedAreaPixels);
+    if (croppedImageData) {
+      onSaveCrop(croppedImageData);
       setAdjustingPhoto(false);
     }
+  };
+
+  const handleCancel = () => {
+    setAdjustingPhoto(false);
+    // Reset to defaults
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
   };
 
   return (
@@ -76,37 +82,15 @@ export default function ProfilePhotoSection({
             )}
           </div>
         ) : (
-          <div className="relative h-40 w-40 flex-shrink-0 overflow-hidden">
-            <div className="absolute h-[280px] w-[280px] -left-[60px] -top-[60px] bg-white">
-              {saving && (
-                <div className="absolute left-[60px] top-[60px] z-10 flex h-40 w-40 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm">
-                  <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/20 border-t-white"></div>
-                </div>
-              )}
-              <Cropper
-                image={originalAvatarUrl || avatarUrl || ''}
-                crop={crop}
-                zoom={zoom}
-                aspect={1}
-                cropShape="round"
-                showGrid={false}
-                cropSize={{ width: 160, height: 160 }}
-                onCropChange={saving ? () => {} : setCrop}
-                onZoomChange={saving ? () => {} : setZoom}
-                onCropComplete={onCropComplete}
-                disableAutomaticStylesInjection={false}
-                zoomWithScroll={false}
-                style={{
-                  containerStyle: {
-                    pointerEvents: saving ? 'none' : 'auto',
-                  },
-                  cropAreaStyle: {
-                    color: 'rgba(255, 255, 255, 1)',
-                  },
-                }}
-              />
-            </div>
-          </div>
+          <ImageCropper
+            imageSrc={originalAvatarUrl || avatarUrl || ''}
+            scale={zoom}
+            onScaleChange={setZoom}
+            position={crop}
+            onPositionChange={setCrop}
+            onCropComplete={handleCropComplete}
+            saving={saving}
+          />
         )}
 
         {/* Controls */}
@@ -165,7 +149,7 @@ export default function ProfilePhotoSection({
                   {saving ? "Saving..." : "Save Position"}
                 </button>
                 <button
-                  onClick={() => setAdjustingPhoto(false)}
+                  onClick={handleCancel}
                   disabled={saving}
                   className="rounded-full border border-zinc-300 bg-white px-6 py-2 text-sm font-bold text-dark transition hover:bg-light-gray/50 disabled:cursor-not-allowed disabled:opacity-50"
                   type="button"
