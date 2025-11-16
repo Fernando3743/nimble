@@ -3,8 +3,13 @@
 import { icons } from "@/components/icons";
 import Link from "next/link";
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const router = useRouter();
+  const supabase = createClient();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -14,11 +19,83 @@ export default function SignUpPage() {
     confirmPassword: "",
     marketingConsent: false,
   });
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setError("");
+    setLoading(true);
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    // Validate password length
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            phone: formData.phone,
+            marketing_consent: formData.marketingConsent,
+          },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+
+      // Show success message
+      setSuccess(true);
+      setLoading(false);
+
+      // Redirect to sign in page after 2 seconds
+      setTimeout(() => {
+        router.push("/auth/signin");
+      }, 2000);
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setError("");
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,11 +145,27 @@ export default function SignUpPage() {
               </p>
             </div>
 
+            {/* Success Message */}
+            {success && (
+              <div className="mb-6 rounded-full bg-green-50 px-4 py-3 text-sm text-green-600">
+                Account created successfully! Redirecting to sign in...
+              </div>
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="mb-6 rounded-full bg-red-50 px-4 py-3 text-sm text-red-600">
+                {error}
+              </div>
+            )}
+
             {/* Social Login */}
             <div className="mb-6">
               <button
                 type="button"
-                className="flex w-full items-center justify-center gap-3 rounded-full border border-zinc-300 bg-white px-6 py-3 text-[15px] font-semibold text-dark transition hover:border-dark hover:bg-light-gray/50"
+                onClick={handleGoogleSignUp}
+                disabled={loading}
+                className="flex w-full items-center justify-center gap-3 rounded-full border border-zinc-300 bg-white px-6 py-3 text-[15px] font-semibold text-dark transition hover:border-dark hover:bg-light-gray/50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
@@ -227,9 +320,10 @@ export default function SignUpPage() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition hover:bg-primary/90"
+              disabled={loading}
+              className="w-full rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Create Account
+              {loading ? "Creating account..." : "Create Account"}
             </button>
 
             {/* Terms */}
