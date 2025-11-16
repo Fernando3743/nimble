@@ -3,6 +3,8 @@
 import { icons } from "@/components/icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 // Constants
 const CONTAINER = "w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
@@ -35,8 +37,11 @@ const underlineAnimation =
   "absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100";
 
 export function Header() {
+  const supabase = createClient();
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +52,45 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Check for authenticated user
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+
+      // Load avatar URL - prefer cropped version if it exists
+      const avatarPath = user?.user_metadata?.avatar_cropped_url || user?.user_metadata?.avatar_url;
+      if (avatarPath) {
+        const { data } = supabase.storage
+          .from("avatars")
+          .getPublicUrl(avatarPath);
+        setAvatarUrl(data.publicUrl);
+      } else {
+        setAvatarUrl(null);
+      }
+    };
+
+    getUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+
+      // Update avatar URL when auth state changes - prefer cropped version
+      const avatarPath = session?.user?.user_metadata?.avatar_cropped_url || session?.user?.user_metadata?.avatar_url;
+      if (avatarPath) {
+        const { data } = supabase.storage
+          .from("avatars")
+          .getPublicUrl(avatarPath);
+        setAvatarUrl(data.publicUrl);
+      } else {
+        setAvatarUrl(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase.auth, supabase.storage]);
 
   // Prevent body scroll when mobile menu is open (only on mobile)
   useEffect(() => {
@@ -171,6 +215,35 @@ export function Header() {
               const isLocationOrUser = action.icon === "location" || action.icon === "user";
 
               if (isUser) {
+                // Show user menu if logged in
+                if (user) {
+                  const userEmail = user.email || "";
+                  const userName = user.user_metadata?.first_name || userEmail.split("@")[0];
+
+                  return (
+                    <Link
+                      key={action.label}
+                      href="/profile"
+                      className="flex items-center gap-2 font-semibold transition hover:text-black"
+                    >
+                      {avatarUrl ? (
+                        <div className="h-8 w-8 overflow-hidden rounded-full bg-light-gray">
+                          <img
+                            src={avatarUrl}
+                            alt={userName}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        icons[action.icon]({
+                          className: "size-6 text-dark-gray",
+                        })
+                      )}
+                      <span className="hidden lg:inline">{userName}</span>
+                    </Link>
+                  );
+                }
+
                 return (
                   <Link
                     key={action.label}
@@ -273,13 +346,35 @@ export function Header() {
               {icons.location({ className: "size-6 text-dark-gray" })}
               <span>Find a store</span>
             </a>
-            <Link
-              className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
-              href="/auth/signin"
-            >
-              {icons.user({ className: "size-6 text-dark-gray" })}
-              <span>Sign in/ Register</span>
-            </Link>
+            {user ? (
+              <Link
+                className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
+                href="/profile"
+              >
+                {avatarUrl ? (
+                  <div className="h-10 w-10 overflow-hidden rounded-full bg-light-gray">
+                    <img
+                      src={avatarUrl}
+                      alt="Profile"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  icons.user({ className: "size-6 text-dark-gray" })
+                )}
+                <span>
+                  {user.user_metadata?.first_name || user.email?.split("@")[0]} - My Profile
+                </span>
+              </Link>
+            ) : (
+              <Link
+                className="flex items-center gap-3 border-b border-zinc-100 px-4 py-4 text-[15px] font-semibold text-black transition hover:bg-light-gray/30"
+                href="/auth/signin"
+              >
+                {icons.user({ className: "size-6 text-dark-gray" })}
+                <span>Sign in/ Register</span>
+              </Link>
+            )}
 
             {/* Country Selector */}
             <button
