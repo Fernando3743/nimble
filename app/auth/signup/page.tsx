@@ -7,10 +7,12 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { showError, showSuccess, showLoading, updateToast } from "@/utils/toast";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function SignUpPage() {
   const router = useRouter();
   const supabase = createClient();
+  const t = useTranslation();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -29,19 +31,19 @@ export default function SignUpPage() {
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      showError("Passwords do not match");
+      showError(t.signUp.passwordsNotMatch);
       setLoading(false);
       return;
     }
 
     // Validate password length
     if (formData.password.length < 6) {
-      showError("Password must be at least 6 characters long");
+      showError(t.signUp.passwordTooShort);
       setLoading(false);
       return;
     }
 
-    const toastId = showLoading("Creating your account...");
+    const toastId = showLoading(t.signUp.toastCreatingAccount);
 
     try {
       const { error } = await supabase.auth.signUp({
@@ -64,7 +66,7 @@ export default function SignUpPage() {
       }
 
       // Show success message
-      updateToast(toastId, "success", "Account created! Check your email to verify. Redirecting...");
+      updateToast(toastId, "success", t.signUp.toastAccountCreated);
       setLoading(false);
 
       // Redirect to sign in page after 2 seconds
@@ -72,14 +74,14 @@ export default function SignUpPage() {
         router.push("/auth/signin");
       }, 2000);
     } catch (err) {
-      updateToast(toastId, "error", "An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", t.signUp.toastGoogleError);
       setLoading(false);
     }
   };
 
   const handleGoogleSignUp = async () => {
     setLoading(true);
-    const toastId = showLoading("Connecting to Google...");
+    const toastId = showLoading(t.signUp.toastConnectingGoogle || "Connecting to Google...");
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -133,12 +135,10 @@ export default function SignUpPage() {
             Nimble
           </Link>
           <h2 className="mb-6 text-4xl font-black leading-tight text-white xl:text-5xl">
-            Start your furniture
-            <br />
-            journey today
+            {t.signUp.heroTitle}
           </h2>
           <p className="text-lg text-white/90 xl:text-xl">
-            Join thousands of happy customers who have transformed their homes with Nimble's curated furniture collection.
+            {t.signUp.heroSubtitle}
           </p>
         </div>
 
@@ -156,25 +156,13 @@ export default function SignUpPage() {
 
             {/* Header */}
             <div className="mb-8 text-center">
-              <h1 className="text-3xl font-black text-dark lg:text-4xl">Create Account</h1>
+              <h1 className="text-3xl font-black text-dark lg:text-4xl">{t.signUp.title}</h1>
               <p className="mt-2 text-sm text-dark-gray lg:text-base">
-                Join Nimble and start shopping
+                {t.signUp.subtitle}
               </p>
             </div>
 
-            {/* Success Message */}
-            {success && (
-              <div className="mb-6 rounded-full bg-green-50 px-4 py-3 text-sm text-green-600">
-                Account created successfully! Redirecting to sign in...
-              </div>
-            )}
-
-            {/* Error Message */}
-            {error && (
-              <div className="mb-6 rounded-full bg-red-50 px-4 py-3 text-sm text-red-600">
-                {error}
-              </div>
-            )}
+            {/* Error messages now handled by toasts */}
 
             {/* Social Login */}
             <div className="mb-6">
@@ -202,7 +190,7 @@ export default function SignUpPage() {
                     fill="#EA4335"
                   />
                 </svg>
-                Continue with Google
+                {t.signUp.continueWithGoogle}
               </button>
             </div>
 
@@ -212,7 +200,7 @@ export default function SignUpPage() {
                 <div className="w-full border-t border-zinc-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-4 text-dark-gray">Or sign up with email</span>
+                <span className="bg-white px-4 text-dark-gray">{t.signUp.orSignUpWith}</span>
               </div>
             </div>
 
@@ -340,18 +328,18 @@ export default function SignUpPage() {
               disabled={loading}
               className="w-full rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Creating account..." : "Create Account"}
+              {loading ? t.signUp.creatingAccount : t.signUp.createAccountButton}
             </button>
 
             {/* Terms */}
             <p className="text-center text-xs text-dark-gray">
-              By creating an account, you agree to our{" "}
+              {t.signUp.termsAgreement}{" "}
               <Link href="/terms" className="text-dark underline hover:no-underline">
-                Terms of Service
+                {t.signUp.termsOfService}
               </Link>{" "}
-              and{" "}
+              {t.signUp.and}{" "}
               <Link href="/privacy" className="text-dark underline hover:no-underline">
-                Privacy Policy
+                {t.signUp.privacyPolicy}
               </Link>
             </p>
           </form>
@@ -359,9 +347,9 @@ export default function SignUpPage() {
             {/* Sign In Link */}
             <div className="mt-6 text-center">
               <p className="text-sm text-dark-gray">
-                Already have an account?{" "}
+                {t.signUp.haveAccount}{" "}
                 <Link href="/auth/signin" className="font-semibold text-dark underline hover:no-underline">
-                  Sign In
+                  {t.signUp.signIn}
                 </Link>
               </p>
             </div>
