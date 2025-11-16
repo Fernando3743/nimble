@@ -4,6 +4,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { useProfileStore } from "@/stores/useProfileStore";
 import { useUpdateProfile } from "@/lib/react-query/hooks/useProfileMutations";
 import { useSignOut } from "@/lib/react-query/hooks/useAuthQuery";
+import { getErrorMessage } from "@/types";
 
 export function useProfile() {
   const router = useRouter();
@@ -57,8 +58,8 @@ export function useProfile() {
 
       setSuccess("Profile updated successfully!");
       setEditing(false);
-    } catch (err: any) {
-      setError(err.message || "Failed to update profile. Please try again.");
+    } catch (err) {
+      setError(getErrorMessage(err) || "Failed to update profile. Please try again.");
     }
   };
 

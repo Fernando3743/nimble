@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { throttle } from "@/utils/throttle";
 
 interface ImageCropperProps {
   imageSrc: string;
@@ -205,45 +206,52 @@ export default function ImageCropper({
     setIsDragging(false);
   };
 
-  // Generate cropped image data
-  useEffect(() => {
-    const generateCroppedImage = () => {
-      const canvas = canvasRef.current;
-      const img = imageRef.current;
-      if (!canvas || !img || !imageReady) return;
+  // Generate cropped image data function
+  const generateCroppedImage = useCallback(() => {
+    const canvas = canvasRef.current;
+    const img = imageRef.current;
+    if (!canvas || !img || !imageReady) return;
 
-      // Create a temporary canvas for the final cropped image
-      const cropCanvas = document.createElement("canvas");
-      cropCanvas.width = cropSize;
-      cropCanvas.height = cropSize;
-      const cropCtx = cropCanvas.getContext("2d");
+    // Create a temporary canvas for the final cropped image
+    const cropCanvas = document.createElement("canvas");
+    cropCanvas.width = cropSize;
+    cropCanvas.height = cropSize;
+    const cropCtx = cropCanvas.getContext("2d");
 
-      if (!cropCtx) return;
+    if (!cropCtx) return;
 
-      // Create circular mask
-      cropCtx.beginPath();
-      cropCtx.arc(cropSize / 2, cropSize / 2, cropSize / 2, 0, 2 * Math.PI);
-      cropCtx.clip();
+    // Create circular mask
+    cropCtx.beginPath();
+    cropCtx.arc(cropSize / 2, cropSize / 2, cropSize / 2, 0, 2 * Math.PI);
+    cropCtx.clip();
 
-      // Calculate image position
-      const imgWidth = img.width * scale;
-      const imgHeight = img.height * scale;
-      const x = (cropSize - imgWidth) / 2 + position.x;
-      const y = (cropSize - imgHeight) / 2 + position.y;
+    // Calculate image position
+    const imgWidth = img.width * scale;
+    const imgHeight = img.height * scale;
+    const x = (cropSize - imgWidth) / 2 + position.x;
+    const y = (cropSize - imgHeight) / 2 + position.y;
 
-      // Draw the image
-      cropCtx.drawImage(img, x, y, imgWidth, imgHeight);
+    // Draw the image
+    cropCtx.drawImage(img, x, y, imgWidth, imgHeight);
 
-      // Convert to data URL
-      const croppedData = cropCanvas.toDataURL("image/jpeg", 0.95);
-      onCropComplete(croppedData);
-    };
-
-    // Generate cropped image whenever position or scale changes
-    if (imageReady) {
-      generateCroppedImage();
-    }
+    // Convert to data URL
+    const croppedData = cropCanvas.toDataURL("image/jpeg", 0.95);
+    onCropComplete(croppedData);
   }, [scale, position, onCropComplete, imageReady]);
+
+  // Create throttled version of the crop generation function
+  // This limits updates to 60fps (16ms) for smooth performance
+  const throttledGenerateCrop = useMemo(
+    () => throttle(generateCroppedImage, 16),
+    [generateCroppedImage]
+  );
+
+  // Generate cropped image when position or scale changes (throttled)
+  useEffect(() => {
+    if (imageReady) {
+      throttledGenerateCrop();
+    }
+  }, [throttledGenerateCrop, imageReady]);
 
   return (
     <div className="relative h-40 w-40 flex-shrink-0 overflow-hidden rounded-full bg-white">

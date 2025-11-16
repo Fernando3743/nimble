@@ -5,10 +5,19 @@ import ProfileSidebar from "./components/ProfileSidebar";
 import AlertMessages from "./components/AlertMessages";
 import ProfilePhotoSection from "./components/ProfilePhotoSection";
 import PersonalInformationSection from "./components/PersonalInformationSection";
+import { ProfileErrorBoundary } from "./components/ProfileErrorBoundary";
 import { useProfile } from "./hooks/useProfile";
 import { useAvatarUpload } from "./hooks/useAvatarUpload";
 
 export default function ProfilePage() {
+  return (
+    <ProfileErrorBoundary>
+      <ProfilePageContent />
+    </ProfileErrorBoundary>
+  );
+}
+
+function ProfilePageContent() {
   const {
     user,
     loading,

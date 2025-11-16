@@ -35,12 +35,33 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Optional: Protect routes
-  // if (!user && !request.nextUrl.pathname.startsWith('/auth')) {
-  //   const url = request.nextUrl.clone()
-  //   url.pathname = '/auth/signin'
-  //   return NextResponse.redirect(url)
-  // }
+  // Define protected routes that require authentication
+  const protectedRoutes = ['/profile', '/account', '/settings']
+  const authRoutes = ['/auth/signin', '/auth/signup', '/auth/callback']
+  const pathname = request.nextUrl.pathname
+
+  // Check if the current path is protected
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
+  const isAuthRoute = authRoutes.some(route => pathname.startsWith(route))
+
+  // Redirect to sign in if accessing protected route without auth
+  if (!user && isProtectedRoute) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth/signin'
+    // Add redirect parameter to return user to original page after login
+    url.searchParams.set('redirect', pathname)
+    return NextResponse.redirect(url)
+  }
+
+  // Redirect to profile if already authenticated and trying to access auth pages
+  if (user && isAuthRoute && pathname !== '/auth/callback') {
+    const url = request.nextUrl.clone()
+    // Check if there's a redirect parameter
+    const redirect = request.nextUrl.searchParams.get('redirect')
+    url.pathname = redirect || '/profile'
+    url.searchParams.delete('redirect')
+    return NextResponse.redirect(url)
+  }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:

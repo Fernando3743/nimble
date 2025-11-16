@@ -1,29 +1,28 @@
 import { create } from 'zustand';
 import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
+import { getAvatarUrl } from '@/types';
 
 interface AuthStore {
   user: User | null;
-  avatarUrl: string | null;
   loading: boolean;
 
   // Actions
   setUser: (user: User | null) => void;
-  setAvatarUrl: (url: string | null) => void;
   setLoading: (loading: boolean) => void;
 
   // Async actions
   initAuth: () => Promise<void>;
-  updateAvatar: (avatarPath: string, croppedPath?: string, dataUrl?: string) => void;
+
+  // Computed values
+  getAvatarUrl: () => string | null;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
   user: null,
-  avatarUrl: null,
   loading: true,
 
   setUser: (user) => set({ user }),
-  setAvatarUrl: (url) => set({ avatarUrl: url }),
   setLoading: (loading) => set({ loading }),
 
   initAuth: async () => {
@@ -33,24 +32,9 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     try {
       const { data: { user } } = await supabase.auth.getUser();
       set({ user });
-
-      // Load avatar URL - prefer cropped version if it exists
-      if (user) {
-        const avatarPath = user.user_metadata?.avatar_cropped_url || user.user_metadata?.avatar_url;
-        if (avatarPath) {
-          const { data } = supabase.storage
-            .from("avatars")
-            .getPublicUrl(avatarPath);
-          set({ avatarUrl: data.publicUrl });
-        } else {
-          set({ avatarUrl: null });
-        }
-      } else {
-        set({ avatarUrl: null });
-      }
     } catch (error) {
       console.error('Error initializing auth:', error);
-      set({ user: null, avatarUrl: null });
+      set({ user: null });
     } finally {
       set({ loading: false });
     }
@@ -59,42 +43,28 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     supabase.auth.onAuthStateChange((_event, session) => {
       const user = session?.user ?? null;
       set({ user });
-
-      // Update avatar URL when auth state changes
-      if (user) {
-        const avatarPath = user.user_metadata?.avatar_cropped_url || user.user_metadata?.avatar_url;
-        if (avatarPath) {
-          const { data } = supabase.storage
-            .from("avatars")
-            .getPublicUrl(avatarPath);
-          set({ avatarUrl: data.publicUrl });
-        } else {
-          set({ avatarUrl: null });
-        }
-      } else {
-        set({ avatarUrl: null });
-      }
     });
   },
 
-  updateAvatar: (avatarPath: string, croppedPath?: string, dataUrl?: string) => {
-    const supabase = createClient();
+  // Compute avatar URL from user metadata
+  getAvatarUrl: () => {
     const { user } = get();
+    if (!user) return null;
 
-    if (!user) return;
+    const avatarPath = getAvatarUrl(user.user_metadata);
+    if (!avatarPath) return null;
 
-    // If we have a data URL (optimistic update), use it immediately
-    if (dataUrl) {
-      set({ avatarUrl: dataUrl });
-      return;
+    // If it's a data URL, return it directly
+    if (avatarPath.startsWith('data:')) {
+      return avatarPath;
     }
 
-    // Otherwise use the storage path
-    const displayPath = croppedPath || avatarPath;
+    // Otherwise, get the public URL from Supabase storage
+    const supabase = createClient();
     const { data } = supabase.storage
       .from("avatars")
-      .getPublicUrl(displayPath);
+      .getPublicUrl(avatarPath);
 
-    set({ avatarUrl: data.publicUrl });
+    return data.publicUrl;
   },
 }));

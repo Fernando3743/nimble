@@ -2,12 +2,13 @@
 
 import { icons } from "@/components/icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
 
   const [formData, setFormData] = useState({
@@ -17,6 +18,9 @@ export default function SignInPage() {
   });
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
+
+  // Get redirect URL from search params
+  const redirectTo = searchParams.get('redirect') || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,8 +39,8 @@ export default function SignInPage() {
         return;
       }
 
-      // Redirect to home page on success
-      router.push("/");
+      // Redirect to intended page on success
+      router.push(redirectTo);
       router.refresh();
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");
@@ -52,7 +56,7 @@ export default function SignInPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback${redirectTo !== '/' ? `?redirect=${encodeURIComponent(redirectTo)}` : ''}`,
         },
       });
 

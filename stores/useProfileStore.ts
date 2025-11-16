@@ -1,17 +1,11 @@
 import { create } from 'zustand';
 import type { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-}
+import type { ProfileFormData } from '@/types';
 
 interface ProfileStore {
   // Form state
-  formData: FormData;
+  formData: ProfileFormData;
   editing: boolean;
 
   // Avatar state
@@ -23,7 +17,7 @@ interface ProfileStore {
   success: string;
 
   // Actions
-  setFormData: (data: Partial<FormData>) => void;
+  setFormData: (data: Partial<ProfileFormData>) => void;
   setEditing: (editing: boolean) => void;
   setAvatarUrl: (url: string | null) => void;
   setOriginalAvatarUrl: (url: string | null) => void;

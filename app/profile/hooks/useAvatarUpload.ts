@@ -1,10 +1,10 @@
 import type { User } from "@supabase/supabase-js";
 import { useProfileStore } from "@/stores/useProfileStore";
-import { useAuthStore } from "@/stores/useAuthStore";
 import {
   useUploadAvatar,
   useSaveCroppedAvatar,
 } from "@/lib/react-query/hooks/useProfileMutations";
+import { getErrorMessage } from "@/types";
 
 export function useAvatarUpload(user: User | null) {
   const {
@@ -15,8 +15,6 @@ export function useAvatarUpload(user: User | null) {
     setError,
     setSuccess,
   } = useProfileStore();
-
-  const { updateAvatar } = useAuthStore();
 
   const uploadAvatarMutation = useUploadAvatar();
   const saveCroppedAvatarMutation = useSaveCroppedAvatar();
@@ -49,10 +47,9 @@ export function useAvatarUpload(user: User | null) {
       setOriginalAvatarUrl(result.url);
       setSuccess("Profile photo updated successfully! Click 'Adjust Photo' to position it.");
 
-      // Update auth store avatar
-      updateAvatar(result.path);
-    } catch (err: any) {
-      setError(err.message || "Failed to upload photo. Please try again.");
+      // Note: Avatar URL will be automatically updated via React Query cache invalidation
+    } catch (err) {
+      setError(getErrorMessage(err) || "Failed to upload photo. Please try again.");
     }
   };
 
@@ -61,9 +58,8 @@ export function useAvatarUpload(user: User | null) {
 
     setError("");
 
-    // Optimistically update the avatar URL immediately (both profile and auth store)
+    // Optimistically update the avatar URL immediately in the profile store
     setAvatarUrl(croppedImageData);
-    updateAvatar(user.user_metadata?.avatar_url || '', '', croppedImageData);
 
     try {
       const result = await saveCroppedAvatarMutation.mutateAsync({
@@ -76,18 +72,11 @@ export function useAvatarUpload(user: User | null) {
       setAvatarUrl(result.url);
       setSuccess("Photo position saved!");
 
-      // Update auth store with the real cropped avatar URL
-      updateAvatar(user.user_metadata?.avatar_url, result.path);
-    } catch (err: any) {
-      // Rollback to original on error (both stores)
+      // Note: Avatar URL will be automatically updated via React Query cache invalidation
+    } catch (err) {
+      // Rollback to original on error
       setAvatarUrl(originalAvatarUrl);
-      if (user.user_metadata?.avatar_url) {
-        updateAvatar(
-          user.user_metadata.avatar_url,
-          user.user_metadata?.avatar_cropped_url
-        );
-      }
-      setError(err.message || "Failed to save position. Please try again.");
+      setError(getErrorMessage(err) || "Failed to save position. Please try again.");
     }
   };
 

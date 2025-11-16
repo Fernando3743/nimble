@@ -36,7 +36,8 @@ const underlineAnimation =
   "absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100";
 
 export function Header() {
-  const { user, avatarUrl, initAuth } = useAuthStore();
+  const { user, getAvatarUrl } = useAuthStore();
+  const avatarUrl = getAvatarUrl();
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -49,11 +50,6 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Initialize auth on mount
-  useEffect(() => {
-    initAuth();
-  }, [initAuth]);
 
   // Prevent body scroll when mobile menu is open (only on mobile)
   useEffect(() => {

@@ -42,8 +42,21 @@ async function updateProfile(data: UpdateProfileData): Promise<User> {
 async function uploadAvatar({ userId, file }: UploadAvatarParams): Promise<{ path: string; url: string }> {
   const supabase = createClient();
 
-  // Create unique file name
-  const fileExt = file.name.split(".").pop();
+  // Validate file type
+  const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+  if (!validImageTypes.includes(file.type)) {
+    throw new Error('Invalid file type. Please upload an image file (JPEG, PNG, GIF, or WebP).');
+  }
+
+  // Validate file size (max 5MB)
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSize) {
+    throw new Error('File size too large. Please upload an image smaller than 5MB.');
+  }
+
+  // Create unique file name with proper extension handling
+  const fileExtMatch = file.name.match(/\.([^.]+)$/);
+  const fileExt = fileExtMatch ? fileExtMatch[1] : file.type.split('/')[1] || 'jpg';
   const fileName = `${userId}-${Date.now()}.${fileExt}`;
   const filePath = fileName;
 
@@ -62,7 +75,7 @@ async function uploadAvatar({ userId, file }: UploadAvatarParams): Promise<{ pat
     data: { avatar_url: filePath },
   });
 
-  if (updateError) throw uploadError;
+  if (updateError) throw updateError;
 
   // Get public URL
   const { data } = supabase.storage.from("avatars").getPublicUrl(filePath);
