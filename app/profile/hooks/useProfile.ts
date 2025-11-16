@@ -1,111 +1,62 @@
-import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import type { User } from "@supabase/supabase-js";
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-}
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useProfileStore } from "@/stores/useProfileStore";
 
 export function useProfile() {
   const router = useRouter();
-  const supabase = createClient();
+  const { user, loading: authLoading, signOut } = useAuthStore();
 
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const {
+    formData,
+    editing,
+    saving,
+    error,
+    success,
+    setFormData,
+    setEditing,
+    setError,
+    setSuccess,
+    loadUserProfile,
+    saveProfile,
+    resetForm,
+  } = useProfileStore();
 
-  const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  });
-
+  // Load user profile when user is available
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+    if (authLoading) return;
 
-      if (!user) {
-        router.push("/auth/signin");
-        return;
-      }
+    if (!user) {
+      router.push("/auth/signin");
+      return;
+    }
 
-      setUser(user);
-      setFormData({
-        firstName: user.user_metadata?.first_name || "",
-        lastName: user.user_metadata?.last_name || "",
-        email: user.email || "",
-        phone: user.user_metadata?.phone || "",
-      });
-
-      setLoading(false);
-    };
-
-    getUser();
-  }, [router, supabase.auth]);
+    loadUserProfile(user);
+  }, [user, authLoading, router, loadUserProfile]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData({ [name]: value });
   };
 
   const handleSave = async () => {
-    setError("");
-    setSuccess("");
-    setSaving(true);
-
-    try {
-      const { error } = await supabase.auth.updateUser({
-        data: {
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          phone: formData.phone,
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      setSuccess("Profile updated successfully!");
-      setEditing(false);
-      setSaving(false);
-    } catch (err: any) {
-      setError(err.message || "Failed to update profile. Please try again.");
-      setSaving(false);
-    }
+    if (!user) return;
+    await saveProfile(user);
   };
 
   const handleCancel = () => {
-    setEditing(false);
-    setFormData({
-      firstName: user?.user_metadata?.first_name || "",
-      lastName: user?.user_metadata?.last_name || "",
-      email: user?.email || "",
-      phone: user?.user_metadata?.phone || "",
-    });
+    if (!user) return;
+    resetForm(user);
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    await signOut();
     router.push("/");
   };
 
   return {
     user,
-    loading,
+    loading: authLoading,
     editing,
     saving,
     error,

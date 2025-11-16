@@ -3,8 +3,7 @@
 import { icons } from "@/components/icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import type { User } from "@supabase/supabase-js";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 // Constants
 const CONTAINER = "w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
@@ -37,11 +36,9 @@ const underlineAnimation =
   "absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100";
 
 export function Header() {
-  const supabase = createClient();
+  const { user, avatarUrl, initAuth } = useAuthStore();
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,44 +50,10 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Check for authenticated user
+  // Initialize auth on mount
   useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-
-      // Load avatar URL - prefer cropped version if it exists
-      const avatarPath = user?.user_metadata?.avatar_cropped_url || user?.user_metadata?.avatar_url;
-      if (avatarPath) {
-        const { data } = supabase.storage
-          .from("avatars")
-          .getPublicUrl(avatarPath);
-        setAvatarUrl(data.publicUrl);
-      } else {
-        setAvatarUrl(null);
-      }
-    };
-
-    getUser();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-
-      // Update avatar URL when auth state changes - prefer cropped version
-      const avatarPath = session?.user?.user_metadata?.avatar_cropped_url || session?.user?.user_metadata?.avatar_url;
-      if (avatarPath) {
-        const { data } = supabase.storage
-          .from("avatars")
-          .getPublicUrl(avatarPath);
-        setAvatarUrl(data.publicUrl);
-      } else {
-        setAvatarUrl(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [supabase.auth, supabase.storage]);
+    initAuth();
+  }, [initAuth]);
 
   // Prevent body scroll when mobile menu is open (only on mobile)
   useEffect(() => {

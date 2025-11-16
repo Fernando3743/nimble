@@ -33,7 +33,7 @@ export default function ProfilePage() {
     originalAvatarUrl,
     handleAvatarUpload,
     handleSaveCrop,
-  } = useAvatarUpload(user, setError, setSuccess);
+  } = useAvatarUpload(user);
 
   if (loading) {
     return (
