@@ -6,11 +6,13 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { showError, showLoading, updateToast } from "@/utils/toast";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
+  const t = useTranslation();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -26,7 +28,7 @@ export default function SignInPage() {
     e.preventDefault();
     setLoading(true);
 
-    const toastId = showLoading("Signing you in...");
+    const toastId = showLoading(t.signIn.toastSigningIn);
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -40,19 +42,19 @@ export default function SignInPage() {
         return;
       }
 
-      updateToast(toastId, "success", "Welcome back! 🎉");
+      updateToast(toastId, "success", t.signIn.toastWelcomeBack);
       // Redirect to intended page on success
       router.push(redirectTo);
       router.refresh();
     } catch (err) {
-      updateToast(toastId, "error", "An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", t.signIn.toastError);
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
-    const toastId = showLoading("Connecting to Google...");
+    const toastId = showLoading(t.signIn.toastConnectingGoogle);
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -66,10 +68,10 @@ export default function SignInPage() {
         updateToast(toastId, "error", error.message);
         setLoading(false);
       } else {
-        updateToast(toastId, "info", "Redirecting to Google...");
+        updateToast(toastId, "info", t.signIn.toastRedirectingGoogle);
       }
     } catch (err) {
-      updateToast(toastId, "error", "Failed to connect to Google. Please try again.");
+      updateToast(toastId, "error", t.signIn.toastGoogleError);
       setLoading(false);
     }
   };
@@ -101,12 +103,10 @@ export default function SignInPage() {
             Nimble
           </Link>
           <h2 className="mb-6 text-4xl font-black leading-tight text-white xl:text-5xl">
-            Welcome back to your
-            <br />
-            furniture paradise
+            {t.signIn.heroTitle}
           </h2>
           <p className="text-lg text-white/90 xl:text-xl">
-            Sign in to access your saved items, track orders, and discover new furniture pieces for your home.
+            {t.signIn.heroSubtitle}
           </p>
         </div>
 
@@ -115,9 +115,9 @@ export default function SignInPage() {
           <div className="w-full lg:max-w-md">
             {/* Header */}
             <div className="mb-8 text-center">
-              <h1 className="text-3xl font-black text-dark lg:text-4xl">Welcome Back</h1>
+              <h1 className="text-3xl font-black text-dark lg:text-4xl">{t.signIn.title}</h1>
               <p className="mt-2 text-sm text-dark-gray lg:text-base">
-                Sign in to your Nimble account
+                {t.signIn.subtitle}
               </p>
             </div>
 
@@ -149,7 +149,7 @@ export default function SignInPage() {
                   fill="#EA4335"
                 />
               </svg>
-              Continue with Google
+              {t.signIn.continueWithGoogle}
             </button>
           </div>
 
@@ -159,7 +159,7 @@ export default function SignInPage() {
               <div className="w-full border-t border-zinc-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-4 text-dark-gray">Or sign in with email</span>
+              <span className="bg-white px-4 text-dark-gray">{t.signIn.orSignInWith}</span>
             </div>
           </div>
 
@@ -168,7 +168,7 @@ export default function SignInPage() {
             {/* Email */}
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-semibold text-dark">
-                Email Address
+                {t.signIn.emailLabel}
               </label>
               <input
                 type="email"
@@ -178,7 +178,7 @@ export default function SignInPage() {
                 onChange={handleChange}
                 required
                 className="w-full rounded-full border border-zinc-300 bg-white px-4 py-3 text-sm text-dark outline-none transition focus:border-dark focus:ring-2 focus:ring-dark/10"
-                placeholder="john.doe@example.com"
+                placeholder={t.signIn.emailPlaceholder}
               />
             </div>
 
@@ -186,13 +186,13 @@ export default function SignInPage() {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <label htmlFor="password" className="text-sm font-semibold text-dark">
-                  Password
+                  {t.signIn.passwordLabel}
                 </label>
                 <Link
                   href="/auth/forgot-password"
                   className="text-xs font-semibold text-dark-gray underline hover:text-dark hover:no-underline"
                 >
-                  Forgot password?
+                  {t.signIn.forgotPassword}
                 </Link>
               </div>
               <input
@@ -203,7 +203,7 @@ export default function SignInPage() {
                 onChange={handleChange}
                 required
                 className="w-full rounded-full border border-zinc-300 bg-white px-4 py-3 text-sm text-dark outline-none transition focus:border-dark focus:ring-2 focus:ring-dark/10"
-                placeholder="••••••••"
+                placeholder={t.signIn.passwordPlaceholder}
               />
             </div>
 
@@ -218,7 +218,7 @@ export default function SignInPage() {
                 className="h-4 w-4 rounded border-zinc-300 text-primary focus:ring-2 focus:ring-primary/20"
               />
               <label htmlFor="rememberMe" className="text-sm text-dark-gray">
-                Remember me
+                {t.signIn.rememberMe}
               </label>
             </div>
 
@@ -228,16 +228,16 @@ export default function SignInPage() {
               disabled={loading}
               className="w-full rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? t.signIn.signingIn : t.signIn.signInButton}
             </button>
           </form>
 
             {/* Sign Up Link */}
             <div className="mt-6 text-center">
               <p className="text-sm text-dark-gray">
-                Don't have an account?{" "}
+                {t.signIn.noAccount}{" "}
                 <Link href="/auth/signup" className="font-semibold text-dark underline hover:no-underline">
-                  Create Account
+                  {t.signIn.createAccount}
                 </Link>
               </p>
             </div>

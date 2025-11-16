@@ -4,30 +4,14 @@ import { icons } from "@/components/icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useTranslation } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 // Constants
 const CONTAINER = "w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
 const SCROLL_THRESHOLD = 10;
 
-// Navigation data
-const utilityLinks = ["Help Center", "Find a Store", "Contact"];
-
-const navLinks = [
-  { label: "Shop By Categories", dropdown: true },
-  { label: "Shop By Room", dropdown: true },
-  { label: "Tables & Desks", dropdown: true },
-  { label: "Chairs & Stools", dropdown: true },
-  { label: "Pages", dropdown: true },
-  { label: "Theme Features", dropdown: true },
-] as const;
-
 const activeNav = "Tables & Desks";
-
-const actionLinks = [
-  { label: "Find a store", icon: "location" },
-  { label: "Sign in / Register", icon: "user" },
-  { label: "Bag", icon: "bag" },
-] as const;
 
 const socialIcons = ["facebook", "x", "instagram", "tiktok"] as const;
 
@@ -38,8 +22,27 @@ const underlineAnimation =
 export function Header() {
   const { user, getAvatarUrl } = useAuthStore();
   const avatarUrl = getAvatarUrl();
+  const t = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Navigation data (dynamic based on language)
+  const utilityLinks = [t.nav.helpCenter, t.nav.findStore, t.nav.contact];
+
+  const navLinks = [
+    { label: t.nav.shopByCategories, dropdown: true },
+    { label: t.nav.shopByRoom, dropdown: true },
+    { label: t.nav.tablesDesks, dropdown: true },
+    { label: t.nav.chairsStools, dropdown: true },
+    { label: t.nav.pages, dropdown: true },
+    { label: t.nav.themeFeatures, dropdown: true },
+  ] as const;
+
+  const actionLinks = [
+    { label: t.nav.findStore, icon: "location" },
+    { label: t.nav.signInRegister, icon: "user" },
+    { label: t.nav.bag, icon: "bag" },
+  ] as const;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,16 +93,12 @@ export function Header() {
 
           {/* Promotional message */}
           <p className="text-center text-sm font-medium text-white lg:text-[15px]">
-            ✌️ Free Express Shipping on orders $500!
+            ✌️ {t.nav.freeShipping}
           </p>
 
-          {/* Country selector and social icons */}
+          {/* Language switcher and social icons */}
           <div className="hidden flex-wrap items-center justify-center gap-4 text-white lg:flex">
-            <div className="flex items-center gap-2 rounded-full px-3 py-1">
-              <span className="text-lg leading-none">🇺🇸</span>
-              <span className="font-medium">United States (USD $)</span>
-              <span className="pt-0.5">{icons.chevronLight()}</span>
-            </div>
+            <LanguageSwitcher />
             <div className="flex items-center">
               {socialIcons.map((social) => (
                 <a
@@ -154,14 +153,14 @@ export function Header() {
               className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
               type="button"
             >
-              <span className="hidden lg:inline">All Categories</span>
-              <span className="lg:hidden">All</span>
+              <span className="hidden lg:inline">{t.nav.allCategories}</span>
+              <span className="lg:hidden">{t.nav.all}</span>
               {icons.chevron()}
             </button>
             <span className="hidden h-6 w-px bg-zinc-300 sm:block" />
             <input
               className="w-full flex-1 border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60 lg:text-[15px] lg:placeholder:text-black"
-              placeholder="What are you looking for?"
+              placeholder={t.nav.searchPlaceholder}
             />
             <span>{icons.search()}</span>
           </div>
@@ -268,7 +267,7 @@ export function Header() {
             ))}
             <span className="group relative inline-flex items-center gap-1 pb-2 text-sale">
               <span aria-hidden className={underlineAnimation} />
-              On Sale
+              {t.nav.onSale}
               <span className="text-sale">{icons.sparkle()}</span>
             </span>
           </nav>
@@ -294,7 +293,7 @@ export function Header() {
               className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold transition hover:bg-light-gray/30"
               href="#"
             >
-              <span className="text-sale">* On Sale *</span>
+              <span className="text-sale">* {t.nav.onSale} *</span>
             </a>
 
             {/* Additional Action Items */}
@@ -303,7 +302,7 @@ export function Header() {
               href="#"
             >
               {icons.location({ className: "size-6 text-dark-gray" })}
-              <span>Find a store</span>
+              <span>{t.nav.findStore}</span>
             </a>
             {user ? (
               <Link
@@ -322,7 +321,7 @@ export function Header() {
                   icons.user({ className: "size-6 text-dark-gray" })
                 )}
                 <span>
-                  {user.user_metadata?.first_name || user.email?.split("@")[0]} - My Profile
+                  {user.user_metadata?.first_name || user.email?.split("@")[0]} - {t.nav.myProfile}
                 </span>
               </Link>
             ) : (
@@ -331,19 +330,14 @@ export function Header() {
                 href="/auth/signin"
               >
                 {icons.user({ className: "size-6 text-dark-gray" })}
-                <span>Sign in/ Register</span>
+                <span>{t.nav.signInRegister}</span>
               </Link>
             )}
 
-            {/* Country Selector */}
-            <button
-              className="flex items-center gap-2 px-4 py-4 text-[15px] font-medium text-black transition hover:bg-light-gray/30"
-              type="button"
-            >
-              <span className="text-lg leading-none">🇺🇸</span>
-              <span className="flex-1 text-left">United States (USD $)</span>
-              <span>{icons.chevron()}</span>
-            </button>
+            {/* Language Selector */}
+            <div className="px-4 py-4">
+              <LanguageSwitcher />
+            </div>
 
             {/* Social Media Icons */}
             <div className="flex items-center gap-3 px-4 py-4">
