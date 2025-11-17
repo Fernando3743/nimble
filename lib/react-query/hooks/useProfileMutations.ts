@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { authKeys } from "./useAuthQuery";
+import { FILE_UPLOAD } from "@/lib/constants";
 
 interface UpdateProfileData {
   first_name: string;
@@ -43,15 +44,13 @@ async function uploadAvatar({ userId, file }: UploadAvatarParams): Promise<{ pat
   const supabase = createClient();
 
   // Validate file type
-  const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-  if (!validImageTypes.includes(file.type)) {
-    throw new Error('Invalid file type. Please upload an image file (JPEG, PNG, GIF, or WebP).');
+  if (!(FILE_UPLOAD.ALLOWED_IMAGE_TYPES as readonly string[]).includes(file.type)) {
+    throw new Error(`Invalid file type. Please upload an image file (${FILE_UPLOAD.ALLOWED_IMAGE_EXTENSIONS.join(', ')}).`);
   }
 
-  // Validate file size (max 5MB)
-  const maxSize = 5 * 1024 * 1024; // 5MB
-  if (file.size > maxSize) {
-    throw new Error('File size too large. Please upload an image smaller than 5MB.');
+  // Validate file size
+  if (file.size > FILE_UPLOAD.MAX_SIZE_BYTES) {
+    throw new Error(`File size too large. Please upload an image smaller than ${FILE_UPLOAD.MAX_SIZE_MB}MB.`);
   }
 
   // Create unique file name with proper extension handling
@@ -158,6 +157,7 @@ export function useUploadAvatar() {
       // Invalidate user and avatar queries
       queryClient.invalidateQueries({ queryKey: authKeys.user() });
       queryClient.invalidateQueries({ queryKey: authKeys.avatar(variables.userId) });
+      queryClient.invalidateQueries({ queryKey: authKeys.originalAvatar(variables.userId) });
     },
   });
 }

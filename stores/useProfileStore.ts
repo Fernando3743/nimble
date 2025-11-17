@@ -1,16 +1,11 @@
 import { create } from 'zustand';
 import type { User } from '@supabase/supabase-js';
-import { createClient } from '@/lib/supabase/client';
 import type { ProfileFormData } from '@/types';
 
 interface ProfileStore {
   // Form state
   formData: ProfileFormData;
   editing: boolean;
-
-  // Avatar state
-  avatarUrl: string | null;
-  originalAvatarUrl: string | null;
 
   // Message state
   error: string;
@@ -19,8 +14,6 @@ interface ProfileStore {
   // Actions
   setFormData: (data: Partial<ProfileFormData>) => void;
   setEditing: (editing: boolean) => void;
-  setAvatarUrl: (url: string | null) => void;
-  setOriginalAvatarUrl: (url: string | null) => void;
   setError: (error: string) => void;
   setSuccess: (success: string) => void;
 
@@ -38,8 +31,6 @@ export const useProfileStore = create<ProfileStore>((set) => ({
     phone: '',
   },
   editing: false,
-  avatarUrl: null,
-  originalAvatarUrl: null,
   error: '',
   success: '',
 
@@ -48,15 +39,11 @@ export const useProfileStore = create<ProfileStore>((set) => ({
     formData: { ...state.formData, ...data }
   })),
   setEditing: (editing) => set({ editing }),
-  setAvatarUrl: (url) => set({ avatarUrl: url }),
-  setOriginalAvatarUrl: (url) => set({ originalAvatarUrl: url }),
   setError: (error) => set({ error }),
   setSuccess: (success) => set({ success }),
 
-  // Load user profile data
+  // Load user profile data (UI state only, no async operations)
   loadUserProfile: (user: User) => {
-    const supabase = createClient();
-
     set({
       formData: {
         firstName: user.user_metadata?.first_name || '',
@@ -65,22 +52,6 @@ export const useProfileStore = create<ProfileStore>((set) => ({
         phone: user.user_metadata?.phone || '',
       },
     });
-
-    // Load avatar URLs
-    if (user.user_metadata?.avatar_url) {
-      const { data: originalData } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(user.user_metadata.avatar_url);
-      set({ originalAvatarUrl: originalData.publicUrl });
-    }
-
-    const displayPath = user.user_metadata?.avatar_cropped_url || user.user_metadata?.avatar_url;
-    if (displayPath) {
-      const { data } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(displayPath);
-      set({ avatarUrl: data.publicUrl });
-    }
   },
 
   // Reset form to user data

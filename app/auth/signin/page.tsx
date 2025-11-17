@@ -2,12 +2,12 @@
 
 import { icons } from "@/components/icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { showError, showLoading, updateToast } from "@/utils/toast";
 
-export default function SignInPage() {
+function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
@@ -245,5 +245,19 @@ export default function SignInPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-zinc-50 lg:bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-dark-gray">Loading...</p>
+        </div>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }

@@ -1,12 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { QUERY_CONFIG } from "@/lib/constants";
 
 // Query keys
 export const authKeys = {
   all: ['auth'] as const,
   user: () => [...authKeys.all, 'user'] as const,
   avatar: (userId: string) => [...authKeys.all, 'avatar', userId] as const,
+  originalAvatar: (userId: string) => [...authKeys.all, 'original-avatar', userId] as const,
 };
 
 // Fetch current user
@@ -34,12 +36,28 @@ async function fetchAvatarUrl(user: User | null): Promise<string | null> {
   return data.publicUrl;
 }
 
+// Fetch original avatar URL for user (uncropped)
+async function fetchOriginalAvatarUrl(user: User | null): Promise<string | null> {
+  if (!user) return null;
+
+  const supabase = createClient();
+  const avatarPath = user.user_metadata?.avatar_url;
+
+  if (!avatarPath) return null;
+
+  const { data } = supabase.storage
+    .from("avatars")
+    .getPublicUrl(avatarPath);
+
+  return data.publicUrl;
+}
+
 // Hook to get current user
 export function useUser() {
   return useQuery({
     queryKey: authKeys.user(),
     queryFn: fetchUser,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: QUERY_CONFIG.STALE_TIME.USER,
   });
 }
 
@@ -49,7 +67,17 @@ export function useAvatarUrl(user: User | null) {
     queryKey: authKeys.avatar(user?.id || ''),
     queryFn: () => fetchAvatarUrl(user),
     enabled: !!user,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: QUERY_CONFIG.STALE_TIME.AVATAR,
+  });
+}
+
+// Hook to get original avatar URL (uncropped)
+export function useOriginalAvatarUrl(user: User | null) {
+  return useQuery({
+    queryKey: authKeys.originalAvatar(user?.id || ''),
+    queryFn: () => fetchOriginalAvatarUrl(user),
+    enabled: !!user,
+    staleTime: QUERY_CONFIG.STALE_TIME.AVATAR,
   });
 }
 

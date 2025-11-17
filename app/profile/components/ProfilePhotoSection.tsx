@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import ImageCropper from "./ImageCropper";
 
 interface ProfilePhotoSectionProps {
@@ -11,7 +11,7 @@ interface ProfilePhotoSectionProps {
   onSaveCrop: (croppedImageData: string) => void;
 }
 
-export default function ProfilePhotoSection({
+const ProfilePhotoSection = memo(function ProfilePhotoSection({
   avatarUrl,
   originalAvatarUrl,
   firstName,
@@ -163,4 +163,6 @@ export default function ProfilePhotoSection({
       </div>
     </div>
   );
-}
+});
+
+export default ProfilePhotoSection;

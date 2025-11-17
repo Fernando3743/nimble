@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { slugify } from "@/lib/utils";
+import { slugify } from "@/utils/cn";
 
 // Design tokens
 const TYPOGRAPHY = {

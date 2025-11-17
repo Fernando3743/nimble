@@ -1,9 +1,17 @@
 import { toast, type ToastOptions } from "react-toastify";
+import { TOAST_DURATION } from "@/lib/constants";
+
+// Error type for toast error handling
+export interface ToastError {
+  message: string;
+  code?: string;
+  details?: unknown;
+}
 
 // Default toast options
 const defaultOptions: ToastOptions = {
   position: "top-right",
-  autoClose: 4000,
+  autoClose: TOAST_DURATION.SUCCESS,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
@@ -23,7 +31,7 @@ export const showError = (message: string, options?: ToastOptions) => {
   return toast.error(message, {
     ...defaultOptions,
     ...options,
-    autoClose: 5000, // Errors stay a bit longer
+    autoClose: TOAST_DURATION.ERROR, // Errors stay a bit longer
   });
 };
 
@@ -69,26 +77,30 @@ export const updateToast = (
 };
 
 // Promise-based toast (great for async operations)
-export const toastPromise = <T = any>(
+export const toastPromise = <T = unknown, E = ToastError>(
   promise: Promise<T>,
   messages: {
     pending: string;
     success: string | ((data: T) => string);
-    error: string | ((error: any) => string);
+    error: string | ((error: E) => string);
   },
-  options?: ToastOptions
+  options?: ToastOptions<T>
 ) => {
-  return toast.promise(
+  return toast.promise<T>(
     promise,
     {
       pending: messages.pending,
-      success: messages.success,
-      error: messages.error,
+      success: typeof messages.success === 'function'
+        ? { render: ({ data }) => (messages.success as (data: T) => string)(data) }
+        : messages.success,
+      error: typeof messages.error === 'function'
+        ? { render: ({ data }) => (messages.error as (error: E) => string)(data as E) }
+        : messages.error,
     },
     {
       ...defaultOptions,
       ...options,
-    }
+    } as ToastOptions<T>
   );
 };
 

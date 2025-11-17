@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { throttle } from "@/utils/throttle";
+import { IMAGE_CROPPER } from "@/lib/constants";
 
 interface ImageCropperProps {
   imageSrc: string;
@@ -11,7 +12,7 @@ interface ImageCropperProps {
   saving?: boolean;
 }
 
-export default function ImageCropper({
+const ImageCropper = memo(function ImageCropper({
   imageSrc,
   scale,
   onScaleChange,
@@ -26,7 +27,7 @@ export default function ImageCropper({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [imageReady, setImageReady] = useState(false);
 
-  const cropSize = 160;
+  const cropSize = IMAGE_CROPPER.CROP_SIZE;
 
   // Load image and set initial scale
   useEffect(() => {
@@ -235,14 +236,14 @@ export default function ImageCropper({
     cropCtx.drawImage(img, x, y, imgWidth, imgHeight);
 
     // Convert to data URL
-    const croppedData = cropCanvas.toDataURL("image/jpeg", 0.95);
+    const croppedData = cropCanvas.toDataURL("image/jpeg", IMAGE_CROPPER.JPEG_QUALITY);
     onCropComplete(croppedData);
   }, [scale, position, onCropComplete, imageReady]);
 
   // Create throttled version of the crop generation function
-  // This limits updates to 60fps (16ms) for smooth performance
+  // This limits updates to ~60fps for smooth performance
   const throttledGenerateCrop = useMemo(
-    () => throttle(generateCroppedImage, 16),
+    () => throttle(generateCroppedImage, IMAGE_CROPPER.THROTTLE_MS),
     [generateCroppedImage]
   );
 
@@ -274,4 +275,6 @@ export default function ImageCropper({
       />
     </div>
   );
-}
+});
+
+export default ImageCropper;

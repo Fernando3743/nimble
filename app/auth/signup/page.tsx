@@ -147,20 +147,6 @@ export default function SignUpPage() {
               </p>
             </div>
 
-            {/* Success Message */}
-            {success && (
-              <div className="mb-6 rounded-full bg-green-50 px-4 py-3 text-sm text-green-600">
-                Account created successfully! Redirecting to sign in...
-              </div>
-            )}
-
-            {/* Error Message */}
-            {error && (
-              <div className="mb-6 rounded-full bg-red-50 px-4 py-3 text-sm text-red-600">
-                {error}
-              </div>
-            )}
-
             {/* Social Login */}
             <div className="mb-6">
               <button

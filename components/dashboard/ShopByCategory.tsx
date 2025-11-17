@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { slugify } from "@/lib/utils";
+import { slugify } from "@/utils/cn";
 
 type Category = {
   id: number;
