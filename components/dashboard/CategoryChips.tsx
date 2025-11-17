@@ -2,6 +2,7 @@
 
 import { Link } from "@/lib/i18n/routing";
 import { slugify } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -16,74 +17,79 @@ const COLORS = {
 
 type Category = {
   id: number;
-  name: string;
+  key: string;
   icon: string;
 };
 
 const categories: Category[] = [
   {
     id: 1,
-    name: "Living Room",
+    key: "livingRoom",
     icon: "🪑",
   },
   {
     id: 2,
-    name: "Planters",
+    key: "planters",
     icon: "🌱",
   },
   {
     id: 3,
-    name: "Gravel Rug",
+    key: "gravelRug",
     icon: "⚪",
   },
   {
     id: 4,
-    name: "Table Mirror",
+    key: "tableMirror",
     icon: "🪞",
   },
   {
     id: 5,
-    name: "Table Wears",
+    key: "tableWears",
     icon: "🛋️",
   },
   {
     id: 6,
-    name: "Dining Decor",
+    key: "diningDecor",
     icon: "📦",
   },
   {
     id: 7,
-    name: "Ray Table Lamp",
+    key: "rayTableLamp",
     icon: "💡",
   },
   {
     id: 8,
-    name: "Bedroom",
+    key: "bedroom",
     icon: "🛏️",
   },
 ];
 
 export function CategoryChips() {
+  const t = useTranslations("home.categoryChips");
+
   return (
     <section className="px-4 pt-8">
       <div
         className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {categories.map((category) => (
-          <Link
-            key={category.id}
-            href={`/category/${slugify(category.name)}`}
-            className={`flex flex-shrink-0 items-center gap-3 rounded-full ${COLORS.bgWhite} border ${COLORS.border} px-6 py-3 shadow-sm transition-all hover:shadow-md hover:border-zinc-300`}
-          >
-            <span className="text-2xl" role="img" aria-label={category.name}>
-              {category.icon}
-            </span>
-            <span className={`${TYPOGRAPHY.chipText} ${COLORS.textBlack}`}>
-              {category.name}
-            </span>
-          </Link>
-        ))}
+        {categories.map((category) => {
+          const name = t(category.key);
+          return (
+            <Link
+              key={category.id}
+              href={`/category/${slugify(name)}`}
+              className={`flex flex-shrink-0 items-center gap-3 rounded-full ${COLORS.bgWhite} border ${COLORS.border} px-6 py-3 shadow-sm transition-all hover:shadow-md hover:border-zinc-300`}
+            >
+              <span className="text-2xl" role="img" aria-label={name}>
+                {category.icon}
+              </span>
+              <span className={`${TYPOGRAPHY.chipText} ${COLORS.textBlack}`}>
+                {name}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

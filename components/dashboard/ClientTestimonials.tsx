@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -20,7 +21,6 @@ const COLORS = {
 
 type Testimonial = {
   id: number;
-  quote: string;
   author: string;
   location: string;
 };
@@ -28,28 +28,23 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote:
-      "The products are artful, fun, have a story just as unique as the designers who made it.",
     author: "Jenny Wilson",
     location: "New Mexico",
   },
   {
     id: 2,
-    quote:
-      "Each piece is like a masterpiece, combining design and authenticity beautifully.",
     author: "Robert Martinez",
     location: "Texas",
   },
   {
     id: 3,
-    quote:
-      "The best coat I have ever owned, amazing quality and materials throughout.",
     author: "Samantha Chen",
     location: "California",
   },
 ];
 
 export function ClientTestimonials() {
+  const t = useTranslations("home.clientTestimonials");
   const [currentIndex, setCurrentIndex] = useState(0);
   const current = testimonials[currentIndex];
 
@@ -73,21 +68,21 @@ export function ClientTestimonials() {
       <div className="mx-auto max-w-[1330px]">
         {/* Eyebrow */}
         <p className="mb-6 text-center text-sm font-bold text-black lg:mb-8 lg:text-[16px]">
-          What Clients Talk About Us
+          {t("eyebrow")}
         </p>
 
         <div className="relative flex items-center justify-center gap-8">
           {/* Previous Testimonial (Faded) - Desktop Only */}
           <div className="hidden flex-1 lg:block">
             <p className="text-[32px] font-bold leading-[1.2] text-black opacity-20">
-              "{testimonials[previousIndex].quote}"
+              "{t(`testimonials.quote${previousIndex + 1}`)}"
             </p>
           </div>
 
           {/* Current Testimonial */}
           <div className="z-10 mx-auto w-full max-w-3xl flex-shrink-0 px-4 text-center lg:px-0">
             <blockquote className="mb-6 break-words text-[22px] font-bold leading-tight text-black lg:mb-8 lg:text-[32px] lg:leading-[1.2]">
-              "{current.quote}"
+              "{t(`testimonials.quote${currentIndex + 1}`)}"
             </blockquote>
 
             {/* Author Info */}
@@ -149,7 +144,7 @@ export function ClientTestimonials() {
           {/* Next Testimonial (Faded) - Desktop Only */}
           <div className="hidden flex-1 lg:block">
             <p className="text-[32px] font-bold leading-[1.2] text-black opacity-20">
-              "{testimonials[nextIndex].quote}"
+              "{t(`testimonials.quote${nextIndex + 1}`)}"
             </p>
           </div>
 

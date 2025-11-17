@@ -10,7 +10,6 @@ import { useState, useRef, useEffect } from "react";
 const localeFlags: Record<Locale, string> = {
   en: "🇺🇸",
   es: "🇪🇸",
-  fr: "🇫🇷",
 };
 
 interface LanguageSwitcherProps {
@@ -54,7 +53,7 @@ export function LanguageSwitcher({
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
         <div className="px-4 pt-4 pb-2 text-xs font-semibold text-dark-gray uppercase">
-          Language / Idioma / Langue
+          Language / Idioma
         </div>
         {locales.map((loc) => (
           <button

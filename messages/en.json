@@ -174,21 +174,65 @@
     "reviews": "Reviews"
   },
   "footer": {
-    "copyright": "© 2024 Nimble. All rights reserved.",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "contactUs": "Contact Us",
-    "followUs": "Follow Us",
-    "newsletter": {
-      "title": "Subscribe to our newsletter",
-      "description": "Get the latest updates on new products and upcoming sales",
-      "placeholder": "Enter your email",
-      "button": "Subscribe"
+    "contact": {
+      "customerService": {
+        "title": "Customer Service",
+        "hours": "Mon-Sat, 9am-6pm EST."
+      },
+      "callUs": {
+        "title": "Call Us",
+        "phone": "+1 888-234-1234 (toll-free)"
+      },
+      "getInTouch": {
+        "title": "Get in Touch",
+        "email": "touch@garacestore.com"
+      },
+      "address": {
+        "title": "Address",
+        "street": "382 NE 191st St # 87394 Miami"
+      }
     },
-    "sections": {
-      "company": "Company",
-      "help": "Help",
-      "shop": "Shop"
+    "newsletter": {
+      "title": "Join Our Newsletter",
+      "description": "Sign up to our newsletter & receive 10% off your first order.",
+      "placeholder": "Enter your email",
+      "button": "Sign Up",
+      "disclaimer": "By subscribing you agree to the",
+      "termsOfService": "Terms of Services",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "links": {
+      "company": {
+        "title": "Company",
+        "aboutUs": "About us",
+        "contact": "Contact",
+        "faqs": "FAQs",
+        "blog": "Blog",
+        "findStore": "Find a Store"
+      },
+      "collection": {
+        "title": "Collection",
+        "tables": "Tables",
+        "bowChairs": "Bow Chairs",
+        "turnTable": "Turn Table",
+        "turnChair": "Turn Chair",
+        "crossBarChair": "Cross Bar Chair"
+      },
+      "shop": {
+        "title": "Shop",
+        "sofas": "Sofas",
+        "outdoor": "Outdoor",
+        "seating": "Seating",
+        "lighting": "Lighting",
+        "accessories": "Accessories"
+      }
+    },
+    "bottom": {
+      "country": "United States (USD $)",
+      "copyright": "© 2025 Hyper Garace. Powered by Shopify",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy"
     }
   },
   "validation": {
@@ -209,5 +253,192 @@
     "success": "Success!",
     "error": "Error occurred",
     "info": "Information"
+  },
+  "home": {
+    "newArrivals": {
+      "title": "New Arrivals",
+      "description": "Traditional divides between personal and professional space.",
+      "tabs": {
+        "newArrivals": "New Arrivals",
+        "hotItems": "Hot Items"
+      }
+    },
+    "productCard": {
+      "sale": "Sale",
+      "sellingFast": "Selling Fast"
+    },
+    "hero": {
+      "shopCollection": "Shop Collection",
+      "categories": {
+        "saleItems": "Sale Items",
+        "pressTables": "Press Tables",
+        "lighting": "Lighting",
+        "spokeSofa": "Spoke Sofa",
+        "storage": "Storage",
+        "turnChairs": "Turn Chairs",
+        "chairs": "Chairs",
+        "curveCoat": "Curve Coat",
+        "bendChairs": "Bend Chairs",
+        "accessories": "Accessories"
+      },
+      "slides": {
+        "modernElegance": {
+          "eyebrow": "Modern Elegance",
+          "title": "Spoke Sofa"
+        },
+        "contemporaryGrace": {
+          "eyebrow": "Contemporary Grace",
+          "title": "Dining & Kitchen"
+        },
+        "timelessDesign": {
+          "eyebrow": "Timeless Design",
+          "title": "Living Room"
+        }
+      }
+    },
+    "testimonials": {
+      "heading": "Our Favorite Products",
+      "quote1": "All products are authentic and imported from the country of origin.",
+      "quote2": "The quality and craftsmanship exceeded all my expectations.",
+      "quote3": "Beautiful design that perfectly complements our home decor."
+    },
+    "inspiredSpaces": {
+      "heading": "Get Inspired by Spaces"
+    },
+    "flashSale": {
+      "title": "Flash Sale now on!",
+      "description": {
+        "line1": "Save on modern table office,",
+        "line2": "best sellers + more"
+      },
+      "code": "Use Code: FLASH30"
+    },
+    "featuredProducts": {
+      "shopButton": "Shop",
+      "products": {
+        "danishDesign": "Danish Design",
+        "materialNatural": "Material Natural",
+        "gridChairFrame": "Grid Chair Frame",
+        "cottonCollection": "Cotton Collection",
+        "authorityDesign": "Authority Design",
+        "lunaraTeaTowel": "Lunara Tea Towel",
+        "minimalismStyle": "Minimalism Style",
+        "steelsLighting": "Steels Lighting",
+        "sculptTableLamp": "Sculpt Table Lamp",
+        "nightstand": "Nightstand",
+        "pixelShelves": "Pixel Shelves"
+      }
+    },
+    "shopByCategory": {
+      "heading": "Shop By Categories",
+      "shopAllProducts": "Shop All Products",
+      "saleBadge": "Sale",
+      "categories": {
+        "saleItems": "Sale Items",
+        "pressTables": "Press Tables",
+        "lighting": "Lighting",
+        "spokeSofa": "Spoke Sofa",
+        "storage": "Storage",
+        "turnChairs": "Turn Chairs",
+        "longeChairs": "Longe Chairs",
+        "curveCoat": "Curve Coat",
+        "crossTables": "Cross Tables",
+        "bendChairs": "Bend Chairs",
+        "barChairs": "Bar Chairs",
+        "accessories": "Accessories"
+      }
+    },
+    "featuredCollections": {
+      "heading": "Featured Collections",
+      "description": "With a shape inspired by the bollards used to secure vessels to a jetty",
+      "shopCollection": "Shop Collection",
+      "collections": {
+        "heritageLiving": "Heritage Living",
+        "theHavenCollection": "The Haven Collection",
+        "solaceSeries": "Solace Series"
+      }
+    },
+    "approachFeatures": {
+      "heading": {
+        "line1": "This approach resulted in the",
+        "line2": "beautiful structure"
+      },
+      "badges": {
+        "allEcoCertified": "All Eco-Certified",
+        "productProtection": "Product Protection",
+        "makeItYours": "Make It Yours",
+        "uniqueTailored": "Unique Tailored"
+      },
+      "features": {
+        "comfortable": {
+          "title": "Comfortable",
+          "description": "Bow Chair is available in Natural or Black-stained Oak with full EU Ecolabel certification."
+        },
+        "priceTransparency": {
+          "title": "Price transparency",
+          "description": "Fair pricing ensures you know exactly what you're paying for, with no hidden costs or markups."
+        },
+        "allEcoCertified": {
+          "title": "All eco-certified",
+          "description": "All products consider a more holistic environmental impact and are designed for a longer lifetime in a way."
+        },
+        "sustainability": {
+          "title": "Sustainability",
+          "description": "Committed to sustainable practices, ethical sourcing, and reducing environmental impact."
+        }
+      }
+    },
+    "clientTestimonials": {
+      "eyebrow": "What Clients Talk About Us",
+      "testimonials": {
+        "quote1": "The products are artful, fun, have a story just as unique as the designers who made it.",
+        "quote2": "Each piece is like a masterpiece, combining design and authenticity beautifully.",
+        "quote3": "The best coat I have ever owned, amazing quality and materials throughout."
+      }
+    },
+    "shopOurOffers": {
+      "heading": "Shop Our Offers",
+      "description": "Traditional divides between personal and professional space.",
+      "link": "Shop All Products",
+      "badges": {
+        "sale": "Sale",
+        "new": "New",
+        "sellingFast": "Selling Fast"
+      }
+    },
+    "meetOurTeam": {
+      "eyebrow": "Meet Our Team",
+      "heading": "The creative minds behind our studio",
+      "description": "As designers we are constantly thinking about how people live and what problems we could solve for them.",
+      "feature1": "Product locally in New York",
+      "feature2": "4.8 Review Score",
+      "feature3": "Over 50 Products",
+      "button": "Contact Us"
+    },
+    "instagramFeed": {
+      "heading": "We're on Gram"
+    },
+    "categoryChips": {
+      "livingRoom": "Living Room",
+      "planters": "Planters",
+      "gravelRug": "Gravel Rug",
+      "tableMirror": "Table Mirror",
+      "tableWears": "Table Wears",
+      "diningDecor": "Dining Decor",
+      "rayTableLamp": "Ray Table Lamp",
+      "bedroom": "Bedroom"
+    },
+    "promoBanners": {
+      "save": "Save",
+      "shopNow": "Shop Now",
+      "banner1": {
+        "title": "Turn Chairs",
+        "description": "Elevate your space with 40% off our timeless designs!"
+      },
+      "banner2": {
+        "title": "Cross Chairs",
+        "description": "Get 30% off elegant, timeless seating—don't miss out!"
+      }
+    }
   }
 }

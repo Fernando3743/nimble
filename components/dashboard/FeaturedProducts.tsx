@@ -1,11 +1,14 @@
-import { Link } from "@/lib/i18n/routing";
+"use client";
 
-const products = [
+import { Link } from "@/lib/i18n/routing";
+import { useTranslations } from "next-intl";
+
+const productKeys = [
   {
     id: 1,
-    category: "Danish Design",
-    title: "Material Natural",
-    productName: "Grid Chair Frame",
+    categoryKey: "danishDesign",
+    titleKey: "materialNatural",
+    productNameKey: "gridChairFrame",
     price: "$309.00",
     image: "/images/products/chair.jpg",
     bgColor: "from-stone-300 to-stone-400",
@@ -13,9 +16,9 @@ const products = [
   },
   {
     id: 2,
-    category: "Cotton Collection",
-    title: "Authority Design",
-    productName: "Lunara Tea Towel",
+    categoryKey: "cottonCollection",
+    titleKey: "authorityDesign",
+    productNameKey: "lunaraTeaTowel",
     price: "$27.00",
     image: "/images/products/candle.jpg",
     bgColor: "from-amber-900 to-stone-900",
@@ -23,9 +26,9 @@ const products = [
   },
   {
     id: 3,
-    category: "Minimalism Style",
-    title: "Steels Lighting",
-    productName: "Sculpt Table Lamp",
+    categoryKey: "minimalismStyle",
+    titleKey: "steelsLighting",
+    productNameKey: "sculptTableLamp",
     price: "$415.00",
     image: "/images/products/lamp.jpg",
     bgColor: "from-red-700 to-red-900",
@@ -33,9 +36,9 @@ const products = [
   },
   {
     id: 4,
-    category: "Danish Design",
-    title: "Nightstand",
-    productName: "Pixel Shelves",
+    categoryKey: "danishDesign",
+    titleKey: "nightstand",
+    productNameKey: "pixelShelves",
     price: "$85.00",
     image: "/images/products/nightstand.jpg",
     bgColor: "from-stone-500 to-stone-700",
@@ -44,10 +47,12 @@ const products = [
 ];
 
 export function FeaturedProducts() {
+  const t = useTranslations("home.featuredProducts");
+
   return (
     <section className="px-4 pt-[40px]">
       <div className="flex gap-6 overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4">
-        {products.map((product) => (
+        {productKeys.map((product) => (
           <Link
             key={product.id}
             href={`/product/${product.id}`}
@@ -60,10 +65,10 @@ export function FeaturedProducts() {
                 {/* Category and Title */}
                 <div className="px-6 pb-4">
                   <p className="mb-1 text-sm font-semibold text-white">
-                    {product.category}
+                    {t(`products.${product.categoryKey}`)}
                   </p>
                   <h3 className="text-3xl font-bold text-white">
-                    {product.title}
+                    {t(`products.${product.titleKey}`)}
                   </h3>
                 </div>
 
@@ -78,7 +83,7 @@ export function FeaturedProducts() {
                       {/* Product Info */}
                       <div>
                         <p className="text-sm font-medium text-white">
-                          {product.productName}
+                          {t(`products.${product.productNameKey}`)}
                         </p>
                         <p className="text-base font-bold text-white">
                           {product.price}
@@ -88,7 +93,7 @@ export function FeaturedProducts() {
 
                     {/* Shop Button */}
                     <button className="flex-shrink-0 rounded-full bg-white px-6 py-2 text-sm font-semibold text-black transition-all hover:bg-black hover:text-white">
-                      Shop
+                      {t("shopButton")}
                     </button>
                   </div>
                 </div>

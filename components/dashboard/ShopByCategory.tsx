@@ -1,9 +1,12 @@
+"use client";
+
 import { Link } from "@/lib/i18n/routing";
 import { slugify } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 type Category = {
   id: number;
-  name: string;
+  nameKey: string;
   emoji: string;
   emojiLabel: string;
   isSpecial?: boolean;
@@ -12,91 +15,92 @@ type Category = {
 const categories: Category[] = [
   {
     id: 1,
-    name: "Sale Items",
+    nameKey: "saleItems",
     emoji: "💰",
     emojiLabel: "Money bag",
     isSpecial: true,
   },
   {
     id: 2,
-    name: "Press Tables",
+    nameKey: "pressTables",
     emoji: "🪑",
     emojiLabel: "Chair",
   },
   {
     id: 3,
-    name: "Lighting",
+    nameKey: "lighting",
     emoji: "💡",
     emojiLabel: "Light bulb",
   },
   {
     id: 4,
-    name: "Spoke Sofa",
+    nameKey: "spokeSofa",
     emoji: "🛋️",
     emojiLabel: "Couch and lamp",
   },
   {
     id: 5,
-    name: "Storage",
+    nameKey: "storage",
     emoji: "📦",
     emojiLabel: "Package",
   },
   {
     id: 6,
-    name: "Turn Chairs",
+    nameKey: "turnChairs",
     emoji: "🪑",
     emojiLabel: "Chair",
   },
   {
     id: 7,
-    name: "Longe Chairs",
+    nameKey: "longeChairs",
     emoji: "💺",
     emojiLabel: "Seat",
   },
   {
     id: 8,
-    name: "Curve Coat",
+    nameKey: "curveCoat",
     emoji: "🧥",
     emojiLabel: "Coat",
   },
   {
     id: 9,
-    name: "Cross Tables",
+    nameKey: "crossTables",
     emoji: "⭕",
     emojiLabel: "Circle",
   },
   {
     id: 10,
-    name: "Bend Chairs",
+    nameKey: "bendChairs",
     emoji: "🪑",
     emojiLabel: "Chair",
   },
   {
     id: 11,
-    name: "Bar Chairs",
+    nameKey: "barChairs",
     emoji: "🍺",
     emojiLabel: "Beer mug",
   },
   {
     id: 12,
-    name: "Accessories",
+    nameKey: "accessories",
     emoji: "🎨",
     emojiLabel: "Artist palette",
   },
 ];
 
 export function ShopByCategory() {
+  const t = useTranslations("home.shopByCategory");
   return (
     <section className="px-4 pt-8 lg:pt-16">
       <div className="mb-6 lg:mb-8 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        <h2 className="text-2xl font-bold lg:text-[32px]">Shop By Categories</h2>
+        <h2 className="text-2xl font-bold lg:text-[32px]">{t("heading")}</h2>
         <Link
           href="/categories"
           className="group flex items-center gap-2 text-[15px] font-medium"
           aria-label="View all product categories"
         >
           <span className="relative">
-            Shop All Products
+            {t("shopAllProducts")}
             <span className="absolute bottom-0 left-0 h-[1px] w-full origin-right scale-x-0 bg-black transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100"></span>
           </span>
           <svg
@@ -119,39 +123,42 @@ export function ShopByCategory() {
       </div>
 
       <div className="grid grid-cols-3 gap-0 overflow-hidden rounded-xl border border-zinc-200 md:grid-cols-4 lg:grid-cols-6">
-        {categories.map((category) => (
-          <Link
-            key={category.id}
-            href={`/category/${slugify(category.name)}`}
-            className="group flex h-[160px] flex-col items-center justify-center gap-3 border border-zinc-200 transition-colors hover:bg-zinc-50 lg:h-[201px] lg:gap-4"
-            aria-label={`Browse ${category.name}`}
-          >
-            <div
-              className="flex h-[80px] w-[80px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105 lg:h-[110px] lg:w-[110px]"
+        {categories.map((category) => {
+          const categoryName = t(`categories.${category.nameKey}`);
+          return (
+            <Link
+              key={category.id}
+              href={`/category/${slugify(categoryName)}`}
+              className="group flex h-[160px] flex-col items-center justify-center gap-3 border border-zinc-200 transition-colors hover:bg-zinc-50 lg:h-[201px] lg:gap-4"
+              aria-label={`Browse ${categoryName}`}
             >
-              {category.isSpecial ? (
-                <div className="flex h-full w-full items-center justify-center bg-red-600">
-                  <span className="text-2xl font-bold text-white lg:text-3xl">
-                    Sale
+              <div
+                className="flex h-[80px] w-[80px] items-center justify-center overflow-hidden rounded-full bg-zinc-100 transition-transform group-hover:scale-105 lg:h-[110px] lg:w-[110px]"
+              >
+                {category.isSpecial ? (
+                  <div className="flex h-full w-full items-center justify-center bg-red-600">
+                    <span className="text-2xl font-bold text-white lg:text-3xl">
+                      {t("saleBadge")}
+                    </span>
+                  </div>
+                ) : (
+                  <span
+                    role="img"
+                    aria-label={category.emojiLabel}
+                    className="text-3xl lg:text-5xl"
+                  >
+                    {category.emoji}
                   </span>
-                </div>
-              ) : (
-                <span
-                  role="img"
-                  aria-label={category.emojiLabel}
-                  className="text-3xl lg:text-5xl"
-                >
-                  {category.emoji}
-                </span>
-              )}
-            </div>
-            <h3
-              className="text-center text-[15px] font-medium text-black transition-colors group-hover:text-zinc-600"
-            >
-              {category.name}
-            </h3>
-          </Link>
-        ))}
+                )}
+              </div>
+              <h3
+                className="text-center text-[15px] font-medium text-black transition-colors group-hover:text-zinc-600"
+              >
+                {categoryName}
+              </h3>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

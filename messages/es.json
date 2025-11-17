@@ -174,21 +174,65 @@
     "reviews": "Reseñas"
   },
   "footer": {
-    "copyright": "© 2024 Nimble. Todos los derechos reservados.",
-    "privacyPolicy": "Política de Privacidad",
-    "termsOfService": "Términos de Servicio",
-    "contactUs": "Contáctanos",
-    "followUs": "Síguenos",
-    "newsletter": {
-      "title": "Suscríbete a nuestro boletín",
-      "description": "Recibe las últimas actualizaciones sobre nuevos productos y próximas ventas",
-      "placeholder": "Ingresa tu correo electrónico",
-      "button": "Suscribirse"
+    "contact": {
+      "customerService": {
+        "title": "Servicio al Cliente",
+        "hours": "Lun-Sáb, 9am-6pm EST."
+      },
+      "callUs": {
+        "title": "Llámanos",
+        "phone": "+1 888-234-1234 (llamada gratuita)"
+      },
+      "getInTouch": {
+        "title": "Contáctanos",
+        "email": "touch@garacestore.com"
+      },
+      "address": {
+        "title": "Dirección",
+        "street": "382 NE 191st St # 87394 Miami"
+      }
     },
-    "sections": {
-      "company": "Empresa",
-      "help": "Ayuda",
-      "shop": "Tienda"
+    "newsletter": {
+      "title": "Únete a Nuestro Boletín",
+      "description": "Suscríbete a nuestro boletín y recibe 10% de descuento en tu primer pedido.",
+      "placeholder": "Ingresa tu correo electrónico",
+      "button": "Suscribirse",
+      "disclaimer": "Al suscribirte aceptas los",
+      "termsOfService": "Términos de Servicio",
+      "and": "y la",
+      "privacyPolicy": "Política de Privacidad"
+    },
+    "links": {
+      "company": {
+        "title": "Empresa",
+        "aboutUs": "Acerca de nosotros",
+        "contact": "Contacto",
+        "faqs": "Preguntas Frecuentes",
+        "blog": "Blog",
+        "findStore": "Buscar una Tienda"
+      },
+      "collection": {
+        "title": "Colección",
+        "tables": "Mesas",
+        "bowChairs": "Sillas Bow",
+        "turnTable": "Mesa Giratoria",
+        "turnChair": "Silla Giratoria",
+        "crossBarChair": "Silla Cross Bar"
+      },
+      "shop": {
+        "title": "Tienda",
+        "sofas": "Sofás",
+        "outdoor": "Exterior",
+        "seating": "Asientos",
+        "lighting": "Iluminación",
+        "accessories": "Accesorios"
+      }
+    },
+    "bottom": {
+      "country": "Estados Unidos (USD $)",
+      "copyright": "© 2025 Hyper Garace. Desarrollado por Shopify",
+      "termsOfService": "Términos de Servicio",
+      "privacyPolicy": "Política de Privacidad"
     }
   },
   "validation": {
@@ -209,5 +253,192 @@
     "success": "¡Éxito!",
     "error": "Ocurrió un error",
     "info": "Información"
+  },
+  "home": {
+    "newArrivals": {
+      "title": "Nuevos Llegados",
+      "description": "Las divisiones tradicionales entre el espacio personal y profesional.",
+      "tabs": {
+        "newArrivals": "Nuevos Llegados",
+        "hotItems": "Artículos Populares"
+      }
+    },
+    "productCard": {
+      "sale": "Oferta",
+      "sellingFast": "Se Vende Rápido"
+    },
+    "hero": {
+      "shopCollection": "Ver Colección",
+      "categories": {
+        "saleItems": "Artículos en Oferta",
+        "pressTables": "Mesas Press",
+        "lighting": "Iluminación",
+        "spokeSofa": "Sofá Spoke",
+        "storage": "Almacenamiento",
+        "turnChairs": "Sillas Turn",
+        "chairs": "Sillas",
+        "curveCoat": "Perchero Curve",
+        "bendChairs": "Sillas Bend",
+        "accessories": "Accesorios"
+      },
+      "slides": {
+        "modernElegance": {
+          "eyebrow": "Elegancia Moderna",
+          "title": "Sofá Spoke"
+        },
+        "contemporaryGrace": {
+          "eyebrow": "Gracia Contemporánea",
+          "title": "Comedor y Cocina"
+        },
+        "timelessDesign": {
+          "eyebrow": "Diseño Atemporal",
+          "title": "Sala de Estar"
+        }
+      }
+    },
+    "testimonials": {
+      "heading": "Nuestros Productos Favoritos",
+      "quote1": "Todos los productos son auténticos e importados del país de origen.",
+      "quote2": "La calidad y la artesanía superaron todas mis expectativas.",
+      "quote3": "Diseño hermoso que complementa perfectamente la decoración de nuestro hogar."
+    },
+    "inspiredSpaces": {
+      "heading": "Inspírate con Espacios"
+    },
+    "flashSale": {
+      "title": "¡Venta Flash en curso!",
+      "description": {
+        "line1": "Ahorra en mesas de oficina modernas,",
+        "line2": "los más vendidos + más"
+      },
+      "code": "Usa el Código: FLASH30"
+    },
+    "featuredProducts": {
+      "shopButton": "Comprar",
+      "products": {
+        "danishDesign": "Diseño Danés",
+        "materialNatural": "Material Natural",
+        "gridChairFrame": "Estructura de Silla Grid",
+        "cottonCollection": "Colección de Algodón",
+        "authorityDesign": "Diseño Authority",
+        "lunaraTeaTowel": "Paño de Té Lunara",
+        "minimalismStyle": "Estilo Minimalista",
+        "steelsLighting": "Iluminación Steels",
+        "sculptTableLamp": "Lámpara de Mesa Sculpt",
+        "nightstand": "Mesa de Noche",
+        "pixelShelves": "Estantes Pixel"
+      }
+    },
+    "shopByCategory": {
+      "heading": "Comprar por Categorías",
+      "shopAllProducts": "Ver Todos los Productos",
+      "saleBadge": "Oferta",
+      "categories": {
+        "saleItems": "Artículos en Oferta",
+        "pressTables": "Mesas Press",
+        "lighting": "Iluminación",
+        "spokeSofa": "Sofá Spoke",
+        "storage": "Almacenamiento",
+        "turnChairs": "Sillas Turn",
+        "longeChairs": "Sillas Longe",
+        "curveCoat": "Perchero Curve",
+        "crossTables": "Mesas Cross",
+        "bendChairs": "Sillas Bend",
+        "barChairs": "Sillas de Bar",
+        "accessories": "Accesorios"
+      }
+    },
+    "featuredCollections": {
+      "heading": "Colecciones Destacadas",
+      "description": "Con una forma inspirada en los bolardos utilizados para asegurar embarcaciones a un muelle",
+      "shopCollection": "Ver Colección",
+      "collections": {
+        "heritageLiving": "Vida Patrimonial",
+        "theHavenCollection": "La Colección Haven",
+        "solaceSeries": "Serie Solace"
+      }
+    },
+    "approachFeatures": {
+      "heading": {
+        "line1": "Este enfoque resultó en la",
+        "line2": "hermosa estructura"
+      },
+      "badges": {
+        "allEcoCertified": "Todo Eco-Certificado",
+        "productProtection": "Protección del Producto",
+        "makeItYours": "Hazlo Tuyo",
+        "uniqueTailored": "Único a Medida"
+      },
+      "features": {
+        "comfortable": {
+          "title": "Cómodo",
+          "description": "La Silla Bow está disponible en Roble Natural o Teñido de Negro con certificación completa de la Ecoetiqueta de la UE."
+        },
+        "priceTransparency": {
+          "title": "Transparencia de precios",
+          "description": "Los precios justos aseguran que sepas exactamente por qué estás pagando, sin costos ocultos ni recargos."
+        },
+        "allEcoCertified": {
+          "title": "Todo eco-certificado",
+          "description": "Todos los productos consideran un impacto ambiental más holístico y están diseñados para una vida útil más larga."
+        },
+        "sustainability": {
+          "title": "Sostenibilidad",
+          "description": "Comprometidos con prácticas sustentables, abastecimiento ético y reducción del impacto ambiental."
+        }
+      }
+    },
+    "clientTestimonials": {
+      "eyebrow": "Lo Que Dicen Nuestros Clientes",
+      "testimonials": {
+        "quote1": "Los productos son artísticos, divertidos, tienen una historia tan única como los diseñadores que los hicieron.",
+        "quote2": "Cada pieza es como una obra maestra, combinando diseño y autenticidad maravillosamente.",
+        "quote3": "El mejor abrigo que he tenido, calidad increíble y materiales de principio a fin."
+      }
+    },
+    "shopOurOffers": {
+      "heading": "Compra Nuestras Ofertas",
+      "description": "Las divisiones tradicionales entre el espacio personal y profesional.",
+      "link": "Ver Todos los Productos",
+      "badges": {
+        "sale": "Oferta",
+        "new": "Nuevo",
+        "sellingFast": "Se Vende Rápido"
+      }
+    },
+    "meetOurTeam": {
+      "eyebrow": "Conoce Nuestro Equipo",
+      "heading": "Las mentes creativas detrás de nuestro estudio",
+      "description": "Como diseñadores, estamos constantemente pensando en cómo vive la gente y qué problemas podríamos resolver para ellos.",
+      "feature1": "Producto local de Nueva York",
+      "feature2": "Calificación de 4.8",
+      "feature3": "Más de 50 Productos",
+      "button": "Contáctanos"
+    },
+    "instagramFeed": {
+      "heading": "Estamos en Instagram"
+    },
+    "categoryChips": {
+      "livingRoom": "Sala de Estar",
+      "planters": "Macetas",
+      "gravelRug": "Alfombra de Grava",
+      "tableMirror": "Espejo de Mesa",
+      "tableWears": "Cubertería",
+      "diningDecor": "Decoración de Comedor",
+      "rayTableLamp": "Lámpara de Mesa Ray",
+      "bedroom": "Dormitorio"
+    },
+    "promoBanners": {
+      "save": "Ahorra",
+      "shopNow": "Comprar Ahora",
+      "banner1": {
+        "title": "Sillas Turn",
+        "description": "¡Eleva tu espacio con 40% de descuento en nuestros diseños atemporales!"
+      },
+      "banner2": {
+        "title": "Sillas Cross",
+        "description": "¡Obtén 30% de descuento en asientos elegantes y atemporales, no te lo pierdas!"
+      }
+    }
   }
 }

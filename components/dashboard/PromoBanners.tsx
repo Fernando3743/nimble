@@ -1,4 +1,7 @@
+"use client";
+
 import { Link } from "@/lib/i18n/routing";
+import { useTranslations } from "next-intl";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -26,8 +29,7 @@ const SIZES = {
 
 type PromoBanner = {
   id: number;
-  title: string;
-  description: string;
+  key: string;
   discount: string;
   badgeColor: string;
   backgroundColor: string;
@@ -39,8 +41,7 @@ type PromoBanner = {
 const banners: PromoBanner[] = [
   {
     id: 1,
-    title: "Turn Chairs",
-    description: "Elevate your space with 40% off our timeless designs!",
+    key: "banner1",
     discount: "40%",
     badgeColor: COLORS.yellowBadge,
     backgroundColor: COLORS.pinkBg,
@@ -50,8 +51,7 @@ const banners: PromoBanner[] = [
   },
   {
     id: 2,
-    title: "Cross Chairs",
-    description: "Get 30% off elegant, timeless seating—don't miss out!",
+    key: "banner2",
     discount: "30%",
     badgeColor: COLORS.redBadge,
     backgroundColor: COLORS.mintBg,
@@ -62,6 +62,8 @@ const banners: PromoBanner[] = [
 ];
 
 export function PromoBanners() {
+  const t = useTranslations("home.promoBanners");
+
   return (
     <section className="px-4 pt-8 lg:pt-10">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -74,10 +76,10 @@ export function PromoBanners() {
               {/* Content */}
               <div className="space-y-3 lg:space-y-4">
                 <h2 className="text-[22px] font-bold leading-tight text-black lg:text-[32px]">
-                  {banner.title}
+                  {t(`${banner.key}.title`)}
                 </h2>
                 <p className="max-w-xs text-sm leading-relaxed text-zinc-600 lg:text-[16px]">
-                  {banner.description}
+                  {t(`${banner.key}.description`)}
                 </p>
               </div>
 
@@ -87,7 +89,7 @@ export function PromoBanners() {
                   href={banner.buttonLink}
                   className={`inline-flex items-center justify-center rounded-full ${COLORS.blackButton} px-8 py-4 ${TYPOGRAPHY.button} ${COLORS.whiteText} transition-all hover:bg-zinc-800`}
                 >
-                  Shop Now
+                  {t("shopNow")}
                 </Link>
               </div>
             </div>
@@ -104,7 +106,7 @@ export function PromoBanners() {
               <span
                 className={`${TYPOGRAPHY.badgeSave} ${banner.badgeTextColor}`}
               >
-                Save
+                {t("save")}
               </span>
               <span
                 className={`${TYPOGRAPHY.badgeText} ${banner.badgeTextColor} leading-none`}

@@ -1,46 +1,49 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 
-const categories = [
-  "Sale Items",
-  "Press Tables",
-  "Lighting",
-  "Spoke Sofa",
-  "Storage",
-  "Turn Chairs",
-  "Chairs",
-  "Curve Coat",
-  "Bend Chairs",
-  "Accessories",
-];
-
-const heroSlides = [
-  {
-    eyebrow: "Modern Elegance",
-    title: "Spoke Sofa",
-    cta: "Shop Collection",
-    image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    eyebrow: "Contemporary Grace",
-    title: "Dining & Kitchen",
-    cta: "Shop Collection",
-    image:
-      "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    eyebrow: "Timeless Design",
-    title: "Living Room",
-    cta: "Shop Collection",
-    image:
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80",
-  },
-];
-
 export function Hero() {
+  const t = useTranslations("home.hero");
+  const tProductCard = useTranslations("home.productCard");
+
+  const categories = [
+    { key: "saleItems", label: t("categories.saleItems") },
+    { key: "pressTables", label: t("categories.pressTables") },
+    { key: "lighting", label: t("categories.lighting") },
+    { key: "spokeSofa", label: t("categories.spokeSofa") },
+    { key: "storage", label: t("categories.storage") },
+    { key: "turnChairs", label: t("categories.turnChairs") },
+    { key: "chairs", label: t("categories.chairs") },
+    { key: "curveCoat", label: t("categories.curveCoat") },
+    { key: "bendChairs", label: t("categories.bendChairs") },
+    { key: "accessories", label: t("categories.accessories") },
+  ];
+
+  const heroSlides = [
+    {
+      eyebrow: t("slides.modernElegance.eyebrow"),
+      title: t("slides.modernElegance.title"),
+      cta: t("shopCollection"),
+      image:
+        "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80",
+    },
+    {
+      eyebrow: t("slides.contemporaryGrace.eyebrow"),
+      title: t("slides.contemporaryGrace.title"),
+      cta: t("shopCollection"),
+      image:
+        "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1600&q=80",
+    },
+    {
+      eyebrow: t("slides.timelessDesign.eyebrow"),
+      title: t("slides.timelessDesign.title"),
+      cta: t("shopCollection"),
+      image:
+        "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80",
+    },
+  ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -127,27 +130,27 @@ export function Hero() {
           >
             {categories.map((category) => (
               <button
-                key={category}
+                key={category.key}
                 className="flex flex-col items-center gap-3 transition hover:opacity-80"
                 type="button"
               >
                 <div
                   className={`flex size-16 sm:size-20 items-center justify-center rounded-full transition hover:shadow-md ${
-                    category === "Sale Items"
+                    category.key === "saleItems"
                       ? "bg-[#C4523C] shadow-sm"
                       : "bg-[#F5F5F5] shadow-sm"
                   }`}
                 >
                   <span
                     className={`text-lg font-medium ${
-                      category === "Sale Items" ? "text-white" : "text-zinc-600"
+                      category.key === "saleItems" ? "text-white" : "text-zinc-600"
                     }`}
                   >
-                    {category === "Sale Items" ? "Sale" : category[0]}
+                    {category.key === "saleItems" ? tProductCard("sale") : category.label[0]}
                   </span>
                 </div>
                 <span className="text-sm font-medium text-zinc-900">
-                  {category}
+                  {category.label}
                 </span>
               </button>
             ))}
