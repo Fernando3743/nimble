@@ -1,10 +1,10 @@
 "use client";
 
 import { icons } from "@/components/icons";
-import Link from "next/link";
+import { Link, useRouter } from "@/lib/i18n/routing";
 import { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { showError, showLoading, updateToast } from "@/utils/toast";
 
 function SignInForm() {

@@ -1,0 +1,117 @@
+{
+  "common": {
+    "brand": "Nimble",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "success": "Éxito"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión en tu cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "rememberMe": "Recuérdame",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "noAccount": "¿No tienes una cuenta?",
+      "createOne": "Crear una",
+      "button": "Iniciar Sesión",
+      "withGoogle": "Iniciar sesión con Google",
+      "withGitHub": "Iniciar sesión con GitHub"
+    },
+    "signUp": {
+      "title": "Crear una cuenta",
+      "subtitle": "Comienza tu viaje con Nimble",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "terms": "Acepto los términos y condiciones",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "signInHere": "Inicia sesión aquí",
+      "button": "Crear Cuenta"
+    },
+    "errors": {
+      "invalidCredentials": "Correo electrónico o contraseña inválidos",
+      "emailInUse": "El correo electrónico ya está en uso",
+      "weakPassword": "La contraseña es demasiado débil",
+      "genericError": "Ocurrió un error durante la autenticación"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "subtitle": "Administra la configuración de tu cuenta",
+    "personalInfo": "Información Personal",
+    "avatar": "Foto de Perfil",
+    "uploadPhoto": "Subir Foto",
+    "cropPhoto": "Recortar Foto",
+    "savePhoto": "Guardar Foto",
+    "cancelCrop": "Cancelar",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "phone": "Número de Teléfono",
+    "saveChanges": "Guardar Cambios",
+    "editProfile": "Editar Perfil",
+    "viewMode": "Modo de Vista",
+    "success": {
+      "profileUpdated": "Perfil actualizado exitosamente",
+      "photoUploaded": "Foto subida exitosamente",
+      "photoCropped": "Foto recortada exitosamente"
+    },
+    "error": {
+      "updateFailed": "Error al actualizar el perfil",
+      "uploadFailed": "Error al subir la foto",
+      "cropFailed": "Error al recortar la foto",
+      "invalidFileType": "Tipo de archivo inválido. Por favor sube una imagen.",
+      "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 5MB."
+    }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "shop": "Tienda",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "profile": "Perfil",
+    "cart": "Carrito",
+    "wishlist": "Lista de Deseos"
+  },
+  "products": {
+    "addToCart": "Añadir al Carrito",
+    "addToWishlist": "Añadir a Lista de Deseos",
+    "outOfStock": "Agotado",
+    "inStock": "En Stock",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "description": "Descripción",
+    "features": "Características",
+    "reviews": "Reseñas"
+  },
+  "footer": {
+    "copyright": "© 2024 Nimble. Todos los derechos reservados.",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "contactUs": "Contáctanos",
+    "followUs": "Síguenos"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Correo electrónico inválido",
+    "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+    "passwordsDoNotMatch": "Las contraseñas no coinciden",
+    "phoneInvalid": "Número de teléfono inválido",
+    "invalidFormat": "Formato inválido"
+  },
+  "meta": {
+    "title": "Nimble - Tienda de Muebles Modernos",
+    "description": "Descubre muebles modernos y hermosos para tu hogar"
+  }
+}

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 
 // Design tokens
 const TYPOGRAPHY = {

@@ -1,0 +1,117 @@
+{
+  "common": {
+    "brand": "Nimble",
+    "signIn": "Se Connecter",
+    "signUp": "S'inscrire",
+    "signOut": "Se Déconnecter",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "success": "Succès"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous à votre compte",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "rememberMe": "Se souvenir de moi",
+      "forgotPassword": "Mot de passe oublié?",
+      "noAccount": "Vous n'avez pas de compte?",
+      "createOne": "Créer un compte",
+      "button": "Se Connecter",
+      "withGoogle": "Se connecter avec Google",
+      "withGitHub": "Se connecter avec GitHub"
+    },
+    "signUp": {
+      "title": "Créer un compte",
+      "subtitle": "Commencez votre voyage avec Nimble",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "terms": "J'accepte les termes et conditions",
+      "haveAccount": "Vous avez déjà un compte?",
+      "signInHere": "Connectez-vous ici",
+      "button": "Créer un Compte"
+    },
+    "errors": {
+      "invalidCredentials": "E-mail ou mot de passe invalide",
+      "emailInUse": "L'e-mail est déjà utilisé",
+      "weakPassword": "Le mot de passe est trop faible",
+      "genericError": "Une erreur s'est produite lors de l'authentification"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "subtitle": "Gérez les paramètres de votre compte",
+    "personalInfo": "Informations Personnelles",
+    "avatar": "Photo de Profil",
+    "uploadPhoto": "Télécharger une Photo",
+    "cropPhoto": "Recadrer la Photo",
+    "savePhoto": "Enregistrer la Photo",
+    "cancelCrop": "Annuler",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "E-mail",
+    "phone": "Numéro de Téléphone",
+    "saveChanges": "Enregistrer les Modifications",
+    "editProfile": "Modifier le Profil",
+    "viewMode": "Mode Visualisation",
+    "success": {
+      "profileUpdated": "Profil mis à jour avec succès",
+      "photoUploaded": "Photo téléchargée avec succès",
+      "photoCropped": "Photo recadrée avec succès"
+    },
+    "error": {
+      "updateFailed": "Échec de la mise à jour du profil",
+      "uploadFailed": "Échec du téléchargement de la photo",
+      "cropFailed": "Échec du recadrage de la photo",
+      "invalidFileType": "Type de fichier invalide. Veuillez télécharger une image.",
+      "fileTooLarge": "Le fichier est trop volumineux. La taille maximale est de 5 Mo."
+    }
+  },
+  "navigation": {
+    "home": "Accueil",
+    "shop": "Boutique",
+    "about": "À Propos",
+    "contact": "Contact",
+    "profile": "Profil",
+    "cart": "Panier",
+    "wishlist": "Liste de Souhaits"
+  },
+  "products": {
+    "addToCart": "Ajouter au Panier",
+    "addToWishlist": "Ajouter à la Liste de Souhaits",
+    "outOfStock": "Rupture de Stock",
+    "inStock": "En Stock",
+    "price": "Prix",
+    "quantity": "Quantité",
+    "description": "Description",
+    "features": "Caractéristiques",
+    "reviews": "Avis"
+  },
+  "footer": {
+    "copyright": "© 2024 Nimble. Tous droits réservés.",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfService": "Conditions d'Utilisation",
+    "contactUs": "Contactez-nous",
+    "followUs": "Suivez-nous"
+  },
+  "validation": {
+    "required": "Ce champ est obligatoire",
+    "invalidEmail": "Adresse e-mail invalide",
+    "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+    "phoneInvalid": "Numéro de téléphone invalide",
+    "invalidFormat": "Format invalide"
+  },
+  "meta": {
+    "title": "Nimble - Magasin de Meubles Modernes",
+    "description": "Découvrez de beaux meubles modernes pour votre maison"
+  }
+}

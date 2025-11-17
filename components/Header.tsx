@@ -1,9 +1,10 @@
 "use client";
 
 import { icons } from "@/components/icons";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 // Constants
 const CONTAINER = "w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
@@ -93,13 +94,9 @@ export function Header() {
             ✌️ Free Express Shipping on orders $500!
           </p>
 
-          {/* Country selector and social icons */}
+          {/* Language selector and social icons */}
           <div className="hidden flex-wrap items-center justify-center gap-4 text-white lg:flex">
-            <div className="flex items-center gap-2 rounded-full px-3 py-1">
-              <span className="text-lg leading-none">🇺🇸</span>
-              <span className="font-medium">United States (USD $)</span>
-              <span className="pt-0.5">{icons.chevronLight()}</span>
-            </div>
+            <LanguageSwitcher />
             <div className="flex items-center">
               {socialIcons.map((social) => (
                 <a
@@ -335,15 +332,8 @@ export function Header() {
               </Link>
             )}
 
-            {/* Country Selector */}
-            <button
-              className="flex items-center gap-2 px-4 py-4 text-[15px] font-medium text-black transition hover:bg-light-gray/30"
-              type="button"
-            >
-              <span className="text-lg leading-none">🇺🇸</span>
-              <span className="flex-1 text-left">United States (USD $)</span>
-              <span>{icons.chevron()}</span>
-            </button>
+            {/* Language Selector */}
+            <LanguageSwitcher variant="mobile" className="border-t border-zinc-100 mt-4" />
 
             {/* Social Media Icons */}
             <div className="flex items-center gap-3 px-4 py-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 import { slugify } from "@/utils/cn";
 
 // Design tokens

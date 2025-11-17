@@ -1,10 +1,9 @@
 "use client";
 
 import { icons } from "@/components/icons";
-import Link from "next/link";
+import { Link, useRouter } from "@/lib/i18n/routing";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 import { showError, showSuccess, showLoading, updateToast } from "@/utils/toast";
 
 export default function SignUpPage() {

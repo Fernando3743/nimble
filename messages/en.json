@@ -1,0 +1,117 @@
+{
+  "common": {
+    "brand": "Nimble",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "email": "Email address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "createOne": "Create one",
+      "button": "Sign In",
+      "withGoogle": "Sign in with Google",
+      "withGitHub": "Sign in with GitHub"
+    },
+    "signUp": {
+      "title": "Create an account",
+      "subtitle": "Start your journey with Nimble",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "terms": "I agree to the terms and conditions",
+      "haveAccount": "Already have an account?",
+      "signInHere": "Sign in here",
+      "button": "Create Account"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailInUse": "Email already in use",
+      "weakPassword": "Password is too weak",
+      "genericError": "An error occurred during authentication"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Manage your account settings",
+    "personalInfo": "Personal Information",
+    "avatar": "Profile Photo",
+    "uploadPhoto": "Upload Photo",
+    "cropPhoto": "Crop Photo",
+    "savePhoto": "Save Photo",
+    "cancelCrop": "Cancel",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "saveChanges": "Save Changes",
+    "editProfile": "Edit Profile",
+    "viewMode": "View Mode",
+    "success": {
+      "profileUpdated": "Profile updated successfully",
+      "photoUploaded": "Photo uploaded successfully",
+      "photoCropped": "Photo cropped successfully"
+    },
+    "error": {
+      "updateFailed": "Failed to update profile",
+      "uploadFailed": "Failed to upload photo",
+      "cropFailed": "Failed to crop photo",
+      "invalidFileType": "Invalid file type. Please upload an image.",
+      "fileTooLarge": "File is too large. Maximum size is 5MB."
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact",
+    "profile": "Profile",
+    "cart": "Cart",
+    "wishlist": "Wishlist"
+  },
+  "products": {
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "price": "Price",
+    "quantity": "Quantity",
+    "description": "Description",
+    "features": "Features",
+    "reviews": "Reviews"
+  },
+  "footer": {
+    "copyright": "© 2024 Nimble. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contactUs": "Contact Us",
+    "followUs": "Follow Us"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "phoneInvalid": "Invalid phone number",
+    "invalidFormat": "Invalid format"
+  },
+  "meta": {
+    "title": "Nimble - Modern Furniture Store",
+    "description": "Discover beautiful, modern furniture for your home"
+  }
+}
