@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Instrument_Sans } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/lib/i18n/config';
 import { QueryProvider } from '@/lib/react-query/QueryProvider';
@@ -14,10 +14,32 @@ const instrumentSans = Instrument_Sans({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Nimble - Modern Furniture Store',
-  description: 'Discover beautiful, modern furniture for your home',
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      languages: {
+        'en': '/en',
+        'es': '/es',
+        'fr': '/fr',
+      },
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      locale: locale,
+      alternateLocale: locales.filter(l => l !== locale),
+    },
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

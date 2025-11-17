@@ -10,44 +10,108 @@
     "delete": "Eliminar",
     "loading": "Cargando...",
     "error": "Ocurrió un error",
-    "success": "Éxito"
+    "success": "Éxito",
+    "backToHome": "Volver al Inicio",
+    "tryAgain": "Intentar de Nuevo",
+    "goToHome": "Ir al Inicio",
+    "continueWith": "Continuar con {provider}"
+  },
+  "header": {
+    "utilityLinks": {
+      "helpCenter": "Centro de Ayuda",
+      "findStore": "Buscar Tienda",
+      "contact": "Contacto"
+    },
+    "promo": "✌️ ¡Envío Express Gratis en pedidos de $500!",
+    "search": {
+      "placeholder": "¿Qué estás buscando?",
+      "allCategories": "Todas las Categorías",
+      "all": "Todas"
+    },
+    "actions": {
+      "findStore": "Buscar una tienda",
+      "signInRegister": "Iniciar sesión / Registrarse",
+      "bag": "Bolsa"
+    },
+    "navigation": {
+      "shopByCategories": "Comprar por Categorías",
+      "shopByRoom": "Comprar por Habitación",
+      "tablesDesks": "Mesas y Escritorios",
+      "chairsStools": "Sillas y Taburetes",
+      "pages": "Páginas",
+      "themeFeatures": "Características del Tema",
+      "onSale": "En Oferta"
+    }
   },
   "auth": {
     "signIn": {
-      "title": "Bienvenido de nuevo",
-      "subtitle": "Inicia sesión en tu cuenta",
-      "email": "Correo electrónico",
+      "title": "Bienvenido de Nuevo",
+      "subtitle": "Inicia sesión en tu cuenta de Nimble",
+      "desktopTitle": "Bienvenido de nuevo a tu",
+      "desktopSubtitle": "paraíso de muebles",
+      "desktopDescription": "Inicia sesión para acceder a tus artículos guardados, rastrear pedidos y descubrir nuevas piezas de muebles para tu hogar.",
+      "email": "Correo Electrónico",
       "password": "Contraseña",
       "rememberMe": "Recuérdame",
       "forgotPassword": "¿Olvidaste tu contraseña?",
       "noAccount": "¿No tienes una cuenta?",
-      "createOne": "Crear una",
+      "createOne": "Crear Cuenta",
       "button": "Iniciar Sesión",
-      "withGoogle": "Iniciar sesión con Google",
-      "withGitHub": "Iniciar sesión con GitHub"
+      "withGoogle": "Continuar con Google",
+      "withEmail": "O inicia sesión con correo electrónico",
+      "signingIn": "Iniciando sesión...",
+      "connecting": "Conectando con Google..."
     },
     "signUp": {
       "title": "Crear una cuenta",
       "subtitle": "Comienza tu viaje con Nimble",
+      "desktopTitle": "Bienvenido a Nimble",
+      "desktopSubtitle": "Comienza tu viaje de muebles",
+      "desktopDescription": "Crea una cuenta para guardar tus favoritos, rastrear pedidos y obtener recomendaciones personalizadas.",
       "firstName": "Nombre",
       "lastName": "Apellido",
-      "email": "Correo electrónico",
+      "email": "Correo Electrónico",
+      "phone": "Número de Teléfono",
       "password": "Contraseña",
-      "confirmPassword": "Confirmar contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "marketingConsent": "Quiero recibir correos promocionales",
       "terms": "Acepto los términos y condiciones",
       "haveAccount": "¿Ya tienes una cuenta?",
       "signInHere": "Inicia sesión aquí",
-      "button": "Crear Cuenta"
+      "button": "Crear Cuenta",
+      "creating": "Creando tu cuenta..."
     },
     "errors": {
       "invalidCredentials": "Correo electrónico o contraseña inválidos",
       "emailInUse": "El correo electrónico ya está en uso",
       "weakPassword": "La contraseña es demasiado débil",
-      "genericError": "Ocurrió un error durante la autenticación"
+      "passwordsDontMatch": "Las contraseñas no coinciden",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "genericError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+    },
+    "success": {
+      "signedIn": "¡Bienvenido de nuevo! 🎉",
+      "accountCreated": "¡Cuenta creada exitosamente! 🎉",
+      "redirecting": "Redirigiendo a Google..."
+    },
+    "authCodeError": {
+      "title": "Error de Autenticación",
+      "subtitle": "Hubo un problema al iniciar sesión",
+      "description": "El código de autenticación proporcionado fue inválido o ha expirado. Esto puede suceder si:",
+      "reasons": {
+        "used": "El enlace de inicio de sesión ya ha sido utilizado",
+        "expired": "El enlace ha expirado (los enlaces son válidos por 24 horas)",
+        "old": "Hiciste clic en un enlace de verificación antiguo",
+        "provider": "Hubo un problema con el proveedor OAuth"
+      },
+      "tryAgain": "Intentar Iniciar Sesión de Nuevo",
+      "returnHome": "Volver al Inicio",
+      "needHelp": "¿Necesitas ayuda?",
+      "contactSupport": "Contactar soporte"
     }
   },
   "profile": {
-    "title": "Perfil",
+    "title": "Mi Perfil",
     "subtitle": "Administra la configuración de tu cuenta",
     "personalInfo": "Información Personal",
     "avatar": "Foto de Perfil",
@@ -62,17 +126,30 @@
     "saveChanges": "Guardar Cambios",
     "editProfile": "Editar Perfil",
     "viewMode": "Modo de Vista",
+    "saving": "Guardando perfil...",
+    "uploading": "Subiendo foto...",
+    "cropping": "Guardando foto recortada...",
+    "sidebar": {
+      "profile": "Perfil",
+      "orders": "Pedidos",
+      "wishlist": "Lista de Deseos",
+      "addresses": "Direcciones",
+      "settings": "Configuración",
+      "signOut": "Cerrar Sesión"
+    },
     "success": {
-      "profileUpdated": "Perfil actualizado exitosamente",
-      "photoUploaded": "Foto subida exitosamente",
-      "photoCropped": "Foto recortada exitosamente"
+      "profileUpdated": "¡Perfil actualizado exitosamente! 🎉",
+      "photoUploaded": "¡Foto subida exitosamente! 🎉",
+      "photoCropped": "¡Foto recortada exitosamente! 🎉"
     },
     "error": {
-      "updateFailed": "Error al actualizar el perfil",
-      "uploadFailed": "Error al subir la foto",
-      "cropFailed": "Error al recortar la foto",
+      "updateFailed": "Error al actualizar el perfil. Por favor, inténtalo de nuevo.",
+      "uploadFailed": "Error al subir la foto. Por favor, inténtalo de nuevo.",
+      "cropFailed": "Error al recortar la foto. Por favor, inténtalo de nuevo.",
       "invalidFileType": "Tipo de archivo inválido. Por favor sube una imagen.",
-      "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 5MB."
+      "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 5MB.",
+      "loadingError": "Estamos teniendo problemas para cargar tu perfil",
+      "connectionIssue": "Esto podría deberse a un problema de conexión o un problema temporal con nuestros servidores. Por favor, inténtalo de nuevo en un momento."
     }
   },
   "navigation": {
@@ -81,6 +158,7 @@
     "about": "Acerca de",
     "contact": "Contacto",
     "profile": "Perfil",
+    "myProfile": "Mi Perfil",
     "cart": "Carrito",
     "wishlist": "Lista de Deseos"
   },
@@ -100,18 +178,36 @@
     "privacyPolicy": "Política de Privacidad",
     "termsOfService": "Términos de Servicio",
     "contactUs": "Contáctanos",
-    "followUs": "Síguenos"
+    "followUs": "Síguenos",
+    "newsletter": {
+      "title": "Suscríbete a nuestro boletín",
+      "description": "Recibe las últimas actualizaciones sobre nuevos productos y próximas ventas",
+      "placeholder": "Ingresa tu correo electrónico",
+      "button": "Suscribirse"
+    },
+    "sections": {
+      "company": "Empresa",
+      "help": "Ayuda",
+      "shop": "Tienda"
+    }
   },
   "validation": {
     "required": "Este campo es obligatorio",
     "invalidEmail": "Correo electrónico inválido",
-    "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+    "passwordMin": "La contraseña debe tener al menos {min} caracteres",
     "passwordsDoNotMatch": "Las contraseñas no coinciden",
     "phoneInvalid": "Número de teléfono inválido",
     "invalidFormat": "Formato inválido"
   },
   "meta": {
     "title": "Nimble - Tienda de Muebles Modernos",
-    "description": "Descubre muebles modernos y hermosos para tu hogar"
+    "description": "Descubre muebles modernos y hermosos para tu hogar",
+    "titleTemplate": "{page} | Nimble"
+  },
+  "toast": {
+    "loading": "Cargando...",
+    "success": "¡Éxito!",
+    "error": "Ocurrió un error",
+    "info": "Información"
   }
 }
