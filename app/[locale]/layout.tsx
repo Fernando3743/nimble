@@ -22,15 +22,16 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
+  // Dynamically build languages object from locales config
+  const languages = Object.fromEntries(
+    locales.map((loc) => [loc, `/${loc}`])
+  );
+
   return {
     title: t('title'),
     description: t('description'),
     alternates: {
-      languages: {
-        'en': '/en',
-        'es': '/es',
-        'fr': '/fr',
-      },
+      languages,
     },
     openGraph: {
       title: t('title'),

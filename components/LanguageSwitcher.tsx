@@ -15,11 +15,13 @@ const localeFlags: Record<Locale, string> = {
 interface LanguageSwitcherProps {
   variant?: "default" | "mobile";
   className?: string;
+  theme?: "light" | "dark";
 }
 
 export function LanguageSwitcher({
   variant = "default",
   className = "",
+  theme = "dark",
 }: LanguageSwitcherProps) {
   const locale = useLocale() as Locale;
   const pathname = usePathname();
@@ -80,7 +82,11 @@ export function LanguageSwitcher({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-full px-3 py-1 transition hover:bg-white/10"
+        className={`flex items-center gap-2 rounded-full px-3 py-1 transition ${
+          theme === "light"
+            ? "text-dark hover:bg-zinc-100"
+            : "text-white hover:bg-white/10"
+        }`}
         type="button"
         aria-label="Change language"
         aria-expanded={isOpen}

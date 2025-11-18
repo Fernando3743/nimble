@@ -79,7 +79,9 @@
       "haveAccount": "Already have an account?",
       "signInHere": "Sign in here",
       "button": "Create Account",
-      "creating": "Creating your account..."
+      "creating": "Creating your account...",
+      "withEmail": "Or sign up with email",
+      "connecting": "Connecting to Google..."
     },
     "errors": {
       "invalidCredentials": "Invalid email or password",

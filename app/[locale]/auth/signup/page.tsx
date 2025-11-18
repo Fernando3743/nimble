@@ -6,6 +6,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { showError, showSuccess, showLoading, updateToast } from "@/utils/toast";
 import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export default function SignUpPage() {
   const t = useTranslations("auth.signUp");
@@ -117,9 +118,12 @@ export default function SignUpPage() {
       {/* Header - Only visible on mobile */}
       <header className="border-b border-zinc-200 bg-white lg:hidden">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
-            Nimble
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
+              Nimble
+            </Link>
+            <LanguageSwitcher theme="light" />
+          </div>
         </div>
       </header>
 
@@ -127,9 +131,12 @@ export default function SignUpPage() {
       <main className="mx-auto max-w-md px-4 py-12 sm:px-6 lg:flex lg:min-h-screen lg:max-w-none lg:p-0">
         {/* Left Side - Brand/Image Section (Desktop Only) */}
         <div className="hidden lg:flex lg:w-1/2 lg:flex-col lg:bg-primary lg:p-16 lg:pt-20 xl:p-24 xl:pt-24">
-          <Link href="/" className="mb-12 text-4xl font-black uppercase tracking-tight text-white xl:text-5xl">
-            Nimble
-          </Link>
+          <div className="mb-12 flex items-center justify-between">
+            <Link href="/" className="text-4xl font-black uppercase tracking-tight text-white xl:text-5xl">
+              Nimble
+            </Link>
+            <LanguageSwitcher />
+          </div>
           <h2 className="mb-6 text-4xl font-black leading-tight text-white xl:text-5xl">
             {t("desktopTitle")}
             <br />
