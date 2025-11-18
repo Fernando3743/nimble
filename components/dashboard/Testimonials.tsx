@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type Testimonial = {
   id: number;
-  quote: string;
+  quoteKey: string;
   author: string;
   location: string;
   product: {
@@ -21,7 +22,7 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote: "All products are authentic and imported from the country of origin.",
+    quoteKey: "quote1",
     author: "Jenny Wilson",
     location: "New Mexico",
     product: {
@@ -37,7 +38,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    quote: "The quality and craftsmanship exceeded all my expectations.",
+    quoteKey: "quote2",
     author: "Robert Fox",
     location: "California",
     product: {
@@ -53,7 +54,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    quote: "Beautiful design that perfectly complements our home decor.",
+    quoteKey: "quote3",
     author: "Sarah Chen",
     location: "New York",
     product: {
@@ -70,6 +71,7 @@ const testimonials: Testimonial[] = [
 ];
 
 export function Testimonials() {
+  const t = useTranslations("home.testimonials");
   const [currentIndex, setCurrentIndex] = useState(0);
   const current = testimonials[currentIndex];
 
@@ -161,12 +163,12 @@ export function Testimonials() {
           <div className="space-y-6 lg:space-y-8">
             {/* Heading */}
             <p className="text-sm font-bold lg:text-[16px] text-black">
-              Our Favorite Products
+              {t("heading")}
             </p>
 
             {/* Quote */}
             <blockquote className="text-2xl font-bold leading-tight text-black lg:text-[40px] lg:leading-[1.2]">
-              "{current.quote}"
+              "{t(current.quoteKey)}"
             </blockquote>
 
             {/* Author Info */}

@@ -1,0 +1,446 @@
+{
+  "common": {
+    "brand": "Nimble",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "backToHome": "Back to Home",
+    "tryAgain": "Try Again",
+    "goToHome": "Go to Home",
+    "continueWith": "Continue with {provider}"
+  },
+  "header": {
+    "utilityLinks": {
+      "helpCenter": "Help Center",
+      "findStore": "Find a Store",
+      "contact": "Contact"
+    },
+    "promo": "✌️ Free Express Shipping on orders $500!",
+    "search": {
+      "placeholder": "What are you looking for?",
+      "allCategories": "All Categories",
+      "all": "All"
+    },
+    "actions": {
+      "findStore": "Find a store",
+      "signInRegister": "Sign in / Register",
+      "bag": "Bag"
+    },
+    "navigation": {
+      "shopByCategories": "Shop By Categories",
+      "shopByRoom": "Shop By Room",
+      "tablesDesks": "Tables & Desks",
+      "chairsStools": "Chairs & Stools",
+      "pages": "Pages",
+      "themeFeatures": "Theme Features",
+      "onSale": "On Sale"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your Nimble account",
+      "desktopTitle": "Welcome back to your",
+      "desktopSubtitle": "furniture paradise",
+      "desktopDescription": "Sign in to access your saved items, track orders, and discover new furniture pieces for your home.",
+      "email": "Email Address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "createOne": "Create Account",
+      "button": "Sign In",
+      "withGoogle": "Continue with Google",
+      "withEmail": "Or sign in with email",
+      "signingIn": "Signing in...",
+      "connecting": "Connecting to Google..."
+    },
+    "signUp": {
+      "title": "Create an account",
+      "subtitle": "Start your journey with Nimble",
+      "desktopTitle": "Welcome to Nimble",
+      "desktopSubtitle": "Start your furniture journey",
+      "desktopDescription": "Create an account to save your favorites, track orders, and get personalized recommendations.",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "marketingConsent": "I want to receive promotional emails",
+      "terms": "I agree to the terms and conditions",
+      "haveAccount": "Already have an account?",
+      "signInHere": "Sign in here",
+      "button": "Create Account",
+      "creating": "Creating your account...",
+      "withEmail": "Or sign up with email",
+      "connecting": "Connecting to Google..."
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailInUse": "Email already in use",
+      "weakPassword": "Password is too weak",
+      "passwordsDontMatch": "Passwords do not match",
+      "passwordMinLength": "Password must be at least 6 characters long",
+      "genericError": "An unexpected error occurred. Please try again."
+    },
+    "success": {
+      "signedIn": "Welcome back! 🎉",
+      "accountCreated": "Account created successfully! 🎉",
+      "redirecting": "Redirecting to Google..."
+    },
+    "authCodeError": {
+      "title": "Authentication Error",
+      "subtitle": "There was a problem signing you in",
+      "description": "The authentication code provided was invalid or has expired. This can happen if:",
+      "reasons": {
+        "used": "The sign-in link has already been used",
+        "expired": "The link has expired (links are valid for 24 hours)",
+        "old": "You clicked an old email verification link",
+        "provider": "There was an issue with the OAuth provider"
+      },
+      "tryAgain": "Try Signing In Again",
+      "returnHome": "Return to Home",
+      "needHelp": "Need help?",
+      "contactSupport": "Contact support"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your account settings",
+    "personalInfo": "Personal Information",
+    "avatar": "Profile Photo",
+    "uploadPhoto": "Upload Photo",
+    "cropPhoto": "Crop Photo",
+    "savePhoto": "Save Photo",
+    "cancelCrop": "Cancel",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "saveChanges": "Save Changes",
+    "editProfile": "Edit Profile",
+    "viewMode": "View Mode",
+    "saving": "Saving profile...",
+    "uploading": "Uploading photo...",
+    "cropping": "Saving cropped photo...",
+    "sidebar": {
+      "profile": "Profile",
+      "orders": "Orders",
+      "wishlist": "Wishlist",
+      "addresses": "Addresses",
+      "settings": "Settings",
+      "signOut": "Sign Out"
+    },
+    "success": {
+      "profileUpdated": "Profile updated successfully! 🎉",
+      "photoUploaded": "Photo uploaded successfully! 🎉",
+      "photoCropped": "Photo cropped successfully! 🎉"
+    },
+    "error": {
+      "updateFailed": "Failed to update profile. Please try again.",
+      "uploadFailed": "Failed to upload photo. Please try again.",
+      "cropFailed": "Failed to crop photo. Please try again.",
+      "invalidFileType": "Invalid file type. Please upload an image.",
+      "fileTooLarge": "File is too large. Maximum size is 5MB.",
+      "loadingError": "We're having trouble loading your profile",
+      "connectionIssue": "This could be due to a connection issue or a temporary problem with our servers. Please try again in a moment."
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact",
+    "profile": "Profile",
+    "myProfile": "My Profile",
+    "cart": "Cart",
+    "wishlist": "Wishlist"
+  },
+  "products": {
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "price": "Price",
+    "quantity": "Quantity",
+    "description": "Description",
+    "features": "Features",
+    "reviews": "Reviews"
+  },
+  "footer": {
+    "contact": {
+      "customerService": {
+        "title": "Customer Service",
+        "hours": "Mon-Sat, 9am-6pm EST."
+      },
+      "callUs": {
+        "title": "Call Us",
+        "phone": "+1 888-234-1234 (toll-free)"
+      },
+      "getInTouch": {
+        "title": "Get in Touch",
+        "email": "touch@garacestore.com"
+      },
+      "address": {
+        "title": "Address",
+        "street": "382 NE 191st St # 87394 Miami"
+      }
+    },
+    "newsletter": {
+      "title": "Join Our Newsletter",
+      "description": "Sign up to our newsletter & receive 10% off your first order.",
+      "placeholder": "Enter your email",
+      "button": "Sign Up",
+      "disclaimer": "By subscribing you agree to the",
+      "termsOfService": "Terms of Services",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "links": {
+      "company": {
+        "title": "Company",
+        "aboutUs": "About us",
+        "contact": "Contact",
+        "faqs": "FAQs",
+        "blog": "Blog",
+        "findStore": "Find a Store"
+      },
+      "collection": {
+        "title": "Collection",
+        "tables": "Tables",
+        "bowChairs": "Bow Chairs",
+        "turnTable": "Turn Table",
+        "turnChair": "Turn Chair",
+        "crossBarChair": "Cross Bar Chair"
+      },
+      "shop": {
+        "title": "Shop",
+        "sofas": "Sofas",
+        "outdoor": "Outdoor",
+        "seating": "Seating",
+        "lighting": "Lighting",
+        "accessories": "Accessories"
+      }
+    },
+    "bottom": {
+      "country": "United States (USD $)",
+      "copyright": "© 2025 Hyper Garace. Powered by Shopify",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "passwordMin": "Password must be at least {min} characters",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "phoneInvalid": "Invalid phone number",
+    "invalidFormat": "Invalid format"
+  },
+  "meta": {
+    "title": "Nimble - Modern Furniture Store",
+    "description": "Discover beautiful, modern furniture for your home",
+    "titleTemplate": "{page} | Nimble"
+  },
+  "toast": {
+    "loading": "Loading...",
+    "success": "Success!",
+    "error": "Error occurred",
+    "info": "Information"
+  },
+  "home": {
+    "newArrivals": {
+      "title": "New Arrivals",
+      "description": "Traditional divides between personal and professional space.",
+      "tabs": {
+        "newArrivals": "New Arrivals",
+        "hotItems": "Hot Items"
+      }
+    },
+    "productCard": {
+      "sale": "Sale",
+      "sellingFast": "Selling Fast"
+    },
+    "hero": {
+      "shopCollection": "Shop Collection",
+      "categories": {
+        "saleItems": "Sale Items",
+        "pressTables": "Press Tables",
+        "lighting": "Lighting",
+        "spokeSofa": "Spoke Sofa",
+        "storage": "Storage",
+        "turnChairs": "Turn Chairs",
+        "chairs": "Chairs",
+        "curveCoat": "Curve Coat",
+        "bendChairs": "Bend Chairs",
+        "accessories": "Accessories"
+      },
+      "slides": {
+        "modernElegance": {
+          "eyebrow": "Modern Elegance",
+          "title": "Spoke Sofa"
+        },
+        "contemporaryGrace": {
+          "eyebrow": "Contemporary Grace",
+          "title": "Dining & Kitchen"
+        },
+        "timelessDesign": {
+          "eyebrow": "Timeless Design",
+          "title": "Living Room"
+        }
+      }
+    },
+    "testimonials": {
+      "heading": "Our Favorite Products",
+      "quote1": "All products are authentic and imported from the country of origin.",
+      "quote2": "The quality and craftsmanship exceeded all my expectations.",
+      "quote3": "Beautiful design that perfectly complements our home decor."
+    },
+    "inspiredSpaces": {
+      "heading": "Get Inspired by Spaces"
+    },
+    "flashSale": {
+      "title": "Flash Sale now on!",
+      "description": {
+        "line1": "Save on modern table office,",
+        "line2": "best sellers + more"
+      },
+      "code": "Use Code: FLASH30"
+    },
+    "featuredProducts": {
+      "shopButton": "Shop",
+      "products": {
+        "danishDesign": "Danish Design",
+        "materialNatural": "Material Natural",
+        "gridChairFrame": "Grid Chair Frame",
+        "cottonCollection": "Cotton Collection",
+        "authorityDesign": "Authority Design",
+        "lunaraTeaTowel": "Lunara Tea Towel",
+        "minimalismStyle": "Minimalism Style",
+        "steelsLighting": "Steels Lighting",
+        "sculptTableLamp": "Sculpt Table Lamp",
+        "nightstand": "Nightstand",
+        "pixelShelves": "Pixel Shelves"
+      }
+    },
+    "shopByCategory": {
+      "heading": "Shop By Categories",
+      "shopAllProducts": "Shop All Products",
+      "saleBadge": "Sale",
+      "categories": {
+        "saleItems": "Sale Items",
+        "pressTables": "Press Tables",
+        "lighting": "Lighting",
+        "spokeSofa": "Spoke Sofa",
+        "storage": "Storage",
+        "turnChairs": "Turn Chairs",
+        "longeChairs": "Longe Chairs",
+        "curveCoat": "Curve Coat",
+        "crossTables": "Cross Tables",
+        "bendChairs": "Bend Chairs",
+        "barChairs": "Bar Chairs",
+        "accessories": "Accessories"
+      }
+    },
+    "featuredCollections": {
+      "heading": "Featured Collections",
+      "description": "With a shape inspired by the bollards used to secure vessels to a jetty",
+      "shopCollection": "Shop Collection",
+      "collections": {
+        "heritageLiving": "Heritage Living",
+        "theHavenCollection": "The Haven Collection",
+        "solaceSeries": "Solace Series"
+      }
+    },
+    "approachFeatures": {
+      "heading": {
+        "line1": "This approach resulted in the",
+        "line2": "beautiful structure"
+      },
+      "badges": {
+        "allEcoCertified": "All Eco-Certified",
+        "productProtection": "Product Protection",
+        "makeItYours": "Make It Yours",
+        "uniqueTailored": "Unique Tailored"
+      },
+      "features": {
+        "comfortable": {
+          "title": "Comfortable",
+          "description": "Bow Chair is available in Natural or Black-stained Oak with full EU Ecolabel certification."
+        },
+        "priceTransparency": {
+          "title": "Price transparency",
+          "description": "Fair pricing ensures you know exactly what you're paying for, with no hidden costs or markups."
+        },
+        "allEcoCertified": {
+          "title": "All eco-certified",
+          "description": "All products consider a more holistic environmental impact and are designed for a longer lifetime in a way."
+        },
+        "sustainability": {
+          "title": "Sustainability",
+          "description": "Committed to sustainable practices, ethical sourcing, and reducing environmental impact."
+        }
+      }
+    },
+    "clientTestimonials": {
+      "eyebrow": "What Clients Talk About Us",
+      "testimonials": {
+        "quote1": "The products are artful, fun, have a story just as unique as the designers who made it.",
+        "quote2": "Each piece is like a masterpiece, combining design and authenticity beautifully.",
+        "quote3": "The best coat I have ever owned, amazing quality and materials throughout."
+      }
+    },
+    "shopOurOffers": {
+      "heading": "Shop Our Offers",
+      "description": "Traditional divides between personal and professional space.",
+      "link": "Shop All Products",
+      "badges": {
+        "sale": "Sale",
+        "new": "New",
+        "sellingFast": "Selling Fast"
+      }
+    },
+    "meetOurTeam": {
+      "eyebrow": "Meet Our Team",
+      "heading": "The creative minds behind our studio",
+      "description": "As designers we are constantly thinking about how people live and what problems we could solve for them.",
+      "feature1": "Product locally in New York",
+      "feature2": "4.8 Review Score",
+      "feature3": "Over 50 Products",
+      "button": "Contact Us"
+    },
+    "instagramFeed": {
+      "heading": "We're on Gram"
+    },
+    "categoryChips": {
+      "livingRoom": "Living Room",
+      "planters": "Planters",
+      "gravelRug": "Gravel Rug",
+      "tableMirror": "Table Mirror",
+      "tableWears": "Table Wears",
+      "diningDecor": "Dining Decor",
+      "rayTableLamp": "Ray Table Lamp",
+      "bedroom": "Bedroom"
+    },
+    "promoBanners": {
+      "save": "Save",
+      "shopNow": "Shop Now",
+      "banner1": {
+        "title": "Turn Chairs",
+        "description": "Elevate your space with 40% off our timeless designs!"
+      },
+      "banner2": {
+        "title": "Cross Chairs",
+        "description": "Get 30% off elegant, timeless seating—don't miss out!"
+      }
+    }
+  }
+}

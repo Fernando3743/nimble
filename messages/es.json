@@ -1,0 +1,446 @@
+{
+  "common": {
+    "brand": "Nimble",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "success": "Éxito",
+    "backToHome": "Volver al Inicio",
+    "tryAgain": "Intentar de Nuevo",
+    "goToHome": "Ir al Inicio",
+    "continueWith": "Continuar con {provider}"
+  },
+  "header": {
+    "utilityLinks": {
+      "helpCenter": "Centro de Ayuda",
+      "findStore": "Buscar Tienda",
+      "contact": "Contacto"
+    },
+    "promo": "✌️ ¡Envío Express Gratis en pedidos de $500!",
+    "search": {
+      "placeholder": "¿Qué estás buscando?",
+      "allCategories": "Todas las Categorías",
+      "all": "Todas"
+    },
+    "actions": {
+      "findStore": "Buscar una tienda",
+      "signInRegister": "Iniciar sesión / Registrarse",
+      "bag": "Bolsa"
+    },
+    "navigation": {
+      "shopByCategories": "Comprar por Categorías",
+      "shopByRoom": "Comprar por Habitación",
+      "tablesDesks": "Mesas y Escritorios",
+      "chairsStools": "Sillas y Taburetes",
+      "pages": "Páginas",
+      "themeFeatures": "Características del Tema",
+      "onSale": "En Oferta"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Bienvenido de Nuevo",
+      "subtitle": "Inicia sesión en tu cuenta de Nimble",
+      "desktopTitle": "Bienvenido de nuevo a tu",
+      "desktopSubtitle": "paraíso de muebles",
+      "desktopDescription": "Inicia sesión para acceder a tus artículos guardados, rastrear pedidos y descubrir nuevas piezas de muebles para tu hogar.",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "rememberMe": "Recuérdame",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "noAccount": "¿No tienes una cuenta?",
+      "createOne": "Crear Cuenta",
+      "button": "Iniciar Sesión",
+      "withGoogle": "Continuar con Google",
+      "withEmail": "O inicia sesión con correo electrónico",
+      "signingIn": "Iniciando sesión...",
+      "connecting": "Conectando con Google..."
+    },
+    "signUp": {
+      "title": "Crear una cuenta",
+      "subtitle": "Comienza tu viaje con Nimble",
+      "desktopTitle": "Bienvenido a Nimble",
+      "desktopSubtitle": "Comienza tu viaje de muebles",
+      "desktopDescription": "Crea una cuenta para guardar tus favoritos, rastrear pedidos y obtener recomendaciones personalizadas.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo Electrónico",
+      "phone": "Número de Teléfono",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "marketingConsent": "Quiero recibir correos promocionales",
+      "terms": "Acepto los términos y condiciones",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "signInHere": "Inicia sesión aquí",
+      "button": "Crear Cuenta",
+      "creating": "Creando tu cuenta...",
+      "withEmail": "O regístrate con correo electrónico",
+      "connecting": "Conectando con Google..."
+    },
+    "errors": {
+      "invalidCredentials": "Correo electrónico o contraseña inválidos",
+      "emailInUse": "El correo electrónico ya está en uso",
+      "weakPassword": "La contraseña es demasiado débil",
+      "passwordsDontMatch": "Las contraseñas no coinciden",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "genericError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+    },
+    "success": {
+      "signedIn": "¡Bienvenido de nuevo! 🎉",
+      "accountCreated": "¡Cuenta creada exitosamente! 🎉",
+      "redirecting": "Redirigiendo a Google..."
+    },
+    "authCodeError": {
+      "title": "Error de Autenticación",
+      "subtitle": "Hubo un problema al iniciar sesión",
+      "description": "El código de autenticación proporcionado fue inválido o ha expirado. Esto puede suceder si:",
+      "reasons": {
+        "used": "El enlace de inicio de sesión ya ha sido utilizado",
+        "expired": "El enlace ha expirado (los enlaces son válidos por 24 horas)",
+        "old": "Hiciste clic en un enlace de verificación antiguo",
+        "provider": "Hubo un problema con el proveedor OAuth"
+      },
+      "tryAgain": "Intentar Iniciar Sesión de Nuevo",
+      "returnHome": "Volver al Inicio",
+      "needHelp": "¿Necesitas ayuda?",
+      "contactSupport": "Contactar soporte"
+    }
+  },
+  "profile": {
+    "title": "Mi Perfil",
+    "subtitle": "Administra la configuración de tu cuenta",
+    "personalInfo": "Información Personal",
+    "avatar": "Foto de Perfil",
+    "uploadPhoto": "Subir Foto",
+    "cropPhoto": "Recortar Foto",
+    "savePhoto": "Guardar Foto",
+    "cancelCrop": "Cancelar",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "phone": "Número de Teléfono",
+    "saveChanges": "Guardar Cambios",
+    "editProfile": "Editar Perfil",
+    "viewMode": "Modo de Vista",
+    "saving": "Guardando perfil...",
+    "uploading": "Subiendo foto...",
+    "cropping": "Guardando foto recortada...",
+    "sidebar": {
+      "profile": "Perfil",
+      "orders": "Pedidos",
+      "wishlist": "Lista de Deseos",
+      "addresses": "Direcciones",
+      "settings": "Configuración",
+      "signOut": "Cerrar Sesión"
+    },
+    "success": {
+      "profileUpdated": "¡Perfil actualizado exitosamente! 🎉",
+      "photoUploaded": "¡Foto subida exitosamente! 🎉",
+      "photoCropped": "¡Foto recortada exitosamente! 🎉"
+    },
+    "error": {
+      "updateFailed": "Error al actualizar el perfil. Por favor, inténtalo de nuevo.",
+      "uploadFailed": "Error al subir la foto. Por favor, inténtalo de nuevo.",
+      "cropFailed": "Error al recortar la foto. Por favor, inténtalo de nuevo.",
+      "invalidFileType": "Tipo de archivo inválido. Por favor sube una imagen.",
+      "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 5MB.",
+      "loadingError": "Estamos teniendo problemas para cargar tu perfil",
+      "connectionIssue": "Esto podría deberse a un problema de conexión o un problema temporal con nuestros servidores. Por favor, inténtalo de nuevo en un momento."
+    }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "shop": "Tienda",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "profile": "Perfil",
+    "myProfile": "Mi Perfil",
+    "cart": "Carrito",
+    "wishlist": "Lista de Deseos"
+  },
+  "products": {
+    "addToCart": "Añadir al Carrito",
+    "addToWishlist": "Añadir a Lista de Deseos",
+    "outOfStock": "Agotado",
+    "inStock": "En Stock",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "description": "Descripción",
+    "features": "Características",
+    "reviews": "Reseñas"
+  },
+  "footer": {
+    "contact": {
+      "customerService": {
+        "title": "Servicio al Cliente",
+        "hours": "Lun-Sáb, 9am-6pm EST."
+      },
+      "callUs": {
+        "title": "Llámanos",
+        "phone": "+1 888-234-1234 (llamada gratuita)"
+      },
+      "getInTouch": {
+        "title": "Contáctanos",
+        "email": "touch@garacestore.com"
+      },
+      "address": {
+        "title": "Dirección",
+        "street": "382 NE 191st St # 87394 Miami"
+      }
+    },
+    "newsletter": {
+      "title": "Únete a Nuestro Boletín",
+      "description": "Suscríbete a nuestro boletín y recibe 10% de descuento en tu primer pedido.",
+      "placeholder": "Ingresa tu correo electrónico",
+      "button": "Suscribirse",
+      "disclaimer": "Al suscribirte aceptas los",
+      "termsOfService": "Términos de Servicio",
+      "and": "y la",
+      "privacyPolicy": "Política de Privacidad"
+    },
+    "links": {
+      "company": {
+        "title": "Empresa",
+        "aboutUs": "Acerca de nosotros",
+        "contact": "Contacto",
+        "faqs": "Preguntas Frecuentes",
+        "blog": "Blog",
+        "findStore": "Buscar una Tienda"
+      },
+      "collection": {
+        "title": "Colección",
+        "tables": "Mesas",
+        "bowChairs": "Sillas Bow",
+        "turnTable": "Mesa Giratoria",
+        "turnChair": "Silla Giratoria",
+        "crossBarChair": "Silla Cross Bar"
+      },
+      "shop": {
+        "title": "Tienda",
+        "sofas": "Sofás",
+        "outdoor": "Exterior",
+        "seating": "Asientos",
+        "lighting": "Iluminación",
+        "accessories": "Accesorios"
+      }
+    },
+    "bottom": {
+      "country": "Estados Unidos (USD $)",
+      "copyright": "© 2025 Hyper Garace. Desarrollado por Shopify",
+      "termsOfService": "Términos de Servicio",
+      "privacyPolicy": "Política de Privacidad"
+    }
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Correo electrónico inválido",
+    "passwordMin": "La contraseña debe tener al menos {min} caracteres",
+    "passwordsDoNotMatch": "Las contraseñas no coinciden",
+    "phoneInvalid": "Número de teléfono inválido",
+    "invalidFormat": "Formato inválido"
+  },
+  "meta": {
+    "title": "Nimble - Tienda de Muebles Modernos",
+    "description": "Descubre muebles modernos y hermosos para tu hogar",
+    "titleTemplate": "{page} | Nimble"
+  },
+  "toast": {
+    "loading": "Cargando...",
+    "success": "¡Éxito!",
+    "error": "Ocurrió un error",
+    "info": "Información"
+  },
+  "home": {
+    "newArrivals": {
+      "title": "Nuevos Llegados",
+      "description": "Las divisiones tradicionales entre el espacio personal y profesional.",
+      "tabs": {
+        "newArrivals": "Nuevos Llegados",
+        "hotItems": "Artículos Populares"
+      }
+    },
+    "productCard": {
+      "sale": "Oferta",
+      "sellingFast": "Se Vende Rápido"
+    },
+    "hero": {
+      "shopCollection": "Ver Colección",
+      "categories": {
+        "saleItems": "Artículos en Oferta",
+        "pressTables": "Mesas Press",
+        "lighting": "Iluminación",
+        "spokeSofa": "Sofá Spoke",
+        "storage": "Almacenamiento",
+        "turnChairs": "Sillas Turn",
+        "chairs": "Sillas",
+        "curveCoat": "Perchero Curve",
+        "bendChairs": "Sillas Bend",
+        "accessories": "Accesorios"
+      },
+      "slides": {
+        "modernElegance": {
+          "eyebrow": "Elegancia Moderna",
+          "title": "Sofá Spoke"
+        },
+        "contemporaryGrace": {
+          "eyebrow": "Gracia Contemporánea",
+          "title": "Comedor y Cocina"
+        },
+        "timelessDesign": {
+          "eyebrow": "Diseño Atemporal",
+          "title": "Sala de Estar"
+        }
+      }
+    },
+    "testimonials": {
+      "heading": "Nuestros Productos Favoritos",
+      "quote1": "Todos los productos son auténticos e importados del país de origen.",
+      "quote2": "La calidad y la artesanía superaron todas mis expectativas.",
+      "quote3": "Diseño hermoso que complementa perfectamente la decoración de nuestro hogar."
+    },
+    "inspiredSpaces": {
+      "heading": "Inspírate con Espacios"
+    },
+    "flashSale": {
+      "title": "¡Venta Flash en curso!",
+      "description": {
+        "line1": "Ahorra en mesas de oficina modernas,",
+        "line2": "los más vendidos + más"
+      },
+      "code": "Usa el Código: FLASH30"
+    },
+    "featuredProducts": {
+      "shopButton": "Comprar",
+      "products": {
+        "danishDesign": "Diseño Danés",
+        "materialNatural": "Material Natural",
+        "gridChairFrame": "Estructura de Silla Grid",
+        "cottonCollection": "Colección de Algodón",
+        "authorityDesign": "Diseño Authority",
+        "lunaraTeaTowel": "Paño de Té Lunara",
+        "minimalismStyle": "Estilo Minimalista",
+        "steelsLighting": "Iluminación Steels",
+        "sculptTableLamp": "Lámpara de Mesa Sculpt",
+        "nightstand": "Mesa de Noche",
+        "pixelShelves": "Estantes Pixel"
+      }
+    },
+    "shopByCategory": {
+      "heading": "Comprar por Categorías",
+      "shopAllProducts": "Ver Todos los Productos",
+      "saleBadge": "Oferta",
+      "categories": {
+        "saleItems": "Artículos en Oferta",
+        "pressTables": "Mesas Press",
+        "lighting": "Iluminación",
+        "spokeSofa": "Sofá Spoke",
+        "storage": "Almacenamiento",
+        "turnChairs": "Sillas Turn",
+        "longeChairs": "Sillas Longe",
+        "curveCoat": "Perchero Curve",
+        "crossTables": "Mesas Cross",
+        "bendChairs": "Sillas Bend",
+        "barChairs": "Sillas de Bar",
+        "accessories": "Accesorios"
+      }
+    },
+    "featuredCollections": {
+      "heading": "Colecciones Destacadas",
+      "description": "Con una forma inspirada en los bolardos utilizados para asegurar embarcaciones a un muelle",
+      "shopCollection": "Ver Colección",
+      "collections": {
+        "heritageLiving": "Vida Patrimonial",
+        "theHavenCollection": "La Colección Haven",
+        "solaceSeries": "Serie Solace"
+      }
+    },
+    "approachFeatures": {
+      "heading": {
+        "line1": "Este enfoque resultó en la",
+        "line2": "hermosa estructura"
+      },
+      "badges": {
+        "allEcoCertified": "Todo Eco-Certificado",
+        "productProtection": "Protección del Producto",
+        "makeItYours": "Hazlo Tuyo",
+        "uniqueTailored": "Único a Medida"
+      },
+      "features": {
+        "comfortable": {
+          "title": "Cómodo",
+          "description": "La Silla Bow está disponible en Roble Natural o Teñido de Negro con certificación completa de la Ecoetiqueta de la UE."
+        },
+        "priceTransparency": {
+          "title": "Transparencia de precios",
+          "description": "Los precios justos aseguran que sepas exactamente por qué estás pagando, sin costos ocultos ni recargos."
+        },
+        "allEcoCertified": {
+          "title": "Todo eco-certificado",
+          "description": "Todos los productos consideran un impacto ambiental más holístico y están diseñados para una vida útil más larga."
+        },
+        "sustainability": {
+          "title": "Sostenibilidad",
+          "description": "Comprometidos con prácticas sustentables, abastecimiento ético y reducción del impacto ambiental."
+        }
+      }
+    },
+    "clientTestimonials": {
+      "eyebrow": "Lo Que Dicen Nuestros Clientes",
+      "testimonials": {
+        "quote1": "Los productos son artísticos, divertidos, tienen una historia tan única como los diseñadores que los hicieron.",
+        "quote2": "Cada pieza es como una obra maestra, combinando diseño y autenticidad maravillosamente.",
+        "quote3": "El mejor abrigo que he tenido, calidad increíble y materiales de principio a fin."
+      }
+    },
+    "shopOurOffers": {
+      "heading": "Compra Nuestras Ofertas",
+      "description": "Las divisiones tradicionales entre el espacio personal y profesional.",
+      "link": "Ver Todos los Productos",
+      "badges": {
+        "sale": "Oferta",
+        "new": "Nuevo",
+        "sellingFast": "Se Vende Rápido"
+      }
+    },
+    "meetOurTeam": {
+      "eyebrow": "Conoce Nuestro Equipo",
+      "heading": "Las mentes creativas detrás de nuestro estudio",
+      "description": "Como diseñadores, estamos constantemente pensando en cómo vive la gente y qué problemas podríamos resolver para ellos.",
+      "feature1": "Producto local de Nueva York",
+      "feature2": "Calificación de 4.8",
+      "feature3": "Más de 50 Productos",
+      "button": "Contáctanos"
+    },
+    "instagramFeed": {
+      "heading": "Estamos en Instagram"
+    },
+    "categoryChips": {
+      "livingRoom": "Sala de Estar",
+      "planters": "Macetas",
+      "gravelRug": "Alfombra de Grava",
+      "tableMirror": "Espejo de Mesa",
+      "tableWears": "Cubertería",
+      "diningDecor": "Decoración de Comedor",
+      "rayTableLamp": "Lámpara de Mesa Ray",
+      "bedroom": "Dormitorio"
+    },
+    "promoBanners": {
+      "save": "Ahorra",
+      "shopNow": "Comprar Ahora",
+      "banner1": {
+        "title": "Sillas Turn",
+        "description": "¡Eleva tu espacio con 40% de descuento en nuestros diseños atemporales!"
+      },
+      "banner2": {
+        "title": "Sillas Cross",
+        "description": "¡Obtén 30% de descuento en asientos elegantes y atemporales, no te lo pierdas!"
+      }
+    }
+  }
+}

@@ -1,13 +1,19 @@
 "use client";
 
 import { icons } from "@/components/icons";
-import Link from "next/link";
+import { Link, useRouter } from "@/lib/i18n/routing";
 import { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { showError, showLoading, updateToast } from "@/utils/toast";
+import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 function SignInForm() {
+  const t = useTranslations("auth.signIn");
+  const tSuccess = useTranslations("auth.success");
+  const tErrors = useTranslations("auth.errors");
+  const tCommon = useTranslations("common");
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
@@ -26,7 +32,7 @@ function SignInForm() {
     e.preventDefault();
     setLoading(true);
 
-    const toastId = showLoading("Signing you in...");
+    const toastId = showLoading(t("signingIn"));
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -40,19 +46,19 @@ function SignInForm() {
         return;
       }
 
-      updateToast(toastId, "success", "Welcome back! 🎉");
+      updateToast(toastId, "success", tSuccess("signedIn"));
       // Redirect to intended page on success
       router.push(redirectTo);
       router.refresh();
     } catch (err) {
-      updateToast(toastId, "error", "An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", tErrors("genericError"));
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
-    const toastId = showLoading("Connecting to Google...");
+    const toastId = showLoading(t("connecting"));
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -66,10 +72,10 @@ function SignInForm() {
         updateToast(toastId, "error", error.message);
         setLoading(false);
       } else {
-        updateToast(toastId, "info", "Redirecting to Google...");
+        updateToast(toastId, "info", tSuccess("redirecting"));
       }
     } catch (err) {
-      updateToast(toastId, "error", "Failed to connect to Google. Please try again.");
+      updateToast(toastId, "error", tErrors("genericError"));
       setLoading(false);
     }
   };
@@ -87,9 +93,12 @@ function SignInForm() {
       {/* Header - Only visible on mobile */}
       <header className="border-b border-zinc-200 bg-white lg:hidden">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
-            Nimble
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
+              Nimble
+            </Link>
+            <LanguageSwitcher theme="light" />
+          </div>
         </div>
       </header>
 
@@ -97,16 +106,19 @@ function SignInForm() {
       <main className="mx-auto max-w-md px-4 py-12 sm:px-6 lg:flex lg:min-h-screen lg:max-w-none lg:p-0">
         {/* Left Side - Brand/Image Section (Desktop Only) */}
         <div className="hidden lg:flex lg:w-1/2 lg:flex-col lg:bg-primary lg:p-16 lg:pt-20 xl:p-24 xl:pt-24">
-          <Link href="/" className="mb-12 text-4xl font-black uppercase tracking-tight text-white xl:text-5xl">
-            Nimble
-          </Link>
+          <div className="mb-12 flex items-center justify-between">
+            <Link href="/" className="text-4xl font-black uppercase tracking-tight text-white xl:text-5xl">
+              Nimble
+            </Link>
+            <LanguageSwitcher />
+          </div>
           <h2 className="mb-6 text-4xl font-black leading-tight text-white xl:text-5xl">
-            Welcome back to your
+            {t("desktopTitle")}
             <br />
-            furniture paradise
+            {t("desktopSubtitle")}
           </h2>
           <p className="text-lg text-white/90 xl:text-xl">
-            Sign in to access your saved items, track orders, and discover new furniture pieces for your home.
+            {t("desktopDescription")}
           </p>
         </div>
 
@@ -115,9 +127,9 @@ function SignInForm() {
           <div className="w-full lg:max-w-md">
             {/* Header */}
             <div className="mb-8 text-center">
-              <h1 className="text-3xl font-black text-dark lg:text-4xl">Welcome Back</h1>
+              <h1 className="text-3xl font-black text-dark lg:text-4xl">{t("title")}</h1>
               <p className="mt-2 text-sm text-dark-gray lg:text-base">
-                Sign in to your Nimble account
+                {t("subtitle")}
               </p>
             </div>
 
@@ -149,7 +161,7 @@ function SignInForm() {
                   fill="#EA4335"
                 />
               </svg>
-              Continue with Google
+              {t("withGoogle")}
             </button>
           </div>
 
@@ -159,7 +171,7 @@ function SignInForm() {
               <div className="w-full border-t border-zinc-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-4 text-dark-gray">Or sign in with email</span>
+              <span className="bg-white px-4 text-dark-gray">{t("withEmail")}</span>
             </div>
           </div>
 
@@ -168,7 +180,7 @@ function SignInForm() {
             {/* Email */}
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-semibold text-dark">
-                Email Address
+                {t("email")}
               </label>
               <input
                 type="email"
@@ -186,13 +198,13 @@ function SignInForm() {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <label htmlFor="password" className="text-sm font-semibold text-dark">
-                  Password
+                  {t("password")}
                 </label>
                 <Link
                   href="/auth/forgot-password"
                   className="text-xs font-semibold text-dark-gray underline hover:text-dark hover:no-underline"
                 >
-                  Forgot password?
+                  {t("forgotPassword")}
                 </Link>
               </div>
               <input
@@ -218,7 +230,7 @@ function SignInForm() {
                 className="h-4 w-4 rounded border-zinc-300 text-primary focus:ring-2 focus:ring-primary/20"
               />
               <label htmlFor="rememberMe" className="text-sm text-dark-gray">
-                Remember me
+                {t("rememberMe")}
               </label>
             </div>
 
@@ -228,16 +240,16 @@ function SignInForm() {
               disabled={loading}
               className="w-full rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? t("signingIn") : t("button")}
             </button>
           </form>
 
             {/* Sign Up Link */}
             <div className="mt-6 text-center">
               <p className="text-sm text-dark-gray">
-                Don't have an account?{" "}
+                {t("noAccount")}{" "}
                 <Link href="/auth/signup" className="font-semibold text-dark underline hover:no-underline">
-                  Create Account
+                  {t("createOne")}
                 </Link>
               </p>
             </div>

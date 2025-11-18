@@ -1,7 +1,10 @@
+"use client";
+
 import type { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/Button";
 import { FormField } from "@/components/ui/FormField";
 import type { ProfileFormData } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface PersonalInformationSectionProps {
   formData: ProfileFormData;
@@ -24,24 +27,27 @@ export default function PersonalInformationSection({
   onSave,
   onCancel,
 }: PersonalInformationSectionProps) {
+  const t = useTranslations("profile");
+  const tCommon = useTranslations("common");
+
   return (
     <div className="rounded-lg bg-white p-6 shadow-sm">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-black text-dark">Personal Information</h2>
+        <h2 className="text-xl font-black text-dark">{t("personalInfo")}</h2>
         {!editing && (
           <Button
             onClick={onEdit}
             variant="outline"
             size="sm"
           >
-            Edit
+            {tCommon("edit")}
           </Button>
         )}
       </div>
 
       <div className="space-y-4">
         <FormField
-          label="First Name"
+          label={t("firstName")}
           name="firstName"
           value={formData.firstName}
           onChange={onChange}
@@ -49,7 +55,7 @@ export default function PersonalInformationSection({
         />
 
         <FormField
-          label="Last Name"
+          label={t("lastName")}
           name="lastName"
           value={formData.lastName}
           onChange={onChange}
@@ -57,7 +63,7 @@ export default function PersonalInformationSection({
         />
 
         <FormField
-          label="Email Address"
+          label={t("email")}
           type="email"
           name="email"
           value={formData.email}
@@ -66,7 +72,7 @@ export default function PersonalInformationSection({
         />
 
         <FormField
-          label="Phone Number"
+          label={t("phone")}
           type="tel"
           name="phone"
           value={formData.phone}
@@ -82,14 +88,14 @@ export default function PersonalInformationSection({
               loading={saving}
               fullWidth
             >
-              Save Changes
+              {t("saveChanges")}
             </Button>
             <Button
               onClick={onCancel}
               variant="outline"
               fullWidth
             >
-              Cancel
+              {tCommon("cancel")}
             </Button>
           </div>
         )}

@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 import { icons } from "@/components/icons";
+import { useTranslations } from "next-intl";
 
 export function Footer() {
+  const t = useTranslations("footer");
   const [openSection, setOpenSection] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
@@ -22,10 +24,10 @@ export function Footer() {
             </div>
             <div>
               <h3 className="mb-1 text-[15px] font-bold text-black">
-                Customer Service
+                {t("contact.customerService.title")}
               </h3>
               <p className="text-[15px] text-zinc-600">
-                Mon-Sat, 9am-6pm EST.
+                {t("contact.customerService.hours")}
               </p>
             </div>
           </div>
@@ -37,10 +39,10 @@ export function Footer() {
             </div>
             <div>
               <h3 className="mb-1 text-[15px] font-bold text-black">
-                Call Us
+                {t("contact.callUs.title")}
               </h3>
               <p className="text-[15px] text-zinc-600">
-                +1 888-234-1234 (toll-free)
+                {t("contact.callUs.phone")}
               </p>
             </div>
           </div>
@@ -52,13 +54,13 @@ export function Footer() {
             </div>
             <div>
               <h3 className="mb-1 text-[15px] font-bold text-black">
-                Get in Touch
+                {t("contact.getInTouch.title")}
               </h3>
               <Link
                 href="mailto:touch@garacestore.com"
                 className="text-[15px] text-zinc-600 underline hover:text-black"
               >
-                touch@garacestore.com
+                {t("contact.getInTouch.email")}
               </Link>
             </div>
           </div>
@@ -70,10 +72,10 @@ export function Footer() {
             </div>
             <div>
               <h3 className="mb-1 text-[15px] font-bold text-black">
-                Address
+                {t("contact.address.title")}
               </h3>
               <p className="text-[15px] text-zinc-600">
-                382 NE 191st St # 87394 Miami
+                {t("contact.address.street")}
               </p>
             </div>
           </div>
@@ -87,35 +89,35 @@ export function Footer() {
             {/* Newsletter Section */}
             <div className="lg:w-[465px] lg:flex-shrink-0">
               <h2 className="mb-3 text-[22px] font-bold text-black lg:mb-4 lg:text-[28px]">
-                Join Our Newsletter
+                {t("newsletter.title")}
               </h2>
               <p className="mb-4 text-[15px] text-zinc-600 lg:mb-6">
-                Sign up to our newsletter & receive 10% off your first order.
+                {t("newsletter.description")}
               </p>
 
               {/* Email Form */}
               <form className="mb-4 flex flex-col gap-2 sm:flex-row">
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t("newsletter.placeholder")}
                   className="flex-1 rounded-full border border-zinc-200 bg-zinc-50 px-6 py-3 text-[15px] focus:border-zinc-400 focus:outline-none"
                 />
                 <button
                   type="submit"
                   className="rounded-full bg-black px-8 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-zinc-800"
                 >
-                  Sign Up
+                  {t("newsletter.button")}
                 </button>
               </form>
 
               <p className="text-[13px] text-zinc-600">
-                By subscribing you agree to the{" "}
+                {t("newsletter.disclaimer")}{" "}
                 <Link href="/terms" className="underline">
-                  Terms of Services
+                  {t("newsletter.termsOfService")}
                 </Link>{" "}
-                and{" "}
+                {t("newsletter.and")}{" "}
                 <Link href="/privacy" className="underline">
-                  Privacy Policy
+                  {t("newsletter.privacyPolicy")}
                 </Link>
                 .
               </p>
@@ -129,7 +131,7 @@ export function Footer() {
                   onClick={() => toggleSection("company")}
                   className="flex w-full items-center justify-between text-[16px] font-bold text-black lg:pointer-events-none lg:mb-4"
                 >
-                  <span>Company</span>
+                  <span>{t("links.company.title")}</span>
                   <svg
                     width="20"
                     height="20"
@@ -154,7 +156,7 @@ export function Footer() {
                       href="/about"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      About us
+                      {t("links.company.aboutUs")}
                     </Link>
                   </li>
                   <li>
@@ -162,7 +164,7 @@ export function Footer() {
                       href="/contact"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Contact
+                      {t("links.company.contact")}
                     </Link>
                   </li>
                   <li>
@@ -170,7 +172,7 @@ export function Footer() {
                       href="/faqs"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      FAQs
+                      {t("links.company.faqs")}
                     </Link>
                   </li>
                   <li>
@@ -178,7 +180,7 @@ export function Footer() {
                       href="/blog"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Blog
+                      {t("links.company.blog")}
                     </Link>
                   </li>
                   <li>
@@ -186,7 +188,7 @@ export function Footer() {
                       href="/stores"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Find a Store
+                      {t("links.company.findStore")}
                     </Link>
                   </li>
                 </ul>
@@ -198,7 +200,7 @@ export function Footer() {
                   onClick={() => toggleSection("collection")}
                   className="flex w-full items-center justify-between text-[16px] font-bold text-black lg:pointer-events-none lg:mb-4"
                 >
-                  <span>Collection</span>
+                  <span>{t("links.collection.title")}</span>
                   <svg
                     width="20"
                     height="20"
@@ -223,7 +225,7 @@ export function Footer() {
                       href="/collections/tables"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Tables
+                      {t("links.collection.tables")}
                     </Link>
                   </li>
                   <li>
@@ -231,7 +233,7 @@ export function Footer() {
                       href="/collections/bow-chairs"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Bow Chairs
+                      {t("links.collection.bowChairs")}
                     </Link>
                   </li>
                   <li>
@@ -239,7 +241,7 @@ export function Footer() {
                       href="/collections/turn-table"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Turn Table
+                      {t("links.collection.turnTable")}
                     </Link>
                   </li>
                   <li>
@@ -247,7 +249,7 @@ export function Footer() {
                       href="/collections/turn-chair"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Turn Chair
+                      {t("links.collection.turnChair")}
                     </Link>
                   </li>
                   <li>
@@ -255,7 +257,7 @@ export function Footer() {
                       href="/collections/cross-bar-chair"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Cross Bar Chair
+                      {t("links.collection.crossBarChair")}
                     </Link>
                   </li>
                 </ul>
@@ -267,7 +269,7 @@ export function Footer() {
                   onClick={() => toggleSection("shop")}
                   className="flex w-full items-center justify-between text-[16px] font-bold text-black lg:pointer-events-none lg:mb-4"
                 >
-                  <span>Shop</span>
+                  <span>{t("links.shop.title")}</span>
                   <svg
                     width="20"
                     height="20"
@@ -292,7 +294,7 @@ export function Footer() {
                       href="/shop/sofas"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Sofas
+                      {t("links.shop.sofas")}
                     </Link>
                   </li>
                   <li>
@@ -300,7 +302,7 @@ export function Footer() {
                       href="/shop/outdoor"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Outdoor
+                      {t("links.shop.outdoor")}
                     </Link>
                   </li>
                   <li>
@@ -308,7 +310,7 @@ export function Footer() {
                       href="/shop/seating"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Seating
+                      {t("links.shop.seating")}
                     </Link>
                   </li>
                   <li>
@@ -316,7 +318,7 @@ export function Footer() {
                       href="/shop/lighting"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Lighting
+                      {t("links.shop.lighting")}
                     </Link>
                   </li>
                   <li>
@@ -324,7 +326,7 @@ export function Footer() {
                       href="/shop/accessories"
                       className="text-[15px] text-zinc-600 hover:text-black"
                     >
-                      Accessories
+                      {t("links.shop.accessories")}
                     </Link>
                   </li>
                 </ul>
@@ -343,7 +345,7 @@ export function Footer() {
               {/* Country Selector */}
               <button className="flex items-center gap-2 text-[14px] font-medium lg:text-[15px]">
                 <span>🇺🇸</span>
-                <span>United States (USD $)</span>
+                <span>{t("bottom.country")}</span>
                 <svg
                   width="16"
                   height="16"
@@ -452,20 +454,20 @@ export function Footer() {
               {/* Copyright & Links */}
               <div className="flex flex-col gap-2 sm:items-end">
                 <p className="text-[13px] text-zinc-600">
-                  © 2025 Hyper Garace. Powered by Shopify
+                  {t("bottom.copyright")}
                 </p>
                 <div className="flex gap-4">
                   <Link
                     href="/terms"
                     className="text-[13px] font-semibold text-black hover:underline"
                   >
-                    Terms of Service
+                    {t("bottom.termsOfService")}
                   </Link>
                   <Link
                     href="/privacy"
                     className="text-[13px] font-semibold text-black hover:underline"
                   >
-                    Privacy Policy
+                    {t("bottom.privacyPolicy")}
                   </Link>
                 </div>
               </div>

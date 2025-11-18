@@ -2,7 +2,8 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
+import { useTranslations } from "next-intl";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -73,6 +74,7 @@ const posts: InstagramPost[] = [
 ];
 
 export function InstagramFeed() {
+  const t = useTranslations("home.instagramFeed");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -102,7 +104,7 @@ export function InstagramFeed() {
         <h2
           className={`${TYPOGRAPHY.heading} ${COLORS.textWhite} mb-8 text-center`}
         >
-          We're on Gram
+          {t("heading")}
         </h2>
 
         {/* Instagram Posts Grid */}

@@ -1,33 +1,15 @@
 "use client";
 
 import { icons } from "@/components/icons";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslations } from "next-intl";
 
 // Constants
 const CONTAINER = "w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[50px]";
 const SCROLL_THRESHOLD = 10;
-
-// Navigation data
-const utilityLinks = ["Help Center", "Find a Store", "Contact"];
-
-const navLinks = [
-  { label: "Shop By Categories", dropdown: true },
-  { label: "Shop By Room", dropdown: true },
-  { label: "Tables & Desks", dropdown: true },
-  { label: "Chairs & Stools", dropdown: true },
-  { label: "Pages", dropdown: true },
-  { label: "Theme Features", dropdown: true },
-] as const;
-
-const activeNav = "Tables & Desks";
-
-const actionLinks = [
-  { label: "Find a store", icon: "location" },
-  { label: "Sign in / Register", icon: "user" },
-  { label: "Bag", icon: "bag" },
-] as const;
 
 const socialIcons = ["facebook", "x", "instagram", "tiktok"] as const;
 
@@ -36,6 +18,7 @@ const underlineAnimation =
   "absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:origin-left group-hover:scale-x-100 group-focus-visible:origin-left group-focus-visible:scale-x-100";
 
 export function Header() {
+  const t = useTranslations("header");
   const { user, getAvatarUrl } = useAuthStore();
   const avatarUrl = getAvatarUrl();
   const [isSticky, setIsSticky] = useState(false);
@@ -77,29 +60,25 @@ export function Header() {
         >
           {/* Utility links */}
           <div className="hidden flex-wrap items-center gap-6 text-white lg:flex">
-            {utilityLinks.map((link) => (
-              <a
-                key={link}
-                className="font-medium text-white transition hover:text-white/80"
-                href="#"
-              >
-                {link}
-              </a>
-            ))}
+            <a className="font-medium text-white transition hover:text-white/80" href="#">
+              {t("utilityLinks.helpCenter")}
+            </a>
+            <a className="font-medium text-white transition hover:text-white/80" href="#">
+              {t("utilityLinks.findStore")}
+            </a>
+            <a className="font-medium text-white transition hover:text-white/80" href="#">
+              {t("utilityLinks.contact")}
+            </a>
           </div>
 
           {/* Promotional message */}
           <p className="text-center text-sm font-medium text-white lg:text-[15px]">
-            ✌️ Free Express Shipping on orders $500!
+            {t("promo")}
           </p>
 
-          {/* Country selector and social icons */}
+          {/* Language selector and social icons */}
           <div className="hidden flex-wrap items-center justify-center gap-4 text-white lg:flex">
-            <div className="flex items-center gap-2 rounded-full px-3 py-1">
-              <span className="text-lg leading-none">🇺🇸</span>
-              <span className="font-medium">United States (USD $)</span>
-              <span className="pt-0.5">{icons.chevronLight()}</span>
-            </div>
+            <LanguageSwitcher />
             <div className="flex items-center">
               {socialIcons.map((social) => (
                 <a
@@ -154,91 +133,69 @@ export function Header() {
               className="flex items-center gap-1 border-0 bg-transparent text-[15px] font-semibold text-black outline-none [appearance:none]"
               type="button"
             >
-              <span className="hidden lg:inline">All Categories</span>
-              <span className="lg:hidden">All</span>
+              <span className="hidden lg:inline">{t("search.allCategories")}</span>
+              <span className="lg:hidden">{t("search.all")}</span>
               {icons.chevron()}
             </button>
             <span className="hidden h-6 w-px bg-zinc-300 sm:block" />
             <input
               className="w-full flex-1 border-0 bg-transparent text-sm text-black outline-none placeholder:text-black/60 lg:text-[15px] lg:placeholder:text-black"
-              placeholder="What are you looking for?"
+              placeholder={t("search.placeholder")}
             />
             <span>{icons.search()}</span>
           </div>
 
           {/* Action links */}
           <div className="order-2 flex flex-1 items-center justify-end gap-3 text-[15px] text-dark-gray sm:order-3 lg:ml-4 lg:gap-6">
-            {actionLinks.map((action) => {
-              const isBag = action.icon === "bag";
-              const isUser = action.icon === "user";
-              const isLocationOrUser = action.icon === "location" || action.icon === "user";
+            {/* Find a store */}
+            <button
+              className="flex items-center gap-2 font-semibold transition hover:text-black"
+              type="button"
+              aria-label={t("actions.findStore")}
+            >
+              {icons.location({ className: "size-6 text-dark-gray" })}
+              <span className="hidden lg:inline">{t("actions.findStore")}</span>
+            </button>
 
-              if (isUser) {
-                // Show user menu if logged in
-                if (user) {
-                  const userEmail = user.email || "";
-                  const userName = user.user_metadata?.first_name || userEmail.split("@")[0];
+            {/* User profile / Sign in */}
+            {user ? (
+              <Link
+                href="/profile"
+                className="flex items-center gap-2 font-semibold transition hover:text-black"
+              >
+                {avatarUrl ? (
+                  <div className="h-8 w-8 overflow-hidden rounded-full bg-light-gray">
+                    <img
+                      src={avatarUrl}
+                      alt={user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  icons.user({ className: "size-6 text-dark-gray" })
+                )}
+                <span className="hidden lg:inline">
+                  {user.user_metadata?.first_name || user.email?.split("@")[0]}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href="/auth/signin"
+                className="flex items-center gap-2 font-semibold transition hover:text-black"
+              >
+                {icons.user({ className: "size-6 text-dark-gray" })}
+                <span className="hidden lg:inline">{t("actions.signInRegister")}</span>
+              </Link>
+            )}
 
-                  return (
-                    <Link
-                      key={action.label}
-                      href="/profile"
-                      className="flex items-center gap-2 font-semibold transition hover:text-black"
-                    >
-                      {avatarUrl ? (
-                        <div className="h-8 w-8 overflow-hidden rounded-full bg-light-gray">
-                          <img
-                            src={avatarUrl}
-                            alt={userName}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                      ) : (
-                        icons[action.icon]({
-                          className: "size-6 text-dark-gray",
-                        })
-                      )}
-                      <span className="hidden lg:inline">{userName}</span>
-                    </Link>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={action.label}
-                    href="/auth/signin"
-                    className="flex items-center gap-2 font-semibold transition hover:text-black"
-                  >
-                    {icons[action.icon]({
-                      className: "size-6 text-dark-gray",
-                    })}
-                    <span className="hidden lg:inline">{action.label}</span>
-                  </Link>
-                );
-              }
-
-              return (
-                <button
-                  key={action.label}
-                  className={`flex items-center font-semibold transition hover:text-black ${
-                    isBag
-                      ? "h-12 w-12 justify-center rounded-full bg-light-gray text-black"
-                      : "gap-2"
-                  }`}
-                  type="button"
-                  aria-label={action.label}
-                >
-                  {icons[action.icon]({
-                    className: isBag
-                      ? "text-black"
-                      : isLocationOrUser
-                      ? "size-6 text-dark-gray"
-                      : "text-dark-gray",
-                  })}
-                  {!isBag && <span className="hidden lg:inline">{action.label}</span>}
-                </button>
-              );
-            })}
+            {/* Bag */}
+            <button
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-light-gray text-black font-semibold transition hover:text-black"
+              type="button"
+              aria-label={t("actions.bag")}
+            >
+              {icons.bag({ className: "text-black" })}
+            </button>
           </div>
         </div>
 
@@ -251,24 +208,51 @@ export function Header() {
           }`}
         >
           <nav className={`${CONTAINER} flex flex-wrap items-center gap-6 pb-3 text-[15px] font-bold text-dark-gray`}>
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                className={`group relative inline-flex items-center gap-1 pb-2 transition ${
-                  link.label === activeNav ? "text-black" : "hover:text-black"
-                }`}
-                href="#"
-              >
-                <span aria-hidden className={underlineAnimation} />
-                <span className="flex items-center gap-1">
-                  {link.label}
-                  {link.dropdown && <span>{icons.chevron()}</span>}
-                </span>
-              </a>
-            ))}
+            <a className="group relative inline-flex items-center gap-1 pb-2 transition hover:text-black" href="#">
+              <span aria-hidden className={underlineAnimation} />
+              <span className="flex items-center gap-1">
+                {t("navigation.shopByCategories")}
+                <span>{icons.chevron()}</span>
+              </span>
+            </a>
+            <a className="group relative inline-flex items-center gap-1 pb-2 transition hover:text-black" href="#">
+              <span aria-hidden className={underlineAnimation} />
+              <span className="flex items-center gap-1">
+                {t("navigation.shopByRoom")}
+                <span>{icons.chevron()}</span>
+              </span>
+            </a>
+            <a className="group relative inline-flex items-center gap-1 pb-2 transition text-black" href="#">
+              <span aria-hidden className={underlineAnimation} />
+              <span className="flex items-center gap-1">
+                {t("navigation.tablesDesks")}
+                <span>{icons.chevron()}</span>
+              </span>
+            </a>
+            <a className="group relative inline-flex items-center gap-1 pb-2 transition hover:text-black" href="#">
+              <span aria-hidden className={underlineAnimation} />
+              <span className="flex items-center gap-1">
+                {t("navigation.chairsStools")}
+                <span>{icons.chevron()}</span>
+              </span>
+            </a>
+            <a className="group relative inline-flex items-center gap-1 pb-2 transition hover:text-black" href="#">
+              <span aria-hidden className={underlineAnimation} />
+              <span className="flex items-center gap-1">
+                {t("navigation.pages")}
+                <span>{icons.chevron()}</span>
+              </span>
+            </a>
+            <a className="group relative inline-flex items-center gap-1 pb-2 transition hover:text-black" href="#">
+              <span aria-hidden className={underlineAnimation} />
+              <span className="flex items-center gap-1">
+                {t("navigation.themeFeatures")}
+                <span>{icons.chevron()}</span>
+              </span>
+            </a>
             <span className="group relative inline-flex items-center gap-1 pb-2 text-sale">
               <span aria-hidden className={underlineAnimation} />
-              On Sale
+              {t("navigation.onSale")}
               <span className="text-sale">{icons.sparkle()}</span>
             </span>
           </nav>
@@ -280,21 +264,35 @@ export function Header() {
         <>
           {/* Mobile Navigation Links */}
           <nav className="fixed left-0 right-0 top-[126px] bottom-0 z-40 flex flex-col bg-white lg:hidden overflow-y-auto">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30"
-                href="#"
-              >
-                <span>{link.label}</span>
-                {link.dropdown && <span>{icons.chevron()}</span>}
-              </a>
-            ))}
+            <a className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30" href="#">
+              <span>{t("navigation.shopByCategories")}</span>
+              <span>{icons.chevron()}</span>
+            </a>
+            <a className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30" href="#">
+              <span>{t("navigation.shopByRoom")}</span>
+              <span>{icons.chevron()}</span>
+            </a>
+            <a className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30" href="#">
+              <span>{t("navigation.tablesDesks")}</span>
+              <span>{icons.chevron()}</span>
+            </a>
+            <a className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30" href="#">
+              <span>{t("navigation.chairsStools")}</span>
+              <span>{icons.chevron()}</span>
+            </a>
+            <a className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30" href="#">
+              <span>{t("navigation.pages")}</span>
+              <span>{icons.chevron()}</span>
+            </a>
+            <a className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold text-black transition hover:bg-light-gray/30" href="#">
+              <span>{t("navigation.themeFeatures")}</span>
+              <span>{icons.chevron()}</span>
+            </a>
             <a
               className="flex items-center justify-between border-b border-zinc-100 px-4 py-4 text-[15px] font-bold transition hover:bg-light-gray/30"
               href="#"
             >
-              <span className="text-sale">* On Sale *</span>
+              <span className="text-sale">* {t("navigation.onSale")} *</span>
             </a>
 
             {/* Additional Action Items */}
@@ -303,7 +301,7 @@ export function Header() {
               href="#"
             >
               {icons.location({ className: "size-6 text-dark-gray" })}
-              <span>Find a store</span>
+              <span>{t("actions.findStore")}</span>
             </a>
             {user ? (
               <Link
@@ -314,7 +312,7 @@ export function Header() {
                   <div className="h-10 w-10 overflow-hidden rounded-full bg-light-gray">
                     <img
                       src={avatarUrl}
-                      alt="Profile"
+                      alt={user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -322,7 +320,7 @@ export function Header() {
                   icons.user({ className: "size-6 text-dark-gray" })
                 )}
                 <span>
-                  {user.user_metadata?.first_name || user.email?.split("@")[0]} - My Profile
+                  {user.user_metadata?.first_name || user.email?.split("@")[0]} - {t("navigation.myProfile")}
                 </span>
               </Link>
             ) : (
@@ -331,19 +329,12 @@ export function Header() {
                 href="/auth/signin"
               >
                 {icons.user({ className: "size-6 text-dark-gray" })}
-                <span>Sign in/ Register</span>
+                <span>{t("actions.signInRegister")}</span>
               </Link>
             )}
 
-            {/* Country Selector */}
-            <button
-              className="flex items-center gap-2 px-4 py-4 text-[15px] font-medium text-black transition hover:bg-light-gray/30"
-              type="button"
-            >
-              <span className="text-lg leading-none">🇺🇸</span>
-              <span className="flex-1 text-left">United States (USD $)</span>
-              <span>{icons.chevron()}</span>
-            </button>
+            {/* Language Selector */}
+            <LanguageSwitcher variant="mobile" className="border-t border-zinc-100 mt-4" />
 
             {/* Social Media Icons */}
             <div className="flex items-center gap-3 px-4 py-4">

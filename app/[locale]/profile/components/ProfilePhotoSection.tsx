@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, useEffect, useCallback, memo } from "react";
 import ImageCropper from "./ImageCropper";
+import { useTranslations } from "next-intl";
 
 interface ProfilePhotoSectionProps {
   avatarUrl: string | null;
@@ -20,6 +23,8 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
   onAvatarUpload,
   onSaveCrop,
 }: ProfilePhotoSectionProps) {
+  const t = useTranslations("profile");
+  const tCommon = useTranslations("common");
   const [adjustingPhoto, setAdjustingPhoto] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -63,7 +68,7 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
 
   return (
     <div className="rounded-lg bg-white p-6 shadow-sm">
-      <h2 className="mb-6 text-xl font-black text-dark">Profile Photo</h2>
+      <h2 className="mb-6 text-xl font-black text-dark">{t("avatar")}</h2>
 
       <div className="flex items-start gap-6">
         {/* Profile Photo or Cropper */}
@@ -72,7 +77,7 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
             {avatarUrl ? (
               <img
                 src={avatarUrl}
-                alt="Profile"
+                alt={t("avatar")}
                 className="h-full w-full object-cover"
               />
             ) : (
@@ -111,7 +116,7 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
                 : 'cursor-pointer hover:bg-light-gray/50'
             }`}
           >
-            {uploading ? "Uploading..." : "Upload New Photo"}
+            {uploading ? t("uploading") : t("uploadPhoto")}
           </label>
           {avatarUrl && (
             <button
@@ -124,7 +129,7 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
               }`}
               type="button"
             >
-              Adjust Photo
+              {t("cropPhoto")}
             </button>
           )}
           <p className="mt-2 text-xs text-dark-gray">
@@ -146,7 +151,7 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
                   className="rounded-full bg-primary px-6 py-2 text-sm font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                   type="button"
                 >
-                  {saving ? "Saving..." : "Save Position"}
+                  {saving ? t("cropping") : t("savePhoto")}
                 </button>
                 <button
                   onClick={handleCancel}
@@ -154,7 +159,7 @@ const ProfilePhotoSection = memo(function ProfilePhotoSection({
                   className="rounded-full border border-zinc-300 bg-white px-6 py-2 text-sm font-bold text-dark transition hover:bg-light-gray/50 disabled:cursor-not-allowed disabled:opacity-50"
                   type="button"
                 >
-                  Cancel
+                  {t("cancelCrop")}
                 </button>
               </div>
             </div>

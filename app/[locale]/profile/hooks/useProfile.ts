@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/i18n/routing";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useProfileStore } from "@/stores/useProfileStore";
 import { useUpdateProfile } from "@/lib/react-query/hooks/useProfileMutations";

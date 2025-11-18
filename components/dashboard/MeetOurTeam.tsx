@@ -1,6 +1,9 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/lib/i18n/routing";
 import Image from "next/image";
 import { icons } from "@/components/icons";
+import { useTranslations } from "next-intl";
 
 // Design tokens
 const TYPOGRAPHY = {
@@ -24,28 +27,29 @@ const COLORS = {
 type Feature = {
   id: number;
   icon: keyof typeof icons;
-  text: string;
+  translationKey: string;
 };
 
 const features: Feature[] = [
   {
     id: 1,
     icon: "location",
-    text: "Product locally in New York",
+    translationKey: "feature1",
   },
   {
     id: 2,
     icon: "smiley",
-    text: "4.8 Review Score",
+    translationKey: "feature2",
   },
   {
     id: 3,
     icon: "stool",
-    text: "Over 50 Products",
+    translationKey: "feature3",
   },
 ];
 
 export function MeetOurTeam() {
+  const t = useTranslations("home.meetOurTeam");
   return (
     <section className="px-4 py-16">
       <div className="mx-auto grid max-w-[1330px] grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-[100px]">
@@ -66,18 +70,17 @@ export function MeetOurTeam() {
         <div className="flex flex-col justify-center space-y-4 lg:space-y-6">
           {/* Eyebrow */}
           <p className="text-sm font-bold lg:text-[16px] text-black">
-            Meet Our Team
+            {t("eyebrow")}
           </p>
 
           {/* Heading */}
           <h2 className="text-[28px] font-bold leading-tight text-black lg:text-[40px] lg:leading-[1.1]">
-            The creative minds behind our studio
+            {t("heading")}
           </h2>
 
           {/* Description */}
           <p className="text-[15px] leading-relaxed text-[#666666]">
-            As designers we are constantly thinking about how people live and
-            what problems we could solve for them.
+            {t("description")}
           </p>
 
           {/* Features List */}
@@ -88,7 +91,7 @@ export function MeetOurTeam() {
                 <div key={feature.id} className="flex items-center gap-3">
                   <Icon className="size-6 shrink-0 text-black" />
                   <span className="text-[16px] font-bold text-black lg:text-[18px]">
-                    {feature.text}
+                    {t(feature.translationKey)}
                   </span>
                 </div>
               );
@@ -101,7 +104,7 @@ export function MeetOurTeam() {
               href="/contact"
               className={`inline-flex items-center justify-center rounded-full ${COLORS.bgBlack} px-8 py-4 ${TYPOGRAPHY.button} ${COLORS.textWhite} transition-all hover:bg-zinc-800`}
             >
-              Contact Us
+              {t("button")}
             </Link>
           </div>
         </div>

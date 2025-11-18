@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { icons } from "../icons";
 
 // ===== TYPES =====
@@ -20,6 +23,8 @@ const GRAY_COLOR = "#666666";
 
 // ===== COMPONENT =====
 export function ProductCard({ product }: { product: Product }) {
+  const t = useTranslations("home.productCard");
+
   return (
     <div className="group relative shrink-0 transition hover:opacity-90">
       {/* Product Image */}
@@ -29,7 +34,7 @@ export function ProductCard({ product }: { product: Product }) {
             className="absolute left-4 top-4 z-10 rounded-full px-3 py-1 text-xs font-semibold text-white"
             style={{ backgroundColor: SALE_COLOR }}
           >
-            Sale
+            {t("sale")}
           </span>
         )}
         <Image
@@ -47,7 +52,7 @@ export function ProductCard({ product }: { product: Product }) {
           style={{ color: SALE_COLOR }}
         >
           {icons.star({ className: "size-4" })}
-          Selling Fast
+          {t("sellingFast")}
         </div>
       )}
 

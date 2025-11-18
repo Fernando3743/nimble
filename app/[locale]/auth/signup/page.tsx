@@ -1,13 +1,18 @@
 "use client";
 
 import { icons } from "@/components/icons";
-import Link from "next/link";
+import { Link, useRouter } from "@/lib/i18n/routing";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 import { showError, showSuccess, showLoading, updateToast } from "@/utils/toast";
+import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export default function SignUpPage() {
+  const t = useTranslations("auth.signUp");
+  const tSuccess = useTranslations("auth.success");
+  const tErrors = useTranslations("auth.errors");
+  const tCommon = useTranslations("common");
   const router = useRouter();
   const supabase = createClient();
 
@@ -28,19 +33,19 @@ export default function SignUpPage() {
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      showError("Passwords do not match");
+      showError(tErrors("passwordsDontMatch"));
       setLoading(false);
       return;
     }
 
     // Validate password length
     if (formData.password.length < 6) {
-      showError("Password must be at least 6 characters long");
+      showError(tErrors("passwordMinLength"));
       setLoading(false);
       return;
     }
 
-    const toastId = showLoading("Creating your account...");
+    const toastId = showLoading(t("creating"));
 
     try {
       const { error } = await supabase.auth.signUp({
@@ -63,7 +68,7 @@ export default function SignUpPage() {
       }
 
       // Show success message
-      updateToast(toastId, "success", "Account created! Check your email to verify. Redirecting...");
+      updateToast(toastId, "success", tSuccess("accountCreated"));
       setLoading(false);
 
       // Redirect to sign in page after 2 seconds
@@ -71,14 +76,14 @@ export default function SignUpPage() {
         router.push("/auth/signin");
       }, 2000);
     } catch (err) {
-      updateToast(toastId, "error", "An unexpected error occurred. Please try again.");
+      updateToast(toastId, "error", tErrors("genericError"));
       setLoading(false);
     }
   };
 
   const handleGoogleSignUp = async () => {
     setLoading(true);
-    const toastId = showLoading("Connecting to Google...");
+    const toastId = showLoading(t("connecting"));
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -92,10 +97,10 @@ export default function SignUpPage() {
         updateToast(toastId, "error", error.message);
         setLoading(false);
       } else {
-        updateToast(toastId, "info", "Redirecting to Google...");
+        updateToast(toastId, "info", tSuccess("redirecting"));
       }
     } catch (err) {
-      updateToast(toastId, "error", "Failed to connect to Google. Please try again.");
+      updateToast(toastId, "error", tErrors("genericError"));
       setLoading(false);
     }
   };
@@ -113,9 +118,12 @@ export default function SignUpPage() {
       {/* Header - Only visible on mobile */}
       <header className="border-b border-zinc-200 bg-white lg:hidden">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
-            Nimble
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-2xl font-black uppercase tracking-tight text-dark">
+              Nimble
+            </Link>
+            <LanguageSwitcher theme="light" />
+          </div>
         </div>
       </header>
 
@@ -123,16 +131,19 @@ export default function SignUpPage() {
       <main className="mx-auto max-w-md px-4 py-12 sm:px-6 lg:flex lg:min-h-screen lg:max-w-none lg:p-0">
         {/* Left Side - Brand/Image Section (Desktop Only) */}
         <div className="hidden lg:flex lg:w-1/2 lg:flex-col lg:bg-primary lg:p-16 lg:pt-20 xl:p-24 xl:pt-24">
-          <Link href="/" className="mb-12 text-4xl font-black uppercase tracking-tight text-white xl:text-5xl">
-            Nimble
-          </Link>
+          <div className="mb-12 flex items-center justify-between">
+            <Link href="/" className="text-4xl font-black uppercase tracking-tight text-white xl:text-5xl">
+              Nimble
+            </Link>
+            <LanguageSwitcher />
+          </div>
           <h2 className="mb-6 text-4xl font-black leading-tight text-white xl:text-5xl">
-            Start your furniture
+            {t("desktopTitle")}
             <br />
-            journey today
+            {t("desktopSubtitle")}
           </h2>
           <p className="text-lg text-white/90 xl:text-xl">
-            Join thousands of happy customers who have transformed their homes with Nimble's curated furniture collection.
+            {t("desktopDescription")}
           </p>
         </div>
 
@@ -141,9 +152,9 @@ export default function SignUpPage() {
           <div className="w-full lg:max-w-md">
             {/* Header */}
             <div className="mb-8 text-center">
-              <h1 className="text-3xl font-black text-dark lg:text-4xl">Create Account</h1>
+              <h1 className="text-3xl font-black text-dark lg:text-4xl">{t("title")}</h1>
               <p className="mt-2 text-sm text-dark-gray lg:text-base">
-                Join Nimble and start shopping
+                {t("subtitle")}
               </p>
             </div>
 
@@ -173,7 +184,7 @@ export default function SignUpPage() {
                     fill="#EA4335"
                   />
                 </svg>
-                Continue with Google
+                {tCommon("continueWith", { provider: "Google" })}
               </button>
             </div>
 
@@ -183,7 +194,7 @@ export default function SignUpPage() {
                 <div className="w-full border-t border-zinc-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-4 text-dark-gray">Or sign up with email</span>
+                <span className="bg-white px-4 text-dark-gray">{t("withEmail")}</span>
               </div>
             </div>
 
@@ -193,7 +204,7 @@ export default function SignUpPage() {
               <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="firstName" className="mb-2 block text-sm font-semibold text-dark">
-                  First Name
+                  {t("firstName")}
                 </label>
                 <input
                   type="text"
@@ -208,7 +219,7 @@ export default function SignUpPage() {
               </div>
               <div>
                 <label htmlFor="lastName" className="mb-2 block text-sm font-semibold text-dark">
-                  Last Name
+                  {t("lastName")}
                 </label>
                 <input
                   type="text"
@@ -226,7 +237,7 @@ export default function SignUpPage() {
             {/* Email */}
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-semibold text-dark">
-                Email Address
+                {t("email")}
               </label>
               <input
                 type="email"
@@ -243,7 +254,7 @@ export default function SignUpPage() {
             {/* Phone */}
             <div>
               <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-dark">
-                Phone Number <span className="font-normal text-dark-gray">(Optional)</span>
+                {t("phone")} <span className="font-normal text-dark-gray">(Optional)</span>
               </label>
               <input
                 type="tel"
@@ -259,7 +270,7 @@ export default function SignUpPage() {
             {/* Password */}
             <div>
               <label htmlFor="password" className="mb-2 block text-sm font-semibold text-dark">
-                Password
+                {t("password")}
               </label>
               <input
                 type="password"
@@ -276,7 +287,7 @@ export default function SignUpPage() {
             {/* Confirm Password */}
             <div>
               <label htmlFor="confirmPassword" className="mb-2 block text-sm font-semibold text-dark">
-                Confirm Password
+                {t("confirmPassword")}
               </label>
               <input
                 type="password"
@@ -301,7 +312,7 @@ export default function SignUpPage() {
                 className="mt-1 h-4 w-4 rounded border-zinc-300 text-primary focus:ring-2 focus:ring-primary/20"
               />
               <label htmlFor="marketingConsent" className="text-sm text-dark-gray">
-                I want to receive emails about exclusive offers, promotions, and new products
+                {t("marketingConsent")}
               </label>
             </div>
 
@@ -311,7 +322,7 @@ export default function SignUpPage() {
               disabled={loading}
               className="w-full rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Creating account..." : "Create Account"}
+              {loading ? t("creating") : t("button")}
             </button>
 
             {/* Terms */}
@@ -330,9 +341,9 @@ export default function SignUpPage() {
             {/* Sign In Link */}
             <div className="mt-6 text-center">
               <p className="text-sm text-dark-gray">
-                Already have an account?{" "}
+                {t("haveAccount")}{" "}
                 <Link href="/auth/signin" className="font-semibold text-dark underline hover:no-underline">
-                  Sign In
+                  {t("signInHere")}
                 </Link>
               </p>
             </div>

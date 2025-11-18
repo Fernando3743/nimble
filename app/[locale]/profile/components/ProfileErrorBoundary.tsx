@@ -2,7 +2,7 @@
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ReactNode } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/routing";
 
 interface ProfileErrorBoundaryProps {
   children: ReactNode;
