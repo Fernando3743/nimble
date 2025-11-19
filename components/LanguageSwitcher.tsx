@@ -82,7 +82,7 @@ export function LanguageSwitcher({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 rounded-full px-3 py-1 transition ${
+        className={`flex items-center gap-1.5 rounded-full px-3 py-1 transition ${
           theme === "light"
             ? "text-dark hover:bg-zinc-100"
             : "text-white hover:bg-white/10"
@@ -92,11 +92,16 @@ export function LanguageSwitcher({
         aria-expanded={isOpen}
       >
         <span className="text-lg leading-none">{localeFlags[locale]}</span>
+        <span className="font-medium lg:hidden uppercase text-xs">
+          {locale}
+        </span>
         <span className="hidden font-medium lg:inline">
           {localeNames[locale]}
         </span>
         <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>
-          {icons.chevronLight()}
+          {icons.chevron({
+            className: `size-3 ${theme === "light" ? "text-dark-gray" : "text-white"}`
+          })}
         </span>
       </button>
 

@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { throttle } from "@/utils/throttle";
 import { IMAGE_CROPPER } from "@/lib/constants";
+import { MOBILE_CROP_SIZE, DESKTOP_CROP_SIZE, DESKTOP_BREAKPOINT } from "../constants";
 
 interface ImageCropperProps {
   imageSrc: string;
   scale: number;
   onScaleChange: (scale: number) => void;
+  onMinScaleChange?: (minScale: number) => void;
   position: { x: number; y: number };
   onPositionChange: (position: { x: number; y: number }) => void;
   onCropComplete: (croppedImageData: string) => void;
@@ -16,6 +18,7 @@ const ImageCropper = memo(function ImageCropper({
   imageSrc,
   scale,
   onScaleChange,
+  onMinScaleChange,
   position,
   onPositionChange,
   onCropComplete,
@@ -27,7 +30,37 @@ const ImageCropper = memo(function ImageCropper({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [imageReady, setImageReady] = useState(false);
 
-  const cropSize = IMAGE_CROPPER.CROP_SIZE;
+  // Responsive crop size with resize listener
+  const [cropSize, setCropSize] = useState(() => {
+    if (typeof window === 'undefined') return DESKTOP_CROP_SIZE;
+    return window.innerWidth < DESKTOP_BREAKPOINT ? MOBILE_CROP_SIZE : DESKTOP_CROP_SIZE;
+  });
+
+  // Update crop size on window resize
+  useEffect(() => {
+    const handleResize = throttle(() => {
+      const newSize = window.innerWidth < DESKTOP_BREAKPOINT ? MOBILE_CROP_SIZE : DESKTOP_CROP_SIZE;
+      if (newSize !== cropSize) {
+        setCropSize(newSize);
+        // Recalculate initial scale for new crop size
+        const img = imageRef.current;
+        if (img) {
+          const initialScale = Math.max(
+            newSize / img.width,
+            newSize / img.height
+          );
+          onMinScaleChange?.(initialScale);
+          // If current scale is below new minimum, adjust it
+          if (scale < initialScale) {
+            onScaleChange(initialScale);
+          }
+        }
+      }
+    }, 100); // Throttle resize events to improve performance
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [cropSize, scale, onScaleChange, onMinScaleChange]);
 
   // Load image and set initial scale
   useEffect(() => {
@@ -43,9 +76,13 @@ const ImageCropper = memo(function ImageCropper({
         cropSize / img.height
       );
 
+      // Set the minimum zoom to the initial scale (can't zoom out beyond fitting the image)
+      onMinScaleChange?.(initialScale);
+
       // Set initial scale if it's the first load (scale is 1)
+      // Cap to MAX_ZOOM to respect zoom limits
       if (scale === 1) {
-        onScaleChange(initialScale);
+        onScaleChange(Math.min(initialScale, IMAGE_CROPPER.MAX_ZOOM));
         // Reset position to center
         onPositionChange({ x: 0, y: 0 });
       }
@@ -254,16 +291,28 @@ const ImageCropper = memo(function ImageCropper({
     }
   }, [throttledGenerateCrop, imageReady]);
 
+  // Dynamic size classes based on current crop size
+  const sizeClass = cropSize === MOBILE_CROP_SIZE ? 'h-32 w-32' : 'h-40 w-40';
+
   return (
-    <div className="relative h-40 w-40 flex-shrink-0 overflow-hidden rounded-full bg-white">
+    <div className={`relative ${sizeClass} flex-shrink-0 overflow-hidden rounded-full bg-white`}>
+      {/* Loading skeleton while image loads */}
+      {!imageReady && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-light-gray animate-pulse">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-primary"></div>
+        </div>
+      )}
+
+      {/* Saving overlay */}
       {saving && (
         <div className="absolute inset-0 z-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-sm">
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/20 border-t-white"></div>
         </div>
       )}
+
       <canvas
         ref={canvasRef}
-        className={`h-40 w-40 rounded-full ${saving ? 'pointer-events-none' : 'cursor-move'}`}
+        className={`${sizeClass} rounded-full ${saving ? 'pointer-events-none' : 'cursor-move'} ${!imageReady ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

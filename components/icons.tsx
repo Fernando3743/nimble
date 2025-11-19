@@ -401,6 +401,29 @@ export const icons = {
       />
     </svg>
   ),
+  home: ({ className }: IconProps = {}) => (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden
+      className={mergeClasses("size-5 text-current", className)}
+      fill="none"
+    >
+      <path
+        d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 22V12h6v10"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
 } as const satisfies Record<string, IconRenderer>;
 
 export type IconName = keyof typeof icons;

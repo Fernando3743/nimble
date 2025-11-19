@@ -14,9 +14,9 @@ export const FILE_UPLOAD = {
 export const IMAGE_CROPPER = {
   CROP_SIZE: 160, // Default crop size in pixels
   DEFAULT_ZOOM: 1,
-  MIN_ZOOM: 1,
-  MAX_ZOOM: 3,
-  ZOOM_STEP: 0.1,
+  MIN_ZOOM: 0.1, // Allow zooming out to fit large images
+  MAX_ZOOM: 0.5, // Limit zoom to 50% of original size
+  ZOOM_STEP: 0.05,
   JPEG_QUALITY: 0.95,
   THROTTLE_MS: 16, // ~60fps
 } as const;
